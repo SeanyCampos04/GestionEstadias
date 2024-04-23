@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('estancias', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->date('fecha_convocatoria');
+            $table->date('fecha_cierre');
+            $table->string('periodo_duracion');
+            $table->string('archivo_convocatoria');
+            $table->string('vigente')->default(0);
+            $table->unsignedBigInteger('id_estancia_requisitos'); // Agregamos la columna de la clave foránea
             $table->timestamps();
+
+            $table->foreign('id_estancia_requisitos')->references('id')->on('estancia_requisitos');
         });
     }
 
