@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EstanciaRequisitos extends Model
+class Estanciarequisitos extends Model
 {
     use HasFactory;
     protected $fillable = ['id_estancia', 'id_requisito'];
@@ -17,8 +17,10 @@ class EstanciaRequisitos extends Model
     }
 
     // Relación con Requisito
-    public function requisito()
+    /*public function requisito()
     {
         return $this->belongsTo(Requisitos::class);
-    }
+    }*/
 }
+
+

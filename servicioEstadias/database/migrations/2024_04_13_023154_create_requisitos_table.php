@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('archivo_requisito');
-            $table->int('descargable');
+            $table->integer('descargable');
             $table->timestamps();
         });
     }

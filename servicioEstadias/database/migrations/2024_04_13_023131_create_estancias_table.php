@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('periodo_duracion');
             $table->string('archivo_convocatoria');
             $table->string('vigente')->default(0);
-            $table->unsignedBigInteger('id_estancia_requisitos'); // Agregamos la columna de la clave foránea
+            //$table->unsignedBigInteger('id_estanciarequisitos'); // Cambiamos el nombre de la columna
             $table->timestamps();
 
-            $table->foreign('id_estancia_requisitos')->references('id')->on('estancia_requisitos');
+            //$table->foreign('id_estanciarequisitos')->references('id')->on('estanciarequisitos');
         });
     }
 

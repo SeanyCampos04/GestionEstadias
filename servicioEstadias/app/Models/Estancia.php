@@ -9,11 +9,15 @@ class Estancia extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nombre', 'fecha_inicio', 'fecha_cierre', 'archivo_convocatoria', 'vigente', 'id_estancia_requisito'
+        'nombre', 'fecha_inicio', 'fecha_cierre', 'archivo_convocatoria', 'vigente', 
     ];
 
+    /*public function requisitos()
+    {
+        return $this->hasMany(EstanciaRequisitos::class, 'id_estancia_requisito');
+    }*/
     public function requisitos()
     {
-        return $this->hasMany(EstanciaRequisito::class, 'id_estancia_requisito');
+        return $this->belongsToMany(Requisitos::class, 'estancia_requisitos', 'id_estancia', 'id_requisito');
     }
 }
