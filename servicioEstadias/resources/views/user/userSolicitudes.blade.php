@@ -39,9 +39,9 @@
                                                         Estado desconocido
                                                     @endif
                                                 </td>
-                                                <td></td>
+                                                <td>{{$solicitud->observaciones}}</td>
                                                 <td>
-                                                    @if ($solicitud->status != 3)
+                                                    @if ($solicitud->status == 0 || $solicitud->status == 1)
                                                         <a href="{{ route('showRequestFiles', $solicitud->id) }}">Editar Solicitud</a>
                                                     @endif
                                                 </td>

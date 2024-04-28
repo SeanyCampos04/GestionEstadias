@@ -22,8 +22,12 @@ Route::middleware('auth')->group(function () {
 
     //Usuario admin
     Route::get('/crear_estancia', [EstanciaController::class, 'create'])->name('crearEstancia');
-    Route::get('/ver_solicitudes', [EstanciaController::class, 'showSolicitudes'])->name('solicitudes');
-    Route::get('/historico_solicitudes', [EstanciaController::class, 'historicoSolicitudes'])->name('historico-solicitudes');
+    Route::get('/ver_solicitudes', [SolicitudesController::class, 'currentRequests'])->name('solicitudes');
+    Route::get('/historico_solicitudes', [SolicitudesController::class, 'allRequests'])->name('historico-solicitudes');
+    Route::get('/admiShowRequest/{id}', [SolicitudesController::class, 'showRequest'])->name('admiShowRequest');
+    Route::post('/aceptar-solicitud/{id}', [SolicitudesController::class, 'aceptarSolicitud'])->name('aceptar-solicitud');
+    Route::post('/rechazar-solicitud/{id}', [SolicitudesController::class, 'rechazarSolicitud'])->name('rechazar-solicitud');
+
 
     Route::post('/guardar-estancia', [EstanciaController::class, 'guardar'])->name('guardar-estancia');
     Route::get('/ver-estancia/{id}', [EstanciaController::class, 'showEstancia'])->name('verEstancia');

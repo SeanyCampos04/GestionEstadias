@@ -18,6 +18,9 @@ return new class extends Migration
             $table->foreign('id_estancia')->references('id')->on('estancias')->onDelete('cascade');
             $table->json('requisitos');
             $table->integer('status');
+            $table->string('docente')->nullable();
+            $table->date('fecha_solicitud')->nullable();
+            $table->string('observaciones')->nullable();
             $table->timestamps();
 
             $table->dropForeign(['id_estancia']);

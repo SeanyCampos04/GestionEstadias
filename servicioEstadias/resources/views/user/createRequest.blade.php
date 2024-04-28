@@ -12,6 +12,8 @@
                 <form method="POST" action="{{ route('generar-solicitud', $estancia->id) }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                    <input type="hidden" name="docente" value="{{ auth()->user()->name }}">
+                    <input type="hidden" name="fecha_solicitud" value="{{ now()->toDateString() }}">
                     <table class="table">
                         <thead>
                             <tr>

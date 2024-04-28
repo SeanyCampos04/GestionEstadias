@@ -26,7 +26,7 @@
                         </div>
                         <div class="card-footer">
                             <a href="{{ route('userCreateSolicitud', $estancia->id) }}" class="btn btn-success">Generar Solicitud</a>
-                            <a href="{{ route('dashboard') }}" class="btn btn-primary float-right">Regresar</a>
+                            <a href="{{ route('dashboard') }}" class="btn btn-secondary float-right">Regresar</a>
                         </div>
                 </div>
             </div>
