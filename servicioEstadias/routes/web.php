@@ -27,7 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admiShowRequest/{id}', [SolicitudesController::class, 'showRequest'])->name('admiShowRequest');
     Route::post('/aceptar-solicitud/{id}', [SolicitudesController::class, 'aceptarSolicitud'])->name('aceptar-solicitud');
     Route::post('/rechazar-solicitud/{id}', [SolicitudesController::class, 'rechazarSolicitud'])->name('rechazar-solicitud');
-
+    Route::get('/observaciones/{id}', [SolicitudesController::class, 'observaciones'])->name('observaciones');
+    Route::post('/enviar-observacion/{id}', [SolicitudesController::class, 'enviarObservacion'])->name('enviar-observacion');
 
     Route::post('/guardar-estancia', [EstanciaController::class, 'guardar'])->name('guardar-estancia');
     Route::get('/ver-estancia/{id}', [EstanciaController::class, 'showEstancia'])->name('verEstancia');

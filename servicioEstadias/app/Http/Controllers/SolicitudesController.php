@@ -173,5 +173,35 @@ class SolicitudesController extends Controller
         // Redirige de vuelta a la misma página con un mensaje de éxito
         return view('admi.rejectRequest');
     }
+    public function observaciones($id)
+    {
+        // Obtener la solicitud por su ID
+        $solicitud = Solicitudes::findOrFail($id);
+
+        // Devolver la vista de observaciones con los datos necesarios
+        return view('admi.observaciones', compact('solicitud'));
+    }
+    
+    public function enviarObservacion(Request $request, $id)
+    {
+        // Validar la solicitud y obtener los datos del formulario
+        $request->validate([
+            'observaciones' => 'required|string',
+        ]);
+
+        // Obtener la solicitud
+        $solicitud = Solicitudes::findOrFail($id);
+
+        // Actualizar la solicitud con las observaciones
+        $solicitud->status=1;
+        $solicitud->observaciones = $request->input('observaciones');
+
+        // Guardar los cambios en la base de datos
+        $solicitud->save();
+
+        // Redirigir de vuelta a la página de la solicitud
+        return view('admi.observationSent');
+    }
+
 
 }

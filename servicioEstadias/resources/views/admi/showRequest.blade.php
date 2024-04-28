@@ -31,7 +31,7 @@
             @csrf
             <button type="submit" class="inline-block bg-green-500 px-2 py-2 rounded-md text-white hover:bg-green-600">Aceptar</button>
         </form>
-        <button class="inline-block bg-yellow-500 px-2 py-2 rounded-md text-white hover:bg-yellow-600 mr-2">Observaciones</button>
+        <a href="{{ route('observaciones', $solicitud->id) }}" class="inline-block bg-yellow-500 px-2 py-2 rounded-md text-white hover:bg-yellow-600">Observaciones</a>
         <form method="POST" action="{{ route('rechazar-solicitud', $solicitud->id) }}">
             @csrf
             <button type="submit" class="inline-block bg-red-500 px-2 py-2 rounded-md text-white hover:bg-red-600">Rechazar</button>
