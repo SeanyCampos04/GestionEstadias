@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EstanciaController;
+use App\Http\Controllers\SolicitudesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,9 +33,11 @@ Route::middleware('auth')->group(function () {
 
 
     //rutas usuario user
-    Route::get('/user-solicitudes', [SolicitudEstanciaController::class, 'index'])->name('userSolicitudes');
+    Route::get('/user-solicitudes', [SolicitudesController::class, 'index'])->name('userSolicitudes');
     Route::get('/ver_estancia/{id}', [EstanciaController::class, 'showUserEstancia'])->name('showUserEstancia');
-
+    Route::get('/create_request/{id}', [SolicitudesController::class, 'userCreateSolicitud'])->name('userCreateSolicitud');
+    Route::post('/generar-solicitud/{id_estancia}', [SolicitudesController::class, 'generarSolicitud'])->name('generar-solicitud');
+    Route::get('/showRequestFiles/{id}', [SolicitudesController::class, 'showRequestFiles'])->name('showRequestFiles');
 
 });
 
