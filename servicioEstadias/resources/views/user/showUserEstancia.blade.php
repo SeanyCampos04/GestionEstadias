@@ -25,8 +25,15 @@
                             </p>
                         </div>
                         <div class="card-footer">
+                        @if ($solicitudesPendientes)
+                            <a href="#" class="btn btn-success disabled" disabled>Generar Solicitud</a>
+                            <a href="{{ route('dashboard') }}" class="btn btn-secondary float-right">Regresar</a>
+                            <div class="text-red-500">No es posible generar solicitud de esta convocatoria, usted ya cuenta con una solicitud realizada, por lo que debe esperar para poder generar una nueva solicitud.</div>
+                        @else
                             <a href="{{ route('userCreateSolicitud', $estancia->id) }}" class="btn btn-success">Generar Solicitud</a>
                             <a href="{{ route('dashboard') }}" class="btn btn-secondary float-right">Regresar</a>
+                            @endif
+                            
                         </div>
                 </div>
             </div>

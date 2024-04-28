@@ -28,14 +28,14 @@
                                         <label for="periodo_duracion">Periodo de duración:</label>
                                         <input type="text" class="form-control" id="periodo_duracion" name="periodo_duracion" value="{{ $estancia->periodo_duracion }}">
                                     </div>
-                                    <!--<div class="form-group">
+                                    <div class="form-group">
                                         <label for="requisitos">Requisitos:</label>
                                         <select multiple class="form-control" id="requisitos" name="requisitos[]">
                                             @foreach ($requisitos as $requisito)
                                                 <option value="{{ $requisito->id }}">{{ $requisito->nombre }}</option>
                                             @endforeach
                                         </select>
-                                    </div>-->
+                                    </div>
                                     <button type="submit" class="btn btn-primary">Guardar</button>
                                     <a href="{{ route('adminDashboard') }}" class="btn btn-secondary">Cancelar</a>
                                 </form>

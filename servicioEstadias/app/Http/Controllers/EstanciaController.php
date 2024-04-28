@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Requisitos;
 use App\Models\Estancia;
 use App\Models\Estanciarequisitos;
+use App\Models\Solicitudes;
 
 use Illuminate\Http\Request;
 
@@ -93,14 +95,14 @@ class EstanciaController extends Controller
         //$estancia->delete();
         $estancia->save();
 
-        return redirect()->route('admi.adminDashboard')->with('success', 'Estancia eliminada correctamente');
+        return redirect()->route('adminDashboard')->with('success', 'Estancia eliminada correctamente');
     }
     public function edit(Estancia $estancia)
     {
         $requisitos = Requisitos::all(); 
         return view('admi.estanciaEdit', compact('estancia','requisitos'));
     }
-    public function update(Request $request, Estancia $estancia)
+    /*public function update(Request $request, Estancia $estancia)
 {
     // Validación de los campos de edición
     $request->validate([
@@ -123,14 +125,52 @@ class EstanciaController extends Controller
 
     // Actualiza los requisitos de la estancia
     $estancia->requisitos()->sync($request->requisitos);
+    $estancia->save();
 
     // Redirecciona a la página de detalles de la estancia actualizada
-    return redirect()->route('admi.adminDashboard')->with('success', 'Estancia actualizada exitosamente.');
-}
+    return redirect()->route('adminDashboard')->with('success', 'Estancia actualizada exitosamente.');
+}*/
+
+    public function update(Request $request, $id)
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'fecha_convocatoria' => 'required|date',
+            'fecha_cierre' => 'required|date',
+            'periodo_duracion' => 'required|string|max:255',
+        ]);
+
+        // Buscar la estancia por su ID
+        $estancia = Estancia::findOrFail($id);
+
+        // Actualizar los campos con los nuevos valores del formulario
+        $estancia->nombre = $request->input('nombre');
+        $estancia->fecha_convocatoria = $request->input('fecha_convocatoria');
+        $estancia->fecha_cierre = $request->input('fecha_cierre');
+        $estancia->periodo_duracion = $request->input('periodo_duracion');
+
+        // Guardar los cambios en la base de datos
+        $estancia->save();
+
+        // Redirigir a alguna vista de éxito o a donde sea necesario
+        return redirect()->route('adminDashboard')->with('success', 'Estancia actualizada correctamente.');
+    }
 
     public function showUserEstancia($id)
     {
+        $nombreUsuario = Auth::user()->name;
+        
+        $solicitudesPendientes = Solicitudes::where('docente', $nombreUsuario)
+        ->where(function ($query) {
+            $query->where('status', 0)
+                ->orWhere('status', 1);
+        })
+        ->exists();
+
         $estancia = Estancia::findOrFail($id);
-        return view('user.showUserEstancia', compact('estancia'));
+        return view('user.showUserEstancia', compact('estancia'), [
+            'solicitudesPendientes' => $solicitudesPendientes,
+        ]);
     }
 }

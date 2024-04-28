@@ -18,5 +18,8 @@
                 </div>
             </div>
         </div>
+        <div class="text-center mt-4">
+       <a href="{{ route('adminDashboard') }}" class="inline-block bg-gray-500 px-2 py-2 rounded-md text-white hover:bg-gray-600">Regresar</a>
+    </div>
 </x-admin-layout>
 </x-app-layout>
