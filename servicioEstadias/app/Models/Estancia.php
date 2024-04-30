@@ -18,6 +18,17 @@ class Estancia extends Model
     }*/
     public function requisitos()
     {
-        return $this->belongsToMany(Requisitos::class, 'estancia_requisitos', 'id_estancia', 'id_requisito');
+        return $this->belongsToMany(Requisitos::class, 'estanciarequisitos', 'id_estancia', 'id_requisitos');
     }
+
+    /*public function actualizarRequisitos($requisitosSeleccionados)
+    {
+        // Eliminar todos los requisitos existentes para esta estancia
+        $this->requisitos()->delete();
+
+        // Agregar los nuevos requisitos seleccionados
+        foreach ($requisitosSeleccionados as $requisitoId) {
+            $this->requisitos()->create(['id_requisito' => $requisitoId]);
+        }
+    }*/
 }

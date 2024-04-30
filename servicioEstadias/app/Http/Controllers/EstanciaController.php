@@ -139,6 +139,8 @@ class EstanciaController extends Controller
             'fecha_convocatoria' => 'required|date',
             'fecha_cierre' => 'required|date',
             'periodo_duracion' => 'required|string|max:255',
+            //'requisitos' => 'required|array', // Asegúrate de que los requisitos sean un array
+            //'requisitos.*' => 'exists:requisitos,id',
         ]);
 
         // Buscar la estancia por su ID
@@ -149,6 +151,23 @@ class EstanciaController extends Controller
         $estancia->fecha_convocatoria = $request->input('fecha_convocatoria');
         $estancia->fecha_cierre = $request->input('fecha_cierre');
         $estancia->periodo_duracion = $request->input('periodo_duracion');
+        //$estancia->requisitos()->sync($request->requisitos);
+
+        // Actualiza los registros en la tabla estancia_requisitos si es necesario
+        // Primero, obtén los IDs de los requisitos del formulario
+        /*$requisitosIds = $request->requisitos;
+    
+        // Luego, actualiza los registros en la tabla estancia_requisitos
+        // donde el ID de la estancia coincida con el ID de la estancia actual
+        // y los requisitos contengan los IDs de requisitos proporcionados
+        EstanciaRequisitos::where('id_estancia', $estancia->id)
+    ->where(function ($query) use ($requisitosIds) {
+        foreach ($requisitosIds as $requisitoId) {
+            $query->whereRaw("jsonb_exists_any(requisitos::jsonb, ARRAY[$requisitoId])");
+        }
+    })
+    ->update(['requisitos' => $requisitosIds]);
+    */
 
         // Guardar los cambios en la base de datos
         $estancia->save();
