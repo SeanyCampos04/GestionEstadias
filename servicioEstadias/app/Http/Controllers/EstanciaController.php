@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Models\Requisitos;
 use App\Models\Estancia;
 use App\Models\Estanciarequisitos;
@@ -39,6 +40,11 @@ class EstanciaController extends Controller
         $estancias = Estancia::all();
 
         return view('admi.historicoSolicitudes', compact('estancias'));
+    }
+    public function historicoEstancias()
+    {
+        $estancias = Estancia::all(); // Obtener todos los registros de la tabla 'estancias'
+        return view('admi.historicoEstancias', ['estancias' => $estancias]);
     }
 
     //crear estancia nueva
@@ -191,5 +197,11 @@ class EstanciaController extends Controller
         return view('user.showUserEstancia', compact('estancia'), [
             'solicitudesPendientes' => $solicitudesPendientes,
         ]);
+    }
+
+    public function showUsers()
+    {
+        $docentes = User::all();
+        return view('admi.showUsers', ['docentes' => $docentes]);
     }
 }

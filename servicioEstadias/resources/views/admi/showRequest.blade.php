@@ -32,7 +32,7 @@
         <button type="submit" class="bg-green-500 px-2 py-2 rounded-md text-white hover:bg-green-600">Aceptar</button>
     </form>
     <a href="{{ route('observaciones', $solicitud->id) }}" class="mr-2">
-        <button class="bg-yellow-500 px-2 py-2 rounded-md text-white hover:bg-yellow-600">Observaciones</button>
+        <button class="bg-yellow-600 px-2 py-2 rounded-md text-white hover:bg-yellow-600">Observaciones</button>
     </a>
     <form method="POST" action="{{ route('rechazar-solicitud', $solicitud->id) }}" class="mr-2">
         @csrf

@@ -21,6 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Usuario admin
+    Route::get('/showUsers', [EstanciaController::class, 'showUsers'])->name('showUsers');
+    Route::get('/historico-convocatorias', [EstanciaController::class, 'historicoEstancias'])->name('historico-convocatorias');
     Route::get('/crear_estancia', [EstanciaController::class, 'create'])->name('crearEstancia');
     Route::get('/ver_solicitudes', [SolicitudesController::class, 'currentRequests'])->name('solicitudes');
     Route::get('/historico_solicitudes', [SolicitudesController::class, 'allRequests'])->name('historico-solicitudes');
