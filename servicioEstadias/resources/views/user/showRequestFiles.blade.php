@@ -7,18 +7,18 @@
                     <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
                             <div style="display: flex;">
                                 <div style="flex: 1;">
-                                    <h1>Requisitos de la Solicitud</h1>
+                                    <h1 class="text-3xl text-gray-900">Requisitos de la Solicitud</h1>
                                     @foreach ($requisitos as $requisito)
                                         <p>{{ $requisito->nombre }}</p>
                                     @endforeach
                                 </div>
                                 <div style="flex: 1;">
-                                    <h1>Archivos Adjuntos</h1>
+                                    <h1 class="text-3xl text-gray-900">Archivos Adjuntos</h1>
                                     @foreach ($rutasArchivos as $ruta)
                                         @php
                                             $nombreArchivo = str_replace('solicitudes/', '', $ruta);
                                         @endphp
-                                        <p><a href="{{ asset($ruta) }}">{{ $nombreArchivo }}</a></p>
+                                        <p><a class="text-blue-500 underline" href="{{ asset($ruta) }}">{{ $nombreArchivo }}</a></p>
                                     @endforeach
                                 </div>
                                 
@@ -31,3 +31,4 @@
         <a href="{{ route('userSolicitudes') }}" class="inline-block bg-red-500 px-4 py-2 rounded-md text-white hover:bg-red-600">Regresar</a>
     </div>
 </x-app-layout>
+<x-footer></x-footer>

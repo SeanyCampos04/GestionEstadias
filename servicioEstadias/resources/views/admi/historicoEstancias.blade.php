@@ -6,7 +6,7 @@
                     <div class="min-w-screen py-5 flex items-center justify-center">
                         <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
                             <div class="overflow-x-auto">
-                            <h1 class="text-center">Historial de Estancias</h1>
+                            <h1 class="text-center text-3xl">Historial de Estancias</h1>
                             <table class="table mt-4">
                                 <thead>
                                     <tr>
@@ -22,7 +22,7 @@
                                             <td>{{ $estancia->id }}</td>
                                             <td>{{ $estancia->nombre }}</td>
                                             <td>
-                                                    <a href="{{ asset('' . $estancia->archivo_convocatoria) }}" target="_blank">Ver Archivo</a>
+                                                    <a class="text-blue-500 underline" href="{{ asset('' . $estancia->archivo_convocatoria) }}" target="_blank">Ver Archivo</a>
                                                 
                                             </td>
                                             <td>
@@ -44,3 +44,4 @@
         </div>
     </x-admin-layout>
 </x-app-layout>
+<x-footer></x-footer>

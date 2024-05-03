@@ -11,11 +11,11 @@
                             <div class="overflow-x-auto">
                                 <form method="POST" action="{{ route('enviar-observacion',$solicitud->id )}}">
                                     @csrf
-                                    <h3 for="observaciones">Observaciones:</label>
+                                    <h3 class="text-3xl" for="observaciones">Observaciones:</label>
                                     <br>
                                     <textarea style="font-size:18px;" name="observaciones" id="observaciones" rows="4" cols="50"></textarea>
                                     <br><br>
-                                    <button style="font-size:18px;"class="py-2 px-2 bg-blue-500 text-white rounded" type="submit">Enviar Observación</button>
+                                    <button style="font-size:18px;"class="py-2 px-2 bg-blue-500 text-white rounded text-sm" type="submit">Enviar Observación</button>
 
                                 </form>
                             </div>
@@ -26,3 +26,4 @@
         </div>
 
 </x-app-layout>
+<x-footer></x-footer>

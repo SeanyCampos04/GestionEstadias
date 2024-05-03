@@ -5,8 +5,8 @@
                 <div class="overflow-x-auto">
                     <div class="min-w-screen py-5 flex items-center justify-center">
                         <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
-                            <div class="overflow-x-auto">
-                                <h1>Nueva Convocatoria</h1>
+                            <div class="overflow-x-auto px-6">
+                                <h1 class="flex items-center justify-center text-3xl">Nueva Convocatoria</h1>
                                 <form method="POST" action="{{ route('guardar-estancia') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-4">
@@ -48,3 +48,4 @@
         </div>
     </x-admin-layout>
 </x-app-layout>
+<x-footer></x-footer>

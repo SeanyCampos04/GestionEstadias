@@ -2,7 +2,9 @@
     <div>
         <nav class="bg-white shadow py-4">
             <div class="container mx-auto flex justify-between items-center">
-                <h2 class="text-black text-xl">Sistema de Gestión de Estancias</h2>
+            <div class="p-4 px-1 py-1">
+                <x-title></x-title>
+                </div>
                 <div class="ml-auto flex space-x-4">
                     <a href="{{ route("dashboard") }}" class="text-black hover:text-gray-700">Convocatorias</a>
                     <a href="{{ route("userSolicitudes") }}" class="text-black hover:text-gray-700">Solicitudes</a>

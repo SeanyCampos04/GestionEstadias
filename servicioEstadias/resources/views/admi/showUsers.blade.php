@@ -6,7 +6,7 @@
                     <div class="min-w-screen py-5 flex items-center justify-center">
                         <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
                             <div class="overflow-x-auto">
-                                <h1 class="text-center">Lista de Docentes</h1>
+                                <h1 class="text-center text-3xl">Lista de Docentes</h1>
                                 <table class="table mt-4">
                                     <thead>
                                         <tr>
@@ -30,7 +30,7 @@
                                                 <td>{{ $docente->rfc }}</td>
                                                 <td>{{ $docente->nombramiento }}</td>
                                                 <td>{{ $docente->academia }}</td>
-                                                <td><a href="#"> Editar</a></td>
+                                                <td><a class="text-blue-500 underline" href="#"> Editar</a></td>
                                             </tr>
                                         @endif
                                         @endforeach
@@ -44,3 +44,4 @@
         </div>
     </x-admin-layout>
 </x-app-layout>
+<x-footer></x-footer>

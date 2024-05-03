@@ -3,28 +3,38 @@
     </x-admin-layout>
     <div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">   
-                <div class="min-w-screen py-5 flex items-center justify-center">
-                    <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
-                        <div style="display: flex;">
-                            <div style="flex: 1;">
-                                <h1>Requisitos de la Solicitud</h1>
-                                @foreach ($requisitos as $requisito)
-                                    <p>{{ $requisito->nombre }}</p>
-                                @endforeach
-                            </div>
-                            <div style="flex: 1;">
-                                    <h1>Archivos Adjuntos</h1>
-                                    @foreach ($rutasArchivos as $ruta)
-                                        @php
-                                            $nombreArchivo = str_replace('solicitudes/', '', $ruta);
-                                        @endphp
-                                        <p><a href="{{ asset($ruta) }}">{{ $nombreArchivo }}</a></p>
-                                    @endforeach
-                                </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="min-w-screen py-5 flex items-center justify-center">
+        <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
+            <h1 class="flex items-center justify-center text-3xl">Detalles de la Solicitud</h1>
+            <table class="table w-full">
+                <thead>
+                    <tr>
+                        <th class="text-2xl">Requisitos de la Solicitud</th>
+                        <th class="text-2xl">Archivos Adjuntos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($requisitos as $index => $requisito)
+                        <tr>
+                            <td>{{ $requisito->nombre }}</td>
+                            <td>
+                                @php
+                                    $ruta = $rutasArchivos[$index] ?? null;
+                                    $nombreArchivo = $ruta ? str_replace('solicitudes/', '', $ruta) : null;
+                                @endphp
+                                @if ($nombreArchivo)
+                                    <a class="text-blue-500 underline" href="{{ asset($ruta) }}">{{ $nombreArchivo }}</a>
+                                @else
+                                    No hay archivo adjunto
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
+    </div>
+</div>
     </div>
     <div class="text-center mt-4 flex justify-center">
     <form method="POST" action="{{ route('aceptar-solicitud', $solicitud->id) }}" class="mr-2">
@@ -45,4 +55,4 @@
 
 
 </x-app-layout>
-
+<x-footer></x-footer>

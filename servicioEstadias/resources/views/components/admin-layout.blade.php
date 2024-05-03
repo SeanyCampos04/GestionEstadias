@@ -2,11 +2,13 @@
     <div>
         <nav class="bg-white shadow py-4">
             <div class="container mx-auto flex justify-between items-center">
-                <h2 class="text-black text-xl">Sistema de Gestión de Estancias</h2>
+                <div class="p-4 px-1 py-1">
+                <x-title></x-title>
+                </div>
                 <div class="ml-auto flex space-x-4">
-                    <a href="{{ route("adminDashboard") }}" class="text-black hover:text-gray-700">Mis Convocatorias</a>
-                    <a href="{{ route("crearEstancia") }}" class="text-black hover:text-gray-700">Nueva Convocatoria</a>
-                    <a href="{{ route("solicitudes") }}" class="text-black hover:text-gray-700">Solicitudes</a>
+                    <a href="{{ route("adminDashboard") }}" class="underline text-black hover:text-gray-700">Mis Convocatorias</a>
+                    <a href="{{ route("crearEstancia") }}" class="underline text-black hover:text-gray-700">Nueva Convocatoria</a>
+                    <a href="{{ route("solicitudes") }}" class="underline text-black hover:text-gray-700">Solicitudes</a>
                     <div class="relative">
                         <button type="button" class="underline text-black hover:text-gray-700 focus:outline-none" onclick="toggleDropdown()">
                             Registros

@@ -8,7 +8,7 @@
                     <div class="min-w-screen py-5 flex items-center justify-center">
                         <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
                             <div class="overflow-x-auto">
-                            <h1>Mis solicitudes</h1>
+                            <h1 class="flex items-center justify-center text-2xl">Mis solicitudes</h1>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -42,7 +42,7 @@
                                                 <td>{{$solicitud->observaciones}}</td>
                                                 <td>
                                                     @if ($solicitud->status == 0 || $solicitud->status == 1)
-                                                        <a href="{{ route('showRequestFiles', $solicitud->id) }}">Editar Solicitud</a>
+                                                        <a class="text-blue-500 underline" href="{{ route('showRequestFiles', $solicitud->id) }}">Editar Solicitud</a>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -58,3 +58,4 @@
 
 
 </x-app-layout>
+<x-footer></x-footer>

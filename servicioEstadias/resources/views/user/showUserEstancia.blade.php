@@ -8,20 +8,20 @@
             <div class="w-full flex flex-wrap justify-center">
                 <div class="w-3/4 px-6">
                 <div class="card">
-                        <div class="card-header">
+                        <div class="card-header text-2xl">
                             Detalles de la Estancia
                         </div>
                         <div class="card-body">
                             <img src="{{ asset('images/tec.jpg') }}" alt="Imagen de la estancia" class="img-fluid">
                             <hr>
-                            <h5 class="card-title">Nombre: {{ $estancia->nombre }}</h5>
+                            <h4 class="card-title">Nombre: <b>{{ $estancia->nombre }}</b></h4>
                             <hr>
                             <p class="card-text">Fecha de Convocatoria: {{ $estancia->fecha_convocatoria }}</p>
                             <hr>
                             <p class="card-text">Periodo de Duración: {{ $estancia->periodo_duracion }}</p>
                             <hr>
                             <p class="card-text">Archivo de Convocatoria:
-                                <a href="{{ asset($estancia->archivo_convocatoria) }}" target="_blank">Ver PDF</a>
+                                <a class="text-blue-500 underline" href="{{ asset($estancia->archivo_convocatoria) }}" target="_blank">Ver PDF</a>
                             </p>
                         </div>
                         <div class="card-footer">
@@ -40,3 +40,4 @@
         </div>
     </div>
 </x-app-layout>
+<x-footer></x-footer>

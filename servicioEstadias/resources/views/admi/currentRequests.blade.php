@@ -6,7 +6,7 @@
                     <div class="min-w-screen py-5 flex items-center justify-center">
                         <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
                             <div class="overflow-x-auto">
-                                <h1>Solicitudes Recientes</h1>
+                                <h1 class="flex items-center justify-center text-3xl">Solicitudes Recientes</h1>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -51,3 +51,4 @@
         </div>
     </x-admin-layout>
 </x-app-layout>
+<x-footer></x-footer>
