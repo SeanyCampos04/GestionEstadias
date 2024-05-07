@@ -44,7 +44,7 @@
                                                     @if ($solicitud->status == 0 || $solicitud->status == 1)
                                                         <a class="text-blue-500 underline" href="{{ route('showRequestFiles', $solicitud->id) }}">Editar Solicitud</a>
                                                     @elseif ($solicitud->status ==2)
-                                                    <a class="text-blue-500 underline" href="#">Descargar Archivos</a>
+                                                    <a class="text-blue-500 underline" href="{{route('informesView',$solicitud->estancia->id)}}">Ver Más</a>
                                                     @endif
                                                 </td>
                                             </tr>
