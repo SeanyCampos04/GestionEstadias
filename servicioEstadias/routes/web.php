@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/create_request/{id}', [SolicitudesController::class, 'userCreateSolicitud'])->name('userCreateSolicitud');
     Route::post('/generar-solicitud/{id_estancia}', [SolicitudesController::class, 'generarSolicitud'])->name('generar-solicitud');
     Route::get('/showRequestFiles/{id}', [SolicitudesController::class, 'showRequestFiles'])->name('showRequestFiles');
-
+    Route::put('/user-update-request/{id}', [SolicitudesController::class, 'userUpdateRequest'])->name('userUpdateRequest');
 });
 
 require __DIR__.'/auth.php';

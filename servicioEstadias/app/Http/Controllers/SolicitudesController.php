@@ -68,8 +68,8 @@ class SolicitudesController extends Controller
             if ($request->hasFile('archivo_adjunto_' . $i)) {
                 $archivo = $request->file('archivo_adjunto_' . $i);
                 $nombreArchivo = $archivo->getClientOriginalName();
-                $rutaArchivo = 'solicitudes/' . $idSolicitud . '/' . $nombreArchivo;
-                $archivo->move(public_path('solicitudes/' . $idSolicitud), $nombreArchivo);
+                $rutaArchivo = 'solicitudes/' .  '/' . $nombreArchivo;
+                $archivo->move(public_path('solicitudes/'), $nombreArchivo);
                 $requisitosAdjuntos[] = $rutaArchivo;
             }
         }
@@ -93,13 +93,10 @@ class SolicitudesController extends Controller
 
     public function showRequestFiles($id)
     {
-        // Obtener la solicitud
         $solicitud = Solicitudes::findOrFail($id);
 
-        // Obtener el JSON de requisitos de la tabla estanciaRequisitos
         $estanciaRequisitos = EstanciaRequisitos::where('id_estancia', $solicitud->id_estancia)->first();
 
-        // Decodificar el JSON para obtener los ids de los requisitos
         $idsRequisitos = json_decode($estanciaRequisitos->id_requisitos);
 
         // Obtener los nombres de los requisitos de la tabla requisitos
@@ -107,7 +104,7 @@ class SolicitudesController extends Controller
         // Decodificar el JSON de requisitos para obtener las rutas de archivos
         $rutasArchivos = json_decode($solicitud->requisitos);
 
-        return view('user.showRequestFiles', compact('requisitos','rutasArchivos'));
+        return view('user.showRequestFiles', compact('requisitos','rutasArchivos','solicitud'));
     }
 
     public function currentRequests()
@@ -202,6 +199,41 @@ class SolicitudesController extends Controller
         // Redirigir de vuelta a la página de la solicitud
         return view('admi.observationSent');
     }
+
+    public function userUpdateRequest(Request $request, $id)
+{
+    // Obtener la solicitud existente
+    $solicitud = Solicitudes::findOrFail($id);
+
+    // Decodificar el JSON de requisitos a un array
+    $requisitosArray = json_decode($solicitud->requisitos, true);
+    
+    // Procesar los archivos adjuntos y actualizar sus rutas en el JSON de requisitos
+    for ($i = 0; $i < count($requisitosArray); $i++) {
+        // Verificar si hay un archivo adjunto para este requisito
+        if ($request->hasFile('nuevo_archivo_' . $i)) {
+            $archivo = $request->file('nuevo_archivo_' . $i);
+            $nombreArchivo = $archivo->getClientOriginalName();
+            $rutaArchivo = 'solicitudes/' . $id . '/' . $nombreArchivo;
+            // Mover el archivo a la carpeta de solicitudes
+            $archivo->move(public_path('solicitudes/' . $id), $nombreArchivo);
+            // Actualizar la ruta del archivo en el JSON de requisitos
+            $requisitosArray[]['archivo'] = $rutaArchivo;
+        }
+    }
+
+    // Codificar el array de requisitos a JSON
+    $requisitosJson = json_encode($requisitosArray);
+
+    // Actualizar el campo requisitos en la solicitud
+    $solicitud->requisitos = $requisitosJson;
+
+    $solicitud->save();
+
+    // Redireccionar o proporcionar alguna respuesta adecuada
+    return view('user.requestUpdateSuccess');
+}
+
 
 
 }
