@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EstanciaController;
 use App\Http\Controllers\SolicitudesController;
+use App\Http\Controllers\DocenteController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -38,7 +39,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/estancia/{estancia}/edit', [EstanciaController::class, 'edit'])->name('estancia.edit');
     Route::put('/estancia/{estancia}', [EstanciaController::class, 'update'])->name('estancia.update');
 
-
+    Route::get('/docente/edit/{id}', [DocenteController::class, 'edit'])->name('docente.edit');
+    Route::put('/docente/update/{id}', [DocenteController::class, 'update'])->name('docente.update');
     //rutas usuario user
     Route::get('/user-solicitudes', [SolicitudesController::class, 'index'])->name('userSolicitudes');
     Route::get('/ver_estancia/{id}', [EstanciaController::class, 'showUserEstancia'])->name('showUserEstancia');

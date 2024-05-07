@@ -30,7 +30,7 @@
                                                 <td>{{ $docente->rfc }}</td>
                                                 <td>{{ $docente->nombramiento }}</td>
                                                 <td>{{ $docente->academia }}</td>
-                                                <td><a class="text-blue-500 underline" href="#"> Editar</a></td>
+                                                <td><a class="text-blue-500 underline" href="{{ route('docente.edit', $docente->id) }}"> Editar</a></td>
                                             </tr>
                                         @endif
                                         @endforeach
