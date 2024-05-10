@@ -32,6 +32,9 @@
                         @endforeach
                         </table>
                         <button type="submit" class="inline-block bg-green-500 px-4 py-2 rounded-md text-white hover:bg-green-600 ml-4">Guardar cambios</button>
+                        <a href="{{ route('userSolicitudes') }}" class="inline-block bg-gray-500 px-4 py-2 rounded-md text-white hover:bg-red-600">Regresar</a>
+
+                    
                     </form>
                     <p class="text-red-500">Nota: En caso de requerir modificar alguno de los archivos, tenga en cuenta que los nuevos archivos deben ser también en formato PDF, de lo contrario no se podrán guardar los cambios.</p>
                 </div>
@@ -39,8 +42,7 @@
         </div>
     </div>
     <div class="text-center mt-4">
-        <a href="{{ route('userSolicitudes') }}" class="inline-block bg-gray-500 px-4 py-2 rounded-md text-white hover:bg-red-600">Regresar</a>
-    </div>
+            </div>
 </x-app-layout>
 <x-footer></x-footer>
 

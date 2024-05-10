@@ -41,6 +41,9 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="form-group text-center">
+                                        <a href="{{ route('adminDashboard') }}" class="btn btn-secondary">Regresar</a>
+                            </div>
                         </div>
                     </div>
                 </div>

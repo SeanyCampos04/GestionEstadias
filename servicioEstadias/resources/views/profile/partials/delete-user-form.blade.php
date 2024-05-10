@@ -1,5 +1,5 @@
-<!--<section class="space-y-6">
-    <header>
+<section class="">
+    <!--<header>
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('Delete Account') }}
         </h2>
@@ -51,5 +51,7 @@
                 </x-danger-button>
             </div>
         </form>
-    </x-modal>
-</section>-->
+    </x-modal>-->
+
+</section>
+

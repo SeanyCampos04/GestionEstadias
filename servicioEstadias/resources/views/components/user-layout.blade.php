@@ -6,12 +6,13 @@
                 <x-title></x-title>
                 </div>
                 <div class="ml-auto flex space-x-4">
-                    <a href="{{ route("dashboard") }}" class="text-black hover:text-gray-700">Convocatorias</a>
-                    <a href="{{ route("userSolicitudes") }}" class="text-black hover:text-gray-700">Solicitudes</a>
-                    <a href="{{ route("profile.edit") }}" class="text-black hover:text-gray-700">Mi Perfil</a>
+                    <a href="{{ route("dashboard") }}" class="text-black hover:text-gray-700 underline">Convocatorias</a>
+                    <a href="{{ route("userSolicitudes") }}" class="text-black hover:text-gray-700 underline">Solicitudes</a>
+                    <a href="{{ route("estanciaAccepted") }}" class="text-black hover:text-gray-700 underline">Reportes</a>
+                    <a href="{{ route("profile.edit") }}" class="text-black hover:text-gray-700 underline">Mi Perfil</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="text-black hover:text-gray-700">Cerrar Sesión</button>
+                        <button type="submit" class="text-black hover:text-gray-700 underline">Cerrar Sesión</button>
                     </form>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Estancia;
+use App\Models\Solicitudes;
 use Illuminate\Support\Facades\Auth;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Hash;
@@ -50,17 +51,26 @@ class DocenteController extends Controller
     }
 
     public function generarInforme($id)
-{
-    $docente = Auth::user();
-    $estancia = Estancia::findOrFail($id);
-    $html = view('user.informe', compact('docente', 'estancia'))->render();
-    $dompdf = new Dompdf();
-    $dompdf->loadHtml($html);
+    {
+        $docente = Auth::user();
+        $estancia = Estancia::findOrFail($id);
+        $html = view('user.informe', compact('docente', 'estancia'))->render();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
 
-    $dompdf->render();
-    return $dompdf->stream('carta_presentacion.pdf');
-}
+        $dompdf->render();
+        return $dompdf->stream('carta_presentacion.pdf');
+    }
 
+    public function enableInformes(){
+        $email = Auth::user()->email;
 
+        $solicitud = Solicitudes::where('email', $email)
+                               ->where('status', 2)
+                               ->latest()
+                               ->first();
+            return view('user.enableInformes',compact('solicitud'));
+
+    }
     
 }

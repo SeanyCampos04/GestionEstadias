@@ -51,7 +51,9 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                            </div>
+                                <div class="flex items-center justify-center w-full">
+                                    <a href="{{ route('dashboard') }}" class="inline-block bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded">Regresar</a>
+                                </div>
                         </div>
                     </div>
                 </div>

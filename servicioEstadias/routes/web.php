@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/docente/edit/{id}', [DocenteController::class, 'edit'])->name('docente.edit');
     Route::put('/docente/update/{id}', [DocenteController::class, 'update'])->name('docente.update');
     //rutas usuario user
+    Route::get('/user-reportes', [DocenteController::class, 'enableInformes'])->name('estanciaAccepted');
     Route::get('/user-solicitudes', [SolicitudesController::class, 'index'])->name('userSolicitudes');
     Route::get('/ver_estancia/{id}', [EstanciaController::class, 'showUserEstancia'])->name('showUserEstancia');
     Route::get('/create_request/{id}', [SolicitudesController::class, 'userCreateSolicitud'])->name('userCreateSolicitud');

@@ -25,9 +25,9 @@
                                 <a class="text-blue-500 underline" href="{{ asset($estancia->archivo_convocatoria) }}" target="_blank">Ver PDF</a>
                             </p><br>
                         </div>
-                        <div class="card-footer">
-                        <a href="{{ route('estancia.edit', $estancia->id) }}" class="btn btn-success float-right">Editar</a>
-                            <a href="{{ route('adminDashboard') }}" class="btn btn-primary float-right">Regresar</a>
+                        <div class="form-group items-center card-footer text-center">
+                        <a href="{{ route('estancia.edit', $estancia->id) }}" class="btn btn-success">Editar</a>
+                            <a href="{{ route('adminDashboard') }}" class="btn btn-secondary">Regresar</a>
                         </div>
                     </div>
                 </div>
