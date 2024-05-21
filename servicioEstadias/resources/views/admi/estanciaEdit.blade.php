@@ -31,9 +31,11 @@
                                     <div class="form-group">
                                         <label for="requisitos">Requisitos:</label>
                                         <select multiple class="form-control rounded" id="requisitos" name="requisitos[]">
-                                            @foreach ($requisitos as $requisito)
-                                                <option value="{{ $requisito->id }}">{{ $requisito->nombre }}</option>
-                                            @endforeach
+                                        @foreach ($requisitos as $requisito)
+                                        <option value="{{ $requisito->id }}" {{ in_array($requisito->id, $estancia->estanciaRequisitos ? json_decode($estancia->estanciaRequisitos->id_requisitos, true) : []) ? 'selected' : '' }}>
+                                            {{ $requisito->nombre }}
+                                        </option>
+                                        @endforeach
                                         </select>
                                     </div><br>
                                     <button type="submit" class="btn btn-primary">Guardar</button>

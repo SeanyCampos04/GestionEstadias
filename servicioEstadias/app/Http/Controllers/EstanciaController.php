@@ -145,6 +145,8 @@ class EstanciaController extends Controller
             'fecha_convocatoria' => 'required|date',
             'fecha_cierre' => 'required|date',
             'periodo_duracion' => 'required|string|max:255',
+            'requisitos' => 'required|array',
+        'requisitos.*' => 'integer|exists:requisitos,id'
             //'requisitos' => 'required|array', // Asegúrate de que los requisitos sean un array
             //'requisitos.*' => 'exists:requisitos,id',
         ]);
@@ -157,6 +159,17 @@ class EstanciaController extends Controller
         $estancia->fecha_convocatoria = $request->input('fecha_convocatoria');
         $estancia->fecha_cierre = $request->input('fecha_cierre');
         $estancia->periodo_duracion = $request->input('periodo_duracion');
+        $estancia->save();
+
+        $estanciaRequisitos = EstanciaRequisitos::where('id_estancia', $id)->first();
+        if (!$estanciaRequisitos) {
+            $estanciaRequisitos = new EstanciaRequisitos();
+            $estanciaRequisitos->id_estancia = $id;
+        }
+    
+        $estanciaRequisitos = EstanciaRequisitos::firstOrNew(['id_estancia' => $id]);
+    $estanciaRequisitos->id_requisitos = json_encode($request->requisitos);
+    $estanciaRequisitos->save();
         //$estancia->requisitos()->sync($request->requisitos);
 
         // Actualiza los registros en la tabla estancia_requisitos si es necesario

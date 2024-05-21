@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Estanciarequisitos;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,7 +20,10 @@ class Estancia extends Model
     {
         return $this->belongsToMany(Requisitos::class, 'estanciarequisitos', 'id_estancia', 'id_requisitos');
     }
-
+    public function estanciaRequisitos()
+    {
+        return $this->hasOne(EstanciaRequisitos::class, 'id_estancia');
+    }
     /*public function actualizarRequisitos($requisitosSeleccionados)
     {
         // Eliminar todos los requisitos existentes para esta estancia
