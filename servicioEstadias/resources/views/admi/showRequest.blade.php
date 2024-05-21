@@ -14,22 +14,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($requisitos as $index => $requisito)
-                        <tr>
-                            <td>{{ $requisito->nombre }}</td>
-                            <td>
-                                @php
-                                    $ruta = $rutasArchivos[$index] ?? null;
-                                    $nombreArchivo = $ruta ? str_replace('solicitudes/', '', $ruta) : null;
-                                @endphp
-                                @if ($nombreArchivo)
-                                    <a class="text-blue-500 underline" href="{{ asset($ruta) }}">{{ $nombreArchivo }}</a>
-                                @else
-                                    No hay archivo adjunto
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
+                @if (!empty($rutasArchivos))
+                @foreach ($requisitos as $index => $requisito)
+                    <tr>
+                        <td>{{ $requisito->nombre }}</td>
+                        <td>
+                            @if (is_array($rutasArchivos[$index]))
+                                @foreach ($rutasArchivos[$index] as $archivo)
+                                    <a class="text-blue-500 underline" href="{{ asset($archivo) }}">{{ $archivo }}</a><br>
+                                @endforeach
+                            @else
+                                {{ $rutasArchivos[$index] }} <!-- Si no es un array, imprime el valor -->
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            @else
+                <tr>
+                    <td colspan="2">No hay archivos adjuntos disponibles</td>
+                </tr>
+            @endif
+
                 </tbody>
             </table>
         </div>

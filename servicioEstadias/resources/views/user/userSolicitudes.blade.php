@@ -7,6 +7,11 @@
                 <div class="overflow-x-auto">
                     <div class="min-w-screen py-5 flex items-center justify-center">
                         <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
+                        @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                             <div class="overflow-x-auto">
                             <h1 class="flex items-center justify-center text-2xl">Mis solicitudes</h1>
                                 <table class="table">
