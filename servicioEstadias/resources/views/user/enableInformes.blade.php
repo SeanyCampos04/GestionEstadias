@@ -12,19 +12,36 @@
                 <div class="card-body form-control">
                     <div class="form-group">
                         <label class="font-bold text-1xl" for="constancia">Constancia de liberación:</label><br>
-                        <input class="form-group" type="file" name="constancia"><br><br>
+                        <input class="form-group" type="file" name="constancia" {{ $camposHabilitados ? '' : 'disabled' }}><br><br>
                     </div>
                     <label class="font-bold" for="informe">Informe Final:</label><br>
-                    <input type="file" name="informe"><br><br>
+                    <input type="file" name="informe" {{ $camposHabilitados ? '' : 'disabled' }}><br><br>
                 </div>
-                <input type="hidden" name="id_estancia" value="{{ $solicitud->id_estancia }}">
-                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Guardar</button>
+                
+                    <input type="hidden" name="id_estancia" value="{{ $solicitud->id_estancia }}">
+                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Guardar</button> &nbsp;&nbsp;
+                    <a href="{{ route('dashboard') }}" class="inline-block bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded">Regresar</a>
+
             </form>
-            <p>Nota: Esta pestaña se encuentra habilitada sólo cuando usted se encuentre con una estancia en proceso.</p>
+            @if(!$camposHabilitados)
+                <p class="text-red-500">Nota Adicional: Si los campos de subida de archivos están deshabilitados es porque usted ya ha hecho un envío de archivos, espere a que sean revisados y le envíen una respuesta antes de poder volver a enviar archivos.</p>
+            @endif
         </div>
     </div>
     @else
-        Esta pestaña no está disponible, esto debido a que de momento no cuenta con estancias en proceso o Aceptadas.
+        <div class="card py-5">
+            <div class="card-header">
+                <h1 class="text-1xl">
+                Esta pestaña no está disponible, esto debido a que de momento no cuenta con estancias en proceso o Aceptadas.
+                </h1>
+            </div>
+            <div class="card-body">
+            <div class="card-footer text-center">
+                    <a href="{{ route('dashboard') }}" class="inline-block bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded">Regresar</a>
+                </div>
+            </div>
+        </div>
+        
     @endif
 
 </x-app-layout>

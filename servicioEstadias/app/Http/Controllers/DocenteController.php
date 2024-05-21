@@ -65,11 +65,15 @@ class DocenteController extends Controller
     public function enableInformes(){
         $email = Auth::user()->email;
 
-        $solicitud = Solicitudes::where('email', $email)
-                               ->where('status', 2)
-                               ->latest()
-                               ->first();
-            return view('user.enableInformes',compact('solicitud'));
+    $solicitud = Solicitudes::where('email', $email)
+                            ->whereIn('status', [2, 5])
+                            ->latest()
+                            ->first();
+
+    // Determinar si los campos deben estar habilitados
+    $camposHabilitados = $solicitud && $solicitud->status != 4;
+
+    return view('user.enableInformes', compact('solicitud', 'camposHabilitados'));
 
     }
     

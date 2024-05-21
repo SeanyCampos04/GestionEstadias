@@ -34,6 +34,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/rechazar-solicitud/{id}', [SolicitudesController::class, 'rechazarSolicitud'])->name('rechazar-solicitud');
     Route::get('/observaciones/{id}', [SolicitudesController::class, 'observaciones'])->name('observaciones');
     Route::post('/enviar-observacion/{id}', [SolicitudesController::class, 'enviarObservacion'])->name('enviar-observacion');
+    Route::post('/informes/aceptar/{id}', [InformesController::class, 'aceptar'])->name('aceptar.informe');
+    Route::post('/rechazar-informe/{id}', [InformesController::class, 'rechazarInforme'])->name('rechazar.informe');
+
 
     Route::post('/guardar-estancia', [EstanciaController::class, 'guardar'])->name('guardar-estancia');
     Route::get('/ver-estancia/{id}', [EstanciaController::class, 'showEstancia'])->name('verEstancia');

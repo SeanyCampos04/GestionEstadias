@@ -31,7 +31,13 @@
                                                     @elseif($request->status==2)
                                                         Aceptada
                                                     @elseif($request->status==3)
-                                                        Rechazada    
+                                                        Rechazada
+                                                    @elseif($request->status==4)
+                                                        Informes Finales recibidos
+                                                    @elseif($request->status==5)
+                                                        Observaciones Enviadas
+                                                    @elseif($request->status==6)
+                                                        Estancia Terminada y liberada       
                                                     @endif
                                                 </td>
                                                 <td>{{ $request->fecha_solicitud }}</td>

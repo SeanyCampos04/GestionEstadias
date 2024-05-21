@@ -12,6 +12,6 @@ class Informe extends Model
     protected $fillable = ['nombre', 'ruta_constancia', 'ruta_oficio', 'id_solicitud'];
     public function solicitud()
     {
-        return $this->belongsTo(Solicitud::class, 'id_solicitud');
+        return $this->belongsTo(Solicitudes::class, 'id_solicitud');
     }
 }

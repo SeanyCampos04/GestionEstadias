@@ -32,9 +32,15 @@
                                                     @elseif ($solicitud->status == 1)
                                                         Acciones necesarias
                                                     @elseif ($solicitud->status == 2)
-                                                        Aceptado
+                                                        Aceptado, enviar informes al finalizar estancia
                                                     @elseif ($solicitud->status == 3)
                                                         Rechazado
+                                                    @elseif ($solicitud->status == 4)
+                                                        Informes enviados, en espera de respuesta
+                                                    @elseif ($solicitud->status == 5)
+                                                        Observaciones en informes finales, favor de revisar
+                                                    @elseif ($solicitud->status == 6)
+                                                        Terminado   
                                                     @else
                                                         Estado desconocido
                                                     @endif
@@ -45,6 +51,8 @@
                                                         <a class="text-blue-500 underline" href="{{ route('showRequestFiles', $solicitud->id) }}">Editar Solicitud</a>
                                                     @elseif ($solicitud->status ==2)
                                                     <a class="text-blue-500 underline" href="{{route('informesView',$solicitud->estancia->id)}}">Ver Más</a>
+                                                    @elseif ($solicitud->status ==5)
+                                                    <a class="text-blue-500 underline" href="{{route('estanciaAccepted')}}">Ver Más</a>
                                                     @endif
                                                 </td>
                                             </tr>

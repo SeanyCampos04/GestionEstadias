@@ -22,9 +22,13 @@ class InformesController extends Controller
         $user = Auth::user();
 
         // Obtener la solicitud con status 2 del usuario autenticado
-        $solicitud = Solicitudes::where('email', $user->email)->where('status', 2)->firstOrFail();
+        $solicitud = Solicitudes::where('email', $user->email)
+                        ->whereIn('status', [2, 5])
+                        ->firstOrFail();
         $estancia = Estancia::findOrFail($solicitud->id_estancia);
-        
+        $solicitud->status=4;
+        $solicitud->observaciones='Favor de esperar a la respuesta a su envío.';
+        $solicitud->save();        
 
         // Crear registro en la base de datos
         $informe = new Informe();
@@ -58,7 +62,47 @@ class InformesController extends Controller
         return view('user.uploadInformesSuccess');
     }
     public function showInformes(){
-        $informes= Informe::all();
+        //$informes= Informe::all();
+        $informes = Informe::with('solicitud.estancia')
+        ->whereHas('solicitud', function ($query) {
+            $query->where('status', 4)
+                  ->orWhere('status', 5);
+        })
+        ->get();
         return view('admi.showInformes', compact('informes'));
     }
+
+    public function aceptar($id)
+    {
+        // Encuentra la solicitud por su ID
+        $solicitud = Solicitudes::findOrFail($id);
+
+        // Actualiza el status y las observaciones
+        $solicitud->status = 6;
+        $solicitud->observaciones = 'Liberado Correctamente. Estancia Finalizada';
+        $solicitud->save();
+
+        // Redirige de vuelta a la vista de informes con un mensaje de éxito
+        return redirect()->route('showInformes')->with('success', 'Informe aceptado y solicitud liberada.');
+    }
+
+    public function rechazarInforme($id)
+{
+    // Buscar la solicitud por ID
+    $solicitud = Solicitudes::find($id);
+    
+    // Verificar si la solicitud existe
+    if ($solicitud) {
+        // Actualizar el estado y las observaciones
+        $solicitud->status = 5;
+        $solicitud->observaciones = "Detalles en archivos, favor de enviar informes finales de nuevo.";
+        $solicitud->save();
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('showInformes')->with('success', 'El informe ha sido rechazado.');
+    } else {
+        // Redirigir con un mensaje de error si no se encuentra la solicitud
+        return redirect()->route('showInformes')->with('error', 'No se encontró la solicitud.');
+    }
+}
 }

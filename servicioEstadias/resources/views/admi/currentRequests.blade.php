@@ -22,6 +22,9 @@
                                         @foreach ($currentRequests as $request)
                                             @if($request->status==2)
                                             @elseif($request->status==3)
+                                            @elseif($request->status==4)
+                                            @elseif($request->status==5)
+                                            @elseif($request->status==6)
                                             @else
                                             <tr>
                                                 <td>{{ $request->id }}</td>
@@ -32,6 +35,7 @@
                                                         En revisión
                                                     @elseif($request->status==1)
                                                         Observaciones realizadas, en espera de respuesta
+                                                        
                                                     @endif
                                                 </td>
                                                 <td>{{ $request->fecha_solicitud }}</td>
