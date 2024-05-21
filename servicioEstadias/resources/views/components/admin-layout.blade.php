@@ -9,6 +9,7 @@
                     <a href="{{ route("adminDashboard") }}" class="underline text-black hover:text-gray-700">Mis Convocatorias</a>
                     <a href="{{ route("crearEstancia") }}" class="underline text-black hover:text-gray-700">Nueva Convocatoria</a>
                     <a href="{{ route("solicitudes") }}" class="underline text-black hover:text-gray-700">Solicitudes</a>
+                    <a href="{{ route("showInformes") }}" class="underline text-black hover:text-gray-700">Informes</a>
                     <div class="relative">
                         <button type="button" class="underline text-black hover:text-gray-700 focus:outline-none" onclick="toggleDropdown()">
                             Registros

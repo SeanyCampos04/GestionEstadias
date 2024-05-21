@@ -16,7 +16,7 @@
                                     <textarea style="font-size:18px;" name="observaciones" id="observaciones" rows="4" cols="50"></textarea>
                                     <br><br>
                                     <button style="font-size:18px;"class="py-2 px-2 bg-blue-500 text-white rounded text-sm" type="submit">Enviar Observación</button>
-
+                                    <a href="{{ route('adminDashboard') }}" class="btn btn-secondary">Regresar</a>
                                 </form>
                             </div>
                         </div>

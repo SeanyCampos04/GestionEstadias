@@ -4,17 +4,22 @@
     @if($solicitud)
     <div class="flex items-center justify-center mt-8">
         <div class="card w-4/5 px-4 py-5">
-            <div class="card-header flex items-center">
-                <h1 class="text-center text-3xl w-full">Formulario para subida de Archivos</h1>
-            </div>
-            <div class="card-body form-control">
-                <div class="form-group">
-                    <label class="font-bold text-1xl" for="Constancia">Constancia de liberación:</label><br>
-                    <input class="form-group" type="file" name="archivo1"><br> <br>
+        <form method="POST" action="{{route('uploadinformes')}}" enctype="multipart/form-data">
+                @csrf
+                <div class="card-header">
+                    <h1 class="text-2xl">Formulario para subida de Informes</h1>
                 </div>
-                <label class="font-bold" for="informe">Informe Final:</label><br>
-                <input type="file" name="archivo2"><br><br>
-            </div>
+                <div class="card-body form-control">
+                    <div class="form-group">
+                        <label class="font-bold text-1xl" for="constancia">Constancia de liberación:</label><br>
+                        <input class="form-group" type="file" name="constancia"><br><br>
+                    </div>
+                    <label class="font-bold" for="informe">Informe Final:</label><br>
+                    <input type="file" name="informe"><br><br>
+                </div>
+                <input type="hidden" name="id_estancia" value="{{ $solicitud->id_estancia }}">
+                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Guardar</button>
+            </form>
             <p>Nota: Esta pestaña se encuentra habilitada sólo cuando usted se encuentre con una estancia en proceso.</p>
         </div>
     </div>

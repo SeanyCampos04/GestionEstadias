@@ -189,7 +189,8 @@ class EstanciaController extends Controller
         $solicitudesPendientes = Solicitudes::where('docente', $nombreUsuario)
         ->where(function ($query) {
             $query->where('status', 0)
-                ->orWhere('status', 1);
+                ->orWhere('status', 1)
+                ->orWhere('status', 2);
         })
         ->exists();
 

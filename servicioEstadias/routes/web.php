@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EstanciaController;
 use App\Http\Controllers\SolicitudesController;
 use App\Http\Controllers\DocenteController;
+use App\Http\Controllers\InformesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Usuario admin
+    Route::get('/adminInformes', [InformesController::class, 'showInformes'])->name('showInformes');
     Route::get('/showUsers', [EstanciaController::class, 'showUsers'])->name('showUsers');
     Route::get('/historico-convocatorias', [EstanciaController::class, 'historicoEstancias'])->name('historico-convocatorias');
     Route::get('/crear_estancia', [EstanciaController::class, 'create'])->name('crearEstancia');
@@ -51,7 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/user-update-request/{id}', [SolicitudesController::class, 'userUpdateRequest'])->name('userUpdateRequest');
     Route::get('/informesView/{id}', [DocenteController::class, 'verArchivos'])->name('informesView');
     Route::get('/informes/{id}', [DocenteController::class, 'generarInforme'])->name('informes');
-
+    Route::post('/informes/upload', [InformesController::class, 'guardarInformes'])->name('uploadinformes');
 });
 
 require __DIR__.'/auth.php';

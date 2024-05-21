@@ -10,8 +10,11 @@
                     <div class="min-w-screen py-5 flex items-center justify-center">
                         <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
                             <div class="overflow-x-auto">
-                                <h5>Estancia generada exitosamente!</h1>
-                                
+                                <div class="card">
+                                    <div class="card-header">
+                                    <h1>Estancia generada exitosamente!</h1>
+                                    </div>
+                                </div>                                
                             </div>
                         </div>
                     </div>
