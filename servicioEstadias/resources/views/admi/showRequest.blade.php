@@ -24,7 +24,7 @@
                                     <a class="text-blue-500 underline" href="{{ asset($archivo) }}">{{ $archivo }}</a><br>
                                 @endforeach
                             @else
-                                {{ $rutasArchivos[$index] }} <!-- Si no es un array, imprime el valor -->
+                                {{ $rutasArchivos[$index] }}
                             @endif
                         </td>
                     </tr>

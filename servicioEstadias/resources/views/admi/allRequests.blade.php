@@ -37,7 +37,9 @@
                                                     @elseif($request->status==5)
                                                         Observaciones Enviadas
                                                     @elseif($request->status==6)
-                                                        Estancia Terminada y liberada       
+                                                        Estancia Terminada, constancia pendiente de envío
+                                                    @elseif($request->status==7)
+                                                        Estancia Terminada y liberada        
                                                     @endif
                                                 </td>
                                                 <td>{{ $request->fecha_solicitud }}</td>

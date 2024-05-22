@@ -24,7 +24,7 @@
                                             @elseif($request->status==3)
                                             @elseif($request->status==4)
                                             @elseif($request->status==5)
-                                            @elseif($request->status==6)
+                                            @elseif($request->status==7)
                                             @else
                                             <tr>
                                                 <td>{{ $request->id }}</td>
@@ -35,12 +35,17 @@
                                                         En revisión
                                                     @elseif($request->status==1)
                                                         Observaciones realizadas, en espera de respuesta
-                                                        
+                                                    @elseif($request->status==6)
+                                                        Terminado, falta enviar Constancia    
                                                     @endif
                                                 </td>
                                                 <td>{{ $request->fecha_solicitud }}</td>
                                                 <td>
+                                                    @if($request->status==6)
+                                                    <a href="{{ route('informes.showUploadForm', $request->id) }}" class="text-blue-500 hover:text-blue-700">Generar Constancia</a>
+                                                    @else
                                                     <a href="{{ route('admiShowRequest', $request->id) }}" class="text-blue-500 hover:text-blue-700">Ver Solicitud</a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                             @endif

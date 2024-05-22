@@ -32,4 +32,8 @@ class Solicitudes extends Model
     {
         return $this->belongsTo(Estancia::class, 'id_estancia');
     }
+    public function docente()
+    {
+        return $this->belongsTo(User::class, 'id');
+    }
 }

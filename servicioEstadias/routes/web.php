@@ -36,13 +36,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/enviar-observacion/{id}', [SolicitudesController::class, 'enviarObservacion'])->name('enviar-observacion');
     Route::post('/informes/aceptar/{id}', [InformesController::class, 'aceptar'])->name('aceptar.informe');
     Route::post('/rechazar-informe/{id}', [InformesController::class, 'rechazarInforme'])->name('rechazar.informe');
-
+    Route::get('/informes/upload/{id}', [InformesController::class, 'showUploadForm'])->name('informes.showUploadForm');
+    Route::post('/informes/upload/{id}', [InformesController::class, 'uploadConstancia'])->name('informes.uploadConstancia');
+    Route::get('/descargar-constancia/{id}', [InformesController::class, 'descargarConstancia'])->name('descargar-constancia');
 
     Route::post('/guardar-estancia', [EstanciaController::class, 'guardar'])->name('guardar-estancia');
     Route::get('/ver-estancia/{id}', [EstanciaController::class, 'showEstancia'])->name('verEstancia');
     Route::delete('/eliminar-estancia/{id}', [EstanciaController::class, 'eliminar'])->name('eliminar-estancia');
     Route::get('/estancia/{estancia}/edit', [EstanciaController::class, 'edit'])->name('estancia.edit');
     Route::put('/estancia/{estancia}', [EstanciaController::class, 'update'])->name('estancia.update');
+
 
     Route::get('/docente/edit/{id}', [DocenteController::class, 'edit'])->name('docente.edit');
     Route::put('/docente/update/{id}', [DocenteController::class, 'update'])->name('docente.update');

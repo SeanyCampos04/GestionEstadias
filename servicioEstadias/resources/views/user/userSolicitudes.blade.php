@@ -45,7 +45,9 @@
                                                     @elseif ($solicitud->status == 5)
                                                         Observaciones en informes finales, favor de revisar
                                                     @elseif ($solicitud->status == 6)
-                                                        Terminado   
+                                                        Terminado, falta recibir constancia 
+                                                    @elseif ($solicitud->status == 7)
+                                                        Estancia Terminada   
                                                     @else
                                                         Estado desconocido
                                                     @endif
@@ -58,6 +60,8 @@
                                                     <a class="text-blue-500 underline" href="{{route('informesView',$solicitud->estancia->id)}}">Ver Más</a>
                                                     @elseif ($solicitud->status ==5)
                                                     <a class="text-blue-500 underline" href="{{route('estanciaAccepted')}}">Ver Más</a>
+                                                    @elseif ($solicitud->status ==7)
+                                                    <a class="text-blue-500 underline"  href="{{ route('descargar-constancia', ['id' => $solicitud->id]) }}">Descargar Constancia</a>
                                                     @endif
                                                 </td>
                                             </tr>
