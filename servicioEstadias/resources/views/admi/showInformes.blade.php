@@ -57,7 +57,9 @@
                                             @endif
                                         @endforeach
                                     </tbody>
+                                    {{ $informes->links() }}
                                 </table>
+                                
                                 <div class="form-group text-center py-3">
                                     <a href="{{ route('adminDashboard') }}" class="btn btn-secondary">Regresar</a>
                                 </div>

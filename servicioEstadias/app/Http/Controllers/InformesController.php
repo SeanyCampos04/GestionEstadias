@@ -68,7 +68,7 @@ class InformesController extends Controller
             $query->where('status', 4)
                   ->orWhere('status', 5);
         })
-        ->get();
+        ->paginate(10);
         return view('admi.showInformes', compact('informes'));
     }
 

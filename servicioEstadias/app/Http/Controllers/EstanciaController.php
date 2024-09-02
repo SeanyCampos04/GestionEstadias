@@ -215,7 +215,7 @@ class EstanciaController extends Controller
 
     public function showUsers()
     {
-        $docentes = User::all();
+        $docentes = User::where('id', '<>', 1)->paginate(10);
         return view('admi.showUsers', ['docentes' => $docentes]);
     }
 }

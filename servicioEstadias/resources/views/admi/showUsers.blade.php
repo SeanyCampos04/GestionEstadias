@@ -24,7 +24,7 @@
                                         @if($docente->id==1)
                                         @else
                                             <tr>
-                                                <td>{{ $docente->id }}</td>
+                                            <td>{{ ($docentes->currentPage() - 1) * $docentes->perPage() + $loop->iteration }}</td>
                                                 <td>{{ $docente->name }}</td>
                                                 <td>{{ $docente->email }}</td>
                                                 <td>{{ $docente->rfc }}</td>
@@ -35,7 +35,9 @@
                                         @endif
                                         @endforeach
                                     </tbody>
+                                    <center>{{ $docentes->links() }}</center>
                                 </table>
+                                
                             </div>
                             <div class="form-group text-center">
                                         <a href="{{ route('adminDashboard') }}" class="btn btn-secondary">Regresar</a>

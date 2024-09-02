@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
 
     if (Auth::attempt($credentials)) {
         // Verificar si el correo electrónico coincide con el correo deseado
-        if ($request->email === 'desarrollo.academico@tecvalles.mx') {
+        if ($request->email === 'desarrolloacademico@tecvalles.mx') {
             // Redirigir a la vista 'adminDashboard'
             return redirect()->route('adminDashboard');
         } else {

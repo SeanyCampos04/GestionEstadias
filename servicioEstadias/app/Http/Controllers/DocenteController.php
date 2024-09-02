@@ -20,6 +20,7 @@ class DocenteController extends Controller
 
     public function update(Request $request, $id)
     {
+        $docentes = User::where('id', '<>', 1)->paginate(10);
         $docente =User::findOrFail($id);
         
         // Actualizar los campos del docente
@@ -28,7 +29,7 @@ class DocenteController extends Controller
         $docente->rfc = $request->input('rfc');
         $docente->nombramiento = $request->input('nombramiento');
         //$docente->status = $request->input('status');
-        $docente->academia = $request->input('academia');
+        $docente->curp = $request->input('curp');
         
         // Verificar si se proporcionó una nueva contraseña
         if ($request->filled('new_password')) {
@@ -42,7 +43,9 @@ class DocenteController extends Controller
         
         // Guardar los cambios en la base de datos
         $docente->save();
-        return view('admi.docenteUpdateSuccess', ['docente' => $docente]);
+        $estancias = Estancia::all(); 
+        return redirect()->route('docente.edit', $docente->id)->with('success', 'Los cambios se guardaron correctamente.');
+
         // Redirigir a alguna vista después de guardar los cambios
     }
     public function verArchivos($id){
