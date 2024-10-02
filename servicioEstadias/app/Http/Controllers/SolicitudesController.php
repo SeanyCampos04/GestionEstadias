@@ -119,7 +119,7 @@ class SolicitudesController extends Controller
     public function allRequests()
     {
         // Obtener todas las solicitudes
-        $allRequests = Solicitudes::all();
+        $allRequests = Solicitudes::paginate(10);
 
         // Retornar la vista con todas las solicitudes
         return view('admi.allRequests', compact('allRequests'));

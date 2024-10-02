@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::table('docentes', function (Blueprint $table) {
             Schema::table('docentes', function (Blueprint $table) {
-                $table->string('rfc')->after('password')->nullable();
-                $table->string('nombramiento')->after('rfc')->nullable();
-                $table->string('status')->after('nombramiento')->nullable();
-                $table->string('academia')->after('status')->nullable();
+                //$table->string('rfc')->after('password')->nullable();
+                //$table->string('nombramiento')->after('rfc')->nullable();
+                //$table->string('status')->after('nombramiento')->nullable();
+                //$table->string('academia')->after('status')->nullable();
+                
             });
             
         });
