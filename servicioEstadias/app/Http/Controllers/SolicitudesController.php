@@ -101,9 +101,9 @@ class SolicitudesController extends Controller
 
         // Obtener los nombres de los requisitos de la tabla requisitos
         $requisitos = Requisitos::whereIn('id', $idsRequisitos)->get();
-        // Decodificar el JSON de requisitos para obtener las rutas de archivos
-        $rutasArchivos = json_decode($solicitud->requisitos);
+        $rutasArchivos = json_decode($solicitud->requisitos, true);
 
+        $rutasArchivos = array_pad($rutasArchivos, count($requisitos), null);
         return view('user.showRequestFiles', compact('requisitos','rutasArchivos','solicitud'));
     }
 
@@ -139,9 +139,9 @@ class SolicitudesController extends Controller
 
         // Obtener los nombres de los requisitos de la tabla requisitos
         $requisitos = Requisitos::whereIn('id', $idsRequisitos)->get();
-        // Decodificar el JSON de requisitos para obtener las rutas de archivos
-        //$rutasArchivos = json_decode($solicitud->requisitos);
-        $rutasArchivos = $solicitud->requisitos ? json_decode($solicitud->requisitos, true) : [];
+        $rutasArchivos = json_decode($solicitud->requisitos, true);
+
+        $rutasArchivos = array_pad($rutasArchivos, count($requisitos), null);
         return view('admi.showRequest', compact('solicitud','requisitos', 'rutasArchivos'));
     }
 
@@ -246,9 +246,4 @@ class SolicitudesController extends Controller
     // Redireccionar o proporcionar alguna respuesta adecuada
     return redirect()->route('userSolicitudes')->with('success', 'Archivos actualizados correctamente.');
 }
-
-
-
-
-
 }

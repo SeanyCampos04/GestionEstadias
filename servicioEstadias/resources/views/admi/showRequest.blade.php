@@ -19,13 +19,7 @@
                     <tr>
                         <td>{{ $requisito->nombre }}</td>
                         <td>
-                            @if (is_array($rutasArchivos[$index]))
-                                @foreach ($rutasArchivos[$index] as $archivo)
-                                    <a class="text-blue-500 underline" href="{{ asset($archivo) }}">{{ $archivo }}</a><br>
-                                @endforeach
-                            @else
-                                {{ $rutasArchivos[$index] }}
-                            @endif
+                                    <a class="text-blue-500 underline" href="{{ asset($rutasArchivos[$index]) }}">  {{ basename($rutasArchivos[$index]) }}</a><br>
                         </td>
                     </tr>
                 @endforeach
