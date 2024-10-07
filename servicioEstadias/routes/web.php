@@ -8,7 +8,7 @@ use App\Http\Controllers\InformesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('auth.register');
 });
 
 /*Route::get('/admindashboard', [EstanciaController::class, 'index'])
@@ -16,6 +16,7 @@ Route::get('/', function () {
     ->name('admi.adminDashboard');*/
 Route::get('/dashboard', [EstanciaController::class,'index'])->middleware(['auth', 'verified'])->name('adminDashboard');
 Route::get('/user_dashboard', [EstanciaController::class,'indexUser'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/vinculaciondashboard', [EstanciaController::class,'indexVinculacion'])->middleware(['auth', 'verified'])->name('vinculacionDashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

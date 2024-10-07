@@ -57,6 +57,7 @@ class SolicitudesController extends Controller
         $solicitud->docente = auth()->user()->name; // Obtener el nombre del usuario autenticado
         $solicitud->fecha_solicitud = now()->toDateString();
         $solicitud->status = 0; // En revisión
+        $solicitud->periodo_duracion = 'ad2024';
         //$solicitud->save();
 
         // Obtener el ID recién creado de la solicitud
@@ -101,9 +102,9 @@ class SolicitudesController extends Controller
 
         // Obtener los nombres de los requisitos de la tabla requisitos
         $requisitos = Requisitos::whereIn('id', $idsRequisitos)->get();
-        // Decodificar el JSON de requisitos para obtener las rutas de archivos
-        $rutasArchivos = json_decode($solicitud->requisitos);
+        $rutasArchivos = json_decode($solicitud->requisitos, true);
 
+        $rutasArchivos = array_pad($rutasArchivos, count($requisitos), null);
         return view('user.showRequestFiles', compact('requisitos','rutasArchivos','solicitud'));
     }
 
@@ -139,9 +140,9 @@ class SolicitudesController extends Controller
 
         // Obtener los nombres de los requisitos de la tabla requisitos
         $requisitos = Requisitos::whereIn('id', $idsRequisitos)->get();
-        // Decodificar el JSON de requisitos para obtener las rutas de archivos
-        //$rutasArchivos = json_decode($solicitud->requisitos);
-        $rutasArchivos = $solicitud->requisitos ? json_decode($solicitud->requisitos, true) : [];
+        $rutasArchivos = json_decode($solicitud->requisitos, true);
+
+        $rutasArchivos = array_pad($rutasArchivos, count($requisitos), null);
         return view('admi.showRequest', compact('solicitud','requisitos', 'rutasArchivos'));
     }
 
@@ -246,9 +247,4 @@ class SolicitudesController extends Controller
     // Redireccionar o proporcionar alguna respuesta adecuada
     return redirect()->route('userSolicitudes')->with('success', 'Archivos actualizados correctamente.');
 }
-
-
-
-
-
 }

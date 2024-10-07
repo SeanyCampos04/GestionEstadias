@@ -24,6 +24,13 @@ class EstanciaController extends Controller
 
         return view('admi.adminDashboard', compact('estancias')); 
     }
+    public function indexVinculacion()
+    {
+        $estancias = Estancia::all(); 
+
+        return view('vinculacion.vinculacionDashboard', compact('estancias')); 
+    }
+
     //apartado para redirigir a vistas
     public function create()
     {
@@ -55,7 +62,6 @@ class EstanciaController extends Controller
         'nombre' => 'required|string',
         'fecha_convocatoria' => 'required|date',
         'fecha_cierre' => 'required|date',
-        'periodo_duracion' => 'required|string',
         'archivo_convocatoria' => 'required|file|mimes:pdf',
     ]);
 
@@ -64,7 +70,7 @@ class EstanciaController extends Controller
     $estancia->nombre = $request->nombre;
     $estancia->fecha_convocatoria = $request->fecha_convocatoria;
     $estancia->fecha_cierre = $request->fecha_cierre;
-    $estancia->periodo_duracion = $request->periodo_duracion;
+//    $estancia->periodo_duracion = $request->periodo_duracion;
 
     // Guardar el archivo de convocatoria
     $archivoConvocatoria = $request->file('archivo_convocatoria');
@@ -144,7 +150,7 @@ class EstanciaController extends Controller
             'nombre' => 'required|string|max:255',
             'fecha_convocatoria' => 'required|date',
             'fecha_cierre' => 'required|date',
-            'periodo_duracion' => 'required|string|max:255',
+            //'periodo_duracion' => 'required|string|max:255',
             'requisitos' => 'required|array',
         'requisitos.*' => 'integer|exists:requisitos,id'
             //'requisitos' => 'required|array', // Asegúrate de que los requisitos sean un array
@@ -158,7 +164,7 @@ class EstanciaController extends Controller
         $estancia->nombre = $request->input('nombre');
         $estancia->fecha_convocatoria = $request->input('fecha_convocatoria');
         $estancia->fecha_cierre = $request->input('fecha_cierre');
-        $estancia->periodo_duracion = $request->input('periodo_duracion');
+        //$estancia->periodo_duracion = $request->input('periodo_duracion');
         $estancia->save();
 
         $estanciaRequisitos = EstanciaRequisitos::where('id_estancia', $id)->first();

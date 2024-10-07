@@ -37,7 +37,10 @@ class AuthenticatedSessionController extends Controller
         if ($request->email === 'desarrolloacademico@tecvalles.mx') {
             // Redirigir a la vista 'adminDashboard'
             return redirect()->route('adminDashboard');
-        } else {
+        }elseif($request->email === 'vinculacion@tecvalles.mx'){
+            return redirect()->route('vinculacionDashboard');
+        } 
+        else {
             // Redirigir a la vista 'dashboard'
             return redirect()->route('dashboard');
         }

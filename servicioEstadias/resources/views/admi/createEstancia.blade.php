@@ -22,10 +22,6 @@
                                         <input type="date" id="fecha_cierre" name="fecha_cierre" class="form-input rounded-md w-full">
                                     </div>
                                     <div class="mb-4">
-                                        <label for="periodo_duracion" class="block text-gray-700 font-bold mb-2">Periodo de duración:</label>
-                                        <input type="text" id="periodo_duracion" name="periodo_duracion" class="form-input rounded-md w-full">
-                                    </div>
-                                    <div class="mb-4">
                                         <label for="archivo_convocatoria" class="block text-gray-700 font-bold mb-2">Convocatoria (PDF):</label>
                                         <input type="file" id="archivo_convocatoria" name="archivo_convocatoria" class="form-input rounded-md w-full">
                                     </div>

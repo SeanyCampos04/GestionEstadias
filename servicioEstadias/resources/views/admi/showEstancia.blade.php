@@ -19,8 +19,6 @@
                             <hr><br>
                             <p class="card-text">Fecha de cierre de convocatoria: {{ $estancia->fecha_cierre }}</p>
                             <hr><br>
-                            <p class="card-text">Periodo de Duración: {{ $estancia->periodo_duracion }}</p>
-                            <hr><br>
                             <p class="card-text">Archivo de Convocatoria:
                                 <a class="text-blue-500 underline" href="{{ asset($estancia->archivo_convocatoria) }}" target="_blank">Ver PDF</a>
                             </p><br>

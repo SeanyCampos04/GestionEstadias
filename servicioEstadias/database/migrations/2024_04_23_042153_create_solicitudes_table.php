@@ -21,11 +21,13 @@ return new class extends Migration
             $table->string('docente')->nullable();
             $table->date('fecha_solicitud')->nullable();
             $table->string('observaciones')->nullable();
+            $table->string('empresa')->nullable();
+            $table->integer('status_convenio')->nullable();
+            $table->string('periodo_duracion');
             $table->timestamps();
 
             $table->dropForeign(['id_estancia']);
 
-            // Agregar una nueva clave foránea que apunte a la tabla estanciarequisitos
             $table->foreign('id_estancia')->references('id')->on('estanciarequisitos');
         });
     }

@@ -26,8 +26,8 @@
                                         <td class="border px-4 py-2">{{ $requisito->nombre }}</td>
                                         <td class="border px-4 py-2">
                                         
-                                            <a class="text-blue-500 underline" href="{{ asset($rutasArchivos[$index]->archivo) }}">
-                                            {{ str_replace('solicitudes/', '', $rutasArchivos[$index]->archivo) }}
+                                            <a class="text-blue-500 underline" href="{{ asset($rutasArchivos[$index]) }}">
+                                            {{ str_replace('solicitudes/', '', $rutasArchivos[$index]) }}
 
                                             </a>
                                         </td>

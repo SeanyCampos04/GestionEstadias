@@ -12,9 +12,9 @@ class AddCurpToDocentesTable extends Migration
      */
     public function up()
     {
-        Schema::table('docentes', function (Blueprint $table) {
+        //Schema::table('docentes', function (Blueprint $table) {
             //$table->string('curp')->nullable()->after('rfc');
-        });
+        //});
     }
 
     /**
@@ -24,8 +24,8 @@ class AddCurpToDocentesTable extends Migration
      */
     public function down()
     {
-        Schema::table('docentes', function (Blueprint $table) {
-            $table->dropColumn('curp');
-        });
+        //Schema::table('docentes', function (Blueprint $table) {
+          //  $table->dropColumn('curp');
+        //});
     }
 }

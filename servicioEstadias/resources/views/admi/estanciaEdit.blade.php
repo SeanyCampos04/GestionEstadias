@@ -25,10 +25,6 @@
                                         <input type="date" class="form-control rounded" id="fecha_cierre" name="fecha_cierre" value="{{ $estancia->fecha_cierre }}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="periodo_duracion">Periodo de duración:</label>
-                                        <input type="text" class="form-control rounded" id="periodo_duracion" name="periodo_duracion" value="{{ $estancia->periodo_duracion }}">
-                                    </div>
-                                    <div class="form-group">
                                         <label for="requisitos">Requisitos:</label>
                                         <select multiple class="form-control rounded" id="requisitos" name="requisitos[]">
                                         @foreach ($requisitos as $requisito)

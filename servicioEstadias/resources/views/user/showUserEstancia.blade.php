@@ -18,8 +18,6 @@
                             <hr>
                             <p class="card-text">Fecha de Convocatoria: {{ $estancia->fecha_convocatoria }}</p>
                             <hr>
-                            <p class="card-text">Periodo de Duración: {{ $estancia->periodo_duracion }}</p>
-                            <hr>
                             <p class="card-text">Archivo de Convocatoria:
                                 <a class="text-blue-500 underline" href="{{ asset($estancia->archivo_convocatoria) }}" target="_blank">Ver PDF</a>
                             </p>

@@ -18,10 +18,7 @@ class InformesController extends Controller
             'informe' => 'required|file|mimes:pdf|max:2048',
         ]);
 
-        // Obtener el usuario autenticado
         $user = Auth::user();
-
-        // Obtener la solicitud con status 2 del usuario autenticado
         $solicitud = Solicitudes::where('email', $user->email)
                         ->whereIn('status', [2, 5])
                         ->firstOrFail();

@@ -14,14 +14,12 @@
         <thead>
             <tr>
                 <th>Nombre</th>
-                <th>Periodo Duración</th>
             </tr>
         </thead>
         <tbody>
 
                 <tr>
                     <td>{{ $estancia->nombre }}</td>
-                    <td>{{ $estancia->periodo_duracion }}</td>
                 </tr>
         </tbody>
     </table>

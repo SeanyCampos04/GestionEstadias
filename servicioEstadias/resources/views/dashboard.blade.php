@@ -3,9 +3,9 @@
 
     </x-user-layout>
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex justify-between">
-                <div class="w-full flex flex-wrap justify-center">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
+            <div class="flex justify-between py-12">
+                <div class="w-full flex flex-wrap justify-center px-6 py-12">
                     @foreach ($estancias as $estancia)
                     @if($estancia->vigente==1)
                     @else

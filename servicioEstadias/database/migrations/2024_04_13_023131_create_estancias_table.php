@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->date('fecha_convocatoria');
             $table->date('fecha_cierre');
-            $table->string('periodo_duracion');
+            //$table->string('periodo_duracion');
             $table->string('archivo_convocatoria');
             $table->string('vigente')->default(0);
             //$table->unsignedBigInteger('id_estanciarequisitos'); // Cambiamos el nombre de la columna
