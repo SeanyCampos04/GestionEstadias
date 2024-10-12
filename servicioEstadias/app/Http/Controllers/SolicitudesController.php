@@ -247,4 +247,22 @@ class SolicitudesController extends Controller
     // Redireccionar o proporcionar alguna respuesta adecuada
     return redirect()->route('userSolicitudes')->with('success', 'Archivos actualizados correctamente.');
 }
+    public function VinculacionShowRequest($id){
+        $solicitud=Solicitudes::findOrFail($id);
+        return view('vinculacion.showRequestVinculacion',compact('solicitud'));
+    }
+    public function validaConvenio($id){
+        $solicitud=Solicitudes::findOrFail($id);
+        $solicitud->status_convenio=2;
+
+        $solicitud->save();
+        return redirect()->route('vinculacionDashboard')-> with('success','Convenio validado correctamente');
+    }
+    public function rechazaConvenio($id){
+        $solicitud=Solicitudes::findOrFail($id);
+        $solicitud->status_convenio=1;
+
+        $solicitud->save();
+        return redirect()->route('vinculacionDashboard')-> with('success','Convenio rechazado correctamente');
+    }
 }

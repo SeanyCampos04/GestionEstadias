@@ -8,7 +8,7 @@ use App\Http\Controllers\InformesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('auth.register');
+    return view('auth.login');
 });
 
 /*Route::get('/admindashboard', [EstanciaController::class, 'index'])
@@ -61,6 +61,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/informesView/{id}', [DocenteController::class, 'verArchivos'])->name('informesView');
     Route::get('/informes/{id}', [DocenteController::class, 'generarInforme'])->name('informes');
     Route::post('/informes/upload', [InformesController::class, 'guardarInformes'])->name('uploadinformes');
+
+    //Usuario vinculacion 
+     Route::get('/ShowRequest/{id}', [SolicitudesController::class, 'VinculacionShowRequest'])->name('MostrarSolicitudVinculacion');
+     Route::post('/validar-convenio/{id}', [SolicitudesController::class, 'validaConvenio'])->name('valida_convenio');
+     Route::post('/rechaza-convenio/{id}', [SolicitudesController::class, 'rechazaConvenio'])->name('rechaza_convenio');
 });
 
 require __DIR__.'/auth.php';

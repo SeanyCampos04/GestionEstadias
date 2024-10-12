@@ -26,7 +26,7 @@ class EstanciaController extends Controller
     }
     public function indexVinculacion()
     {
-        $estancias = Estancia::all(); 
+        $estancias = Solicitudes::where('status',0)->get(); 
 
         return view('vinculacion.vinculacionDashboard', compact('estancias')); 
     }

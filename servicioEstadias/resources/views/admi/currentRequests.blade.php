@@ -25,6 +25,7 @@
                                             @elseif($request->status==4)
                                             @elseif($request->status==5)
                                             @elseif($request->status==7)
+                                            @elseif($request->status_convenio==1)
                                             @else
                                             <tr>
                                                 <td>{{ $request->id }}</td>
@@ -44,14 +45,19 @@
                                                     @if($request->status==6)
                                                     <a href="{{ route('informes.showUploadForm', $request->id) }}" class="text-blue-500 hover:text-blue-700">Generar Constancia</a>
                                                     @else
-                                                    <a href="{{ route('admiShowRequest', $request->id) }}" class="text-blue-500 hover:text-blue-700">Ver Solicitud</a>
+                                                        @if($request->status_convenio==null)
+
+                                                        @else
+                                                            <a href="{{ route('admiShowRequest', $request->id) }}" class="text-blue-500 hover:text-blue-700">Ver Solicitud</a>
                                                     @endif
+                                                     @endif
                                                 </td>
                                             </tr>
                                             @endif
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <p class="text-red-500">Nota:Cuando no aparezcan acciones para una solicitud significa que falta validacion de convenio por parte del departamento de Vinculacion, por lo cual le pedimos esperar dicha respuesta.</p>
                             </div>
                             <div class="form-group text-center">
                                         <a href="{{ route('adminDashboard') }}" class="btn btn-secondary">Regresar</a>
