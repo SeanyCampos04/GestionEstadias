@@ -7,6 +7,10 @@
                         <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
                             <div class="overflow-x-auto">
                                 <h1 class="text-center text-3xl">Lista de Docentes</h1>
+                                <a href="{{ route('docente.create') }}" 
+                                       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        + Nuevo Docente
+                                    </a>
                                 <table class="table mt-4">
                                     <thead>
                                         <tr>
@@ -22,6 +26,7 @@
                                     <tbody>
                                         @foreach ($docentes as $docente)
                                         @if($docente->id==1)
+                                        @elseif ($docente->name=='Gestión Tecnológica y Vinculación')
                                         @else
                                             <tr>
                                             <td>{{ ($docentes->currentPage() - 1) * $docentes->perPage() + $loop->iteration }}</td>
@@ -30,7 +35,28 @@
                                                 <td>{{ $docente->rfc }}</td>
                                                 <td>{{ $docente->nombramiento }}</td>
                                                 <td>{{ $docente->academia }}</td>
-                                                <td><a class="text-blue-500 underline" href="{{ route('docente.edit', $docente->id) }}"> Editar</a></td>
+                                                <td>
+                                                    <a class="bg-green text-blue-500 underline" 
+                                                    href="{{ route('docente.edit', $docente->id) }}">
+                                                        Editar
+                                                    </a>
+
+                                                    <a href="#" class="text-red-500 underline ml-4" 
+                                                    onclick="event.preventDefault(); 
+                                                                if(confirm('¿Estás seguro de eliminar este docente?')) { 
+                                                                    document.getElementById('delete-docente-{{ $docente->id }}').submit(); 
+                                                                }">
+                                                        Eliminar
+                                                    </a>
+
+                                                    <form id="delete-docente-{{ $docente->id }}" 
+                                                        action="{{ route('docente.destroy', $docente->id) }}" 
+                                                        method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </td>
+
                                             </tr>
                                         @endif
                                         @endforeach

@@ -79,5 +79,46 @@ class DocenteController extends Controller
     return view('user.enableInformes', compact('solicitud', 'camposHabilitados'));
 
     }
+
+    public function destroy($id)
+    {
+        $estancias = Estancia::all();
+        $docente = User::findOrFail($id);
+        $docente->delete();
+
+        return view('admi.adminDashboard',compact('estancias'))->with('success', 'Docente eliminado correctamente.');
+    }
+
+    public function create()
+    {
+        return view('admi.docenteCreate');
+    }
+
+    // Guardar un nuevo docente
+    public function store(Request $request)
+    {
+        $estancias=Estancia::all();
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:docentes,email',
+            'rfc' => 'required|string|max:13',
+            'nombramiento' => 'required|string|max:255',
+            'academia' => 'required|string|max:255',
+            'password' => 'required|string|min:9',
+        ]);
     
+        // Crear un nuevo docente con la contraseña hasheada
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'rfc' => $request->rfc,
+            'nombramiento' => $request->nombramiento,
+            'academia' => $request->academia,
+            'password' => bcrypt($request->password), // Hasheamos la contraseña
+        ]);
+
+        // Redireccionar con mensaje de éxito
+        return view('admi.adminDashboard', compact('estancias'))
+                         ->with('success', 'Docente registrado exitosamente.');
+    }
 }

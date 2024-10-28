@@ -10,7 +10,7 @@
                                 <form method="POST" action="{{ route('guardar-estancia') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-4">
-                                        <label for="nombre" class="block text-gray-700 font-bold mb-2">Nombre de la estadía:</label>
+                                        <label for="nombre" class="block text-gray-700 font-bold mb-2">Nombre de la estancia:</label>
                                         <input type="text" id="nombre" name="nombre" class="form-input rounded-md w-full">
                                     </div>
                                     <div class="mb-4">
@@ -29,7 +29,10 @@
                                         <label for="requisitos" class="block text-gray-700 font-bold mb-2">Seleccionar requisitos (CTRL + Click):</label>
                                         <select name="requisitos[]" id="requisitos" multiple class="form-multiselect rounded-md w-full py-6">
                                             @foreach($requisitos as $requisito)
+                                            @if($requisito->nombre=='Convocatoria')
+                                            @else
                                                 <option value="{{ $requisito->id }}">{{$requisito->id}}.- {{ $requisito->nombre }}</option>
+                                            @endif
                                             @endforeach
                                         </select>
                                     </div>

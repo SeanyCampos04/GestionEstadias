@@ -17,7 +17,7 @@
                         <div id="dropdownMenu" class="absolute top-10 right-0 mt-2 bg-white border border-gray-300 rounded shadow-lg hidden">
                             <a href="{{ route('historico-solicitudes') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Histórico Solicitudes</a>
                             <a href="{{route('historico-convocatorias')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Histórico Convocatorias</a>
-                            <a href="{{route('showUsers')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Registros de Usuarios</a>
+                            <a href="{{route('showUsers')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Gestión de Usuarios</a>
                         </div>
                     </div>
                     <form method="POST" action="{{ route('logout') }}">

@@ -9,15 +9,19 @@
                     @foreach ($estancias as $estancia)
                     @if($estancia->vigente==1)
                     @else
-                    <div class="card items-center mx-4 mb-4">
-                        <img src="images/tec.jpg" alt="Imagen de la estancia" width="150" height="150">
+                    <div class="col-md-4 mb-4">
+                    <div class="card mx-4 mb-4" style="height:400 px;">
+                        <center><img src="images/tec.jpg" alt="Imagen de la estancia" width="200" height="200"></center>
                         <div class="card-body">
-                            <h5 class="card-title">{{ $estancia->nombre }}</h5><br>
-                            <p class="card-text">Fecha de apertura: {{ $estancia->fecha_convocatoria }}</p>
-                            <p class="card-text">Fecha de cierre: {{ $estancia->fecha_cierre }}</p><br>
+                            <h5 class="card-title p-2 text-2xl">{{ $estancia->nombre }}</h5><br>
+                            <p class="card-text">Fecha de apertura: <br> {{ $estancia->fecha_convocatoria }}</p>
+                            <p class="card-text">Fecha de cierre: <br> {{ $estancia->fecha_cierre }}</p><br>
                             
+                            <div class="d-felx">
                             <a href="{{ route('showUserEstancia', $estancia->id) }}" class="btn btn-primary">Ver más</a>
+                            </div>
                         </div>
+                    </div>
                     </div>
                     @endif
                     @endforeach

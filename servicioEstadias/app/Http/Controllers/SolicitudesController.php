@@ -261,6 +261,7 @@ class SolicitudesController extends Controller
     public function rechazaConvenio($id){
         $solicitud=Solicitudes::findOrFail($id);
         $solicitud->status_convenio=1;
+        $solicitud->status=3;
 
         $solicitud->save();
         return redirect()->route('vinculacionDashboard')-> with('success','Convenio rechazado correctamente');

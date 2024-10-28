@@ -24,6 +24,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Usuario admin
+    Route::get('/docente/create', [DocenteController::class, 'create'])->name('docente.create');
+    Route::post('/docente', [DocenteController::class, 'store'])->name('docente.store');
+    Route::delete('/docentes/{id}', [DocenteController::class, 'destroy'])->name('docente.destroy');
     Route::get('/adminInformes', [InformesController::class, 'showInformes'])->name('showInformes');
     Route::get('/showUsers', [EstanciaController::class, 'showUsers'])->name('showUsers');
     Route::get('/historico-convocatorias', [EstanciaController::class, 'historicoEstancias'])->name('historico-convocatorias');
