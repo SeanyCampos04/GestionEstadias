@@ -1,3 +1,6 @@
+<?php
+use Carbon\Carbon;
+?>
 <x-app-layout>
     <x-user-layout>
 
@@ -14,8 +17,9 @@
                         <center><img src="images/tec.jpg" alt="Imagen de la estancia" width="200" height="200"></center>
                         <div class="card-body">
                             <h5 class="card-title p-2 text-2xl">{{ $estancia->nombre }}</h5><br>
-                            <p class="card-text">Fecha de apertura: <br> {{ $estancia->fecha_convocatoria }}</p>
-                            <p class="card-text">Fecha de cierre: <br> {{ $estancia->fecha_cierre }}</p><br>
+                            <p class="card-text font-bold">Institución: <br> {{ $estancia->empresa }}</p>
+                            <p class="card-text">Fecha de apertura: <br> {{ \Carbon\Carbon::parse($estancia->fecha_convocatoria)->format('d-m-Y') }}</p>
+                            <p class="card-text">Fecha de cierre: <br>{{ \Carbon\Carbon::parse($estancia->fecha_cierre)->format('d-m-Y') }}</p><br>
                             
                             <div class="d-felx">
                             <a href="{{ route('showUserEstancia', $estancia->id) }}" class="btn btn-primary">Ver más</a>

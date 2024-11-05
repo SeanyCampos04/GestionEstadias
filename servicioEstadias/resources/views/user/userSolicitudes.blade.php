@@ -19,6 +19,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Nombre Estancia</th>
+                                            <th>Empresa</th>
                                             <th>Fecha de Solicitud</th>
                                             <th>Status</th>
                                             <th>Observaciones</th>
@@ -30,7 +31,8 @@
                                             <tr>
                                                 <td>{{ $solicitud->id }}</td>
                                                 <td>{{ $solicitud->estancia->nombre }}</td>
-                                                <td>{{ $solicitud->fecha_solicitud }}</td>
+                                                <td>{{ $solicitud->empresa}}</td>
+                                                <td>{{ \Carbon\Carbon::parse($solicitud->fecha_solicitud)->format('d-m-Y') }}</td>
                                                 <td>
                                                     @if ($solicitud->status == 0)
                                                         En revisión

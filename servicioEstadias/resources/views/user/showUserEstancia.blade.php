@@ -16,7 +16,7 @@
                             <hr>
                             <h4 class="card-title">Nombre: <b>{{ $estancia->nombre }}</b></h4>
                             <hr>
-                            <p class="card-text">Fecha de Convocatoria: {{ $estancia->fecha_convocatoria }}</p>
+                            <p class="card-text">Fecha de Convocatoria: {{ \Carbon\Carbon::parse($estancia->fecha_convocatoria)->format('d-m-Y') }}</p>
                             <hr>
                             <p class="card-text">Archivo de Convocatoria:
                                 <a class="text-blue-500 underline" href="{{ asset($estancia->archivo_convocatoria) }}" target="_blank">Ver PDF</a>

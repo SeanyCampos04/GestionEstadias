@@ -60,6 +60,7 @@ class EstanciaController extends Controller
     // Validación de los campos de la estancia
     $request->validate([
         'nombre' => 'required|string',
+        'empresa' => 'required|string',
         'fecha_convocatoria' => 'required|date',
         'fecha_cierre' => 'required|date',
         'archivo_convocatoria' => 'required|file|mimes:pdf',
@@ -68,9 +69,9 @@ class EstanciaController extends Controller
     // Crear una nueva instancia de Estancia y guardar los datos
     $estancia = new Estancia();
     $estancia->nombre = $request->nombre;
+    $estancia->empresa = $request->empresa;
     $estancia->fecha_convocatoria = $request->fecha_convocatoria;
     $estancia->fecha_cierre = $request->fecha_cierre;
-//    $estancia->periodo_duracion = $request->periodo_duracion;
 
     // Guardar el archivo de convocatoria
     $archivoConvocatoria = $request->file('archivo_convocatoria');

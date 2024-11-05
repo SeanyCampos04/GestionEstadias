@@ -14,6 +14,10 @@
                                         <input type="text" id="nombre" name="nombre" class="form-input rounded-md w-full">
                                     </div>
                                     <div class="mb-4">
+                                        <label for="empresa" class="block text-gray-700 font-bold mb-2">Empresa/Institución:</label>
+                                        <input type="text" id="empresa" name="empresa" class="form-input rounded-md w-full">
+                                    </div>
+                                    <div class="mb-4">
                                         <label for="fecha_convocatoria" class="block text-gray-700 font-bold mb-2">Fecha de apertura convocatoria:</label>
                                         <input type="date" id="fecha_convocatoria" name="fecha_convocatoria" class="form-input rounded-md w-full">
                                     </div>

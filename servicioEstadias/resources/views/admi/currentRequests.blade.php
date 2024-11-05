@@ -1,3 +1,6 @@
+<?php
+use Carbon\Carbon;
+?>
 <x-app-layout>
     <x-admin-layout>
         <div class="py-12">
@@ -13,6 +16,7 @@
                                             <th>ID</th>
                                             <th>Docente</th>
                                             <th>Email</th>
+                                            <th>Empresa</th>
                                             <th>Status</th>
                                             <th>Fecha de Solicitud</th>
                                             <th>Acciones</th>
@@ -31,6 +35,7 @@
                                                 <td>{{ $request->id }}</td>
                                                 <td>{{ $request->docente }}</td>
                                                 <td>{{ $request->email }}</td>
+                                                <td>{{ $request->empresa }}</td>
                                                 <td>
                                                     @if($request->status==0)
                                                         En revisión
@@ -40,7 +45,7 @@
                                                         Terminado, falta enviar Constancia    
                                                     @endif
                                                 </td>
-                                                <td>{{ $request->fecha_solicitud }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($request->fecha_solicitud)->format('d-m-Y') }}</td>
                                                 <td>
                                                     @if($request->status==6)
                                                     <a href="{{ route('informes.showUploadForm', $request->id) }}" class="text-blue-500 hover:text-blue-700">Generar Constancia</a>

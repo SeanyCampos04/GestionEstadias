@@ -1,3 +1,6 @@
+<?php
+use Carbon\Carbon;
+?>
 <x-app-layout>
     <x-admin-layout>
         <div class="py-12">
@@ -13,6 +16,7 @@
                                             <th>ID</th>
                                             <th>Docente</th>
                                             <th>Email</th>
+                                            <th>Empresa</th>
                                             <th>Status</th>
                                             <th>Fecha de Solicitud</th>
                                         </tr>
@@ -23,6 +27,7 @@
                                                 <td>{{ $request->id }}</td>
                                                 <td>{{ $request->docente }}</td>
                                                 <td>{{ $request->email }}</td>
+                                                <td>{{ $request->empresa }}</td>
                                                 <td>
                                                     @if($request->status==0)
                                                         En revisión
@@ -42,7 +47,7 @@
                                                         Estancia Terminada y liberada        
                                                     @endif
                                                 </td>
-                                                <td>{{ $request->fecha_solicitud }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($request->fecha_solicitud)->format('d-m-Y') }}</td>
                                                 
                                             </tr>
                                         @endforeach

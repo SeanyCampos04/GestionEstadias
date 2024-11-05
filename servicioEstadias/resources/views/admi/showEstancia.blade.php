@@ -1,3 +1,6 @@
+<?php
+use Carbon\Carbon;
+?>
 <x-app-layout>
     <x-admin-layout>
 
@@ -15,9 +18,11 @@
                             <hr><br>
                             <h5 class="card-title">Nombre: {{ $estancia->nombre }}</h5>
                             <hr><br>
-                            <p class="card-text">Fecha de apertura de convocatoria: {{ $estancia->fecha_convocatoria }}</p>
+                            <p class="card-text">Empresa/Institución: {{ $estancia->empresa }}</p>
                             <hr><br>
-                            <p class="card-text">Fecha de cierre de convocatoria: {{ $estancia->fecha_cierre }}</p>
+                            <p class="card-text">Fecha de apertura de convocatoria: {{ \Carbon\Carbon::parse($estancia->fecha_convocatoria)->format('d-m-Y') }}</p>
+                            <hr><br>
+                            <p class="card-text">Fecha de cierre de convocatoria: {{ \Carbon\Carbon::parse($estancia->fecha_cierre)->format('d-m-Y') }}</p>
                             <hr><br>
                             <p class="card-text">Archivo de Convocatoria:
                                 <a class="text-blue-500 underline" href="{{ asset($estancia->archivo_convocatoria) }}" target="_blank">Ver PDF</a>
