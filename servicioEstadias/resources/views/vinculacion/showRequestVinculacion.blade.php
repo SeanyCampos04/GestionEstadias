@@ -14,7 +14,7 @@ use Carbon\Carbon;
 
                    
                         <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full max-w-lg p-6">
-                        <center><img src="images/teclogo.jpg" alt="" width="200" height="200"></center>
+                        <center><img src="{{asset('images/teclogo.jpg')}}" alt="" width="200" height="200"></center> <br>
                         <div class="bg-white">
                                 <h2 class="text-xl font-semibold mb-2">Solicitante: {{$solicitud->docente}}</h2>
                                 <p><strong>Empresa/Institución:</strong> {{ $solicitud->empresa }}</p>

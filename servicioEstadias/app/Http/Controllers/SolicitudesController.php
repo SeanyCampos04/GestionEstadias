@@ -45,43 +45,55 @@ class SolicitudesController extends Controller
 
 
     public function generarSolicitud(Request $request, $id)
-    {
-        $request->validate([
-            // Aquí puedes agregar validaciones para los archivos subidos si es necesario
-        ]);
+{
+    $request->validate([
+        // Aquí puedes agregar validaciones para los archivos subidos si es necesario
+    ]);
 
-        // Crear una nueva instancia de Solicitud y guardar los datos
-        $solicitud = new Solicitudes();
-        $solicitud->id_estancia = $id;
-        $solicitud->email = $request->input('email');
-        $solicitud->docente = auth()->user()->name; // Obtener el nombre del usuario autenticado
-        $solicitud->fecha_solicitud = now()->toDateString();
-        $solicitud->status = 0; // En revisión
-        $solicitud->periodo_duracion = 'ad2024';
-        //$solicitud->save();
+    // Crear una nueva instancia de Solicitud y asignar datos iniciales
+    $solicitud = new Solicitudes();
+    $solicitud->id_estancia = $id;
+    $solicitud->email = $request->input('email');
+    $solicitud->docente = auth()->user()->name; // Obtener el nombre del usuario autenticado
+    $solicitud->fecha_solicitud = now()->toDateString();
+    $solicitud->status = 0; // En revisión
+    $solicitud->periodo_duracion = 'ad2024';
+    $solicitud->requisitos = json_encode([]); // Inicializar el campo con un JSON vacío
 
-        // Obtener el ID recién creado de la solicitud
-        $idSolicitud = $solicitud->id;
+    // Guardar la solicitud para generar el ID
+    $solicitud->save();
 
-        // Procesar los archivos adjuntos y guardar sus rutas en un JSON
-        $requisitosAdjuntos = [];
-        for ($i = 1; $i <= 8; $i++) { // Cambia este rango según la cantidad de requisitos
-            if ($request->hasFile('archivo_adjunto_' . $i)) {
-                $archivo = $request->file('archivo_adjunto_' . $i);
-                $nombreArchivo = $archivo->getClientOriginalName();
-                $rutaArchivo = 'solicitudes/' .  '/' . $nombreArchivo;
-                $archivo->move(public_path('solicitudes/'), $nombreArchivo);
-                $requisitosAdjuntos[] = $rutaArchivo;
+    // Obtener el ID recién creado de la solicitud
+    $idSolicitud = $solicitud->id;
+
+    // Procesar los archivos adjuntos y guardar sus rutas en un JSON
+    $requisitosAdjuntos = [];
+    for ($i = 1; $i <= 8; $i++) { // Cambia este rango según la cantidad de requisitos
+        if ($request->hasFile('archivo_adjunto_' . $i)) {
+            $archivo = $request->file('archivo_adjunto_' . $i);
+            $nombreArchivo = $archivo->getClientOriginalName();
+            $rutaArchivo = 'solicitudes/' . $idSolicitud;
+
+            // Crear el directorio si no existe
+            if (!file_exists(public_path($rutaArchivo))) {
+                mkdir(public_path($rutaArchivo), 0777, true);
             }
+
+            // Mover el archivo al directorio
+            $archivo->move(public_path($rutaArchivo), $nombreArchivo);
+
+            // Agregar la ruta al array
+            $requisitosAdjuntos[] = $rutaArchivo . '/' . $nombreArchivo;
         }
-
-        // Convertir el array de rutas en un JSON y guardarlo en la solicitud
-        $solicitud->requisitos = json_encode($requisitosAdjuntos);
-        $solicitud->save();
-
-        // Redireccionar a la vista de éxito o a donde sea necesario
-        return view('user.successRequest');
     }
+
+    // Actualizar el campo requisitos con el JSON de rutas y guardar nuevamente
+    $solicitud->requisitos = json_encode($requisitosAdjuntos);
+    $solicitud->save();
+
+    // Redireccionar a la vista de éxito o a donde sea necesario
+    return view('user.successRequest');
+}
     
     public function index()
     {
