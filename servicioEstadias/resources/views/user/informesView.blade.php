@@ -1,5 +1,6 @@
 <x-app-layout>
-    <x-user-layout></x-user-layout>
+    <x-user-layout></x-user-layout><br>
+    <x-username-layout />
     
     <div class="container mx-auto py-5">
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">

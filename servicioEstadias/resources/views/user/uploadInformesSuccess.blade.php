@@ -1,5 +1,6 @@
 <x-app-layout>
-    <x-user-layout></x-user-layout>
+    <x-user-layout></x-user-layout><br>
+    <x-username-layout />
     <div class="card py-5">
         <div class="card-header">
             <h1>Creado con exito.</h1>

@@ -4,7 +4,8 @@ use Carbon\Carbon;
 <x-app-layout>
     <x-vinculacion-layout>
 
-    </x-vinculacion-layout>
+    </x-vinculacion-layout><br>
+    <x-username-layout />
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
         <div class="flex py-12">
@@ -21,7 +22,7 @@ use Carbon\Carbon;
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>No.</th>
                                             <th>Docente</th>
                                             <th>Email</th>
                                             <th>Empresa</th>
@@ -36,7 +37,7 @@ use Carbon\Carbon;
 
                                         @else
                                             <tr>
-                                                <td>{{ $request->id }}</td>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $request->docente }}</td>
                                                 <td>{{ $request->email }}</td>
                                                 <td>{{ $request->empresa }}</td>

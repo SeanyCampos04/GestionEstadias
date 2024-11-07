@@ -64,11 +64,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/informesView/{id}', [DocenteController::class, 'verArchivos'])->name('informesView');
     Route::get('/informes/{id}', [DocenteController::class, 'generarInforme'])->name('informes');
     Route::post('/informes/upload', [InformesController::class, 'guardarInformes'])->name('uploadinformes');
+    Route::get('/solicitudes/archivo/{id}/{nombreArchivo}', [SolicitudesController::class, 'mostrarArchivo'])->name('solicitudes.archivo');
+
 
     //Usuario vinculacion 
      Route::get('/ShowRequest/{id}', [SolicitudesController::class, 'VinculacionShowRequest'])->name('MostrarSolicitudVinculacion');
      Route::post('/validar-convenio/{id}', [SolicitudesController::class, 'validaConvenio'])->name('valida_convenio');
      Route::post('/rechaza-convenio/{id}', [SolicitudesController::class, 'rechazaConvenio'])->name('rechaza_convenio');
+     Route::post('/convenio-inexistente/{id}', [SolicitudesController::class, 'convenioInexistente'])->name('convenio_inexistente');
 });
 
 require __DIR__.'/auth.php';

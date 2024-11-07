@@ -9,7 +9,7 @@ class Estancia extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nombre', 'fecha_inicio', 'fecha_cierre', 'archivo_convocatoria', 'vigente', 
+        'nombre','empresa','fecha_inicio', 'fecha_cierre', 'archivo_convocatoria', 'vigente', 
     ];
 
     /*public function requisitos()

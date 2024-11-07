@@ -7,8 +7,10 @@ use Carbon\Carbon;
 
     </x-slot>
 
-</x-admin-layout>
+</x-admin-layout><br>
+<x-username-layout />
 <div class="py-12">
+
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
             <div class="w-full flex flex-wrap justify-center">
             @if (session('success'))
@@ -28,7 +30,7 @@ use Carbon\Carbon;
                         @foreach ($estancias as $estancia)
                         @if ($estancia->vigente == 0)
                             <div class="col-md-4 mb-4">
-                                <div class="card" style="height: 400px;">
+                                <div class="card" style="height: 500px;">
                                     <center><img src="images/tec.jpg" alt="Imagen de la estancia" width="200" height="200"></center>
                                     <div class="card-body">
                                         <h5 class="card-title p-2 text-2xl">{{ $estancia->nombre }}</h5>
@@ -40,7 +42,7 @@ use Carbon\Carbon;
                                             <form action="{{ route('eliminar-estancia', $estancia->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Ocultar</button>
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
                                             </form>
                                         </div>
                                     </div>

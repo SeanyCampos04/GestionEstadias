@@ -1,10 +1,11 @@
 <x-app-layout>
-    <x-admin-layout>
+    <x-admin-layout>    </x-admin-layout><br>
+    <x-username-layout />
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-x-auto">
                     <div class="min-w-screen py-5 flex items-center justify-center">
-                        <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
+                        <div class="bg-white text-gray-600 rounded-lg shadow-xl w-full">
                             <div class="overflow-x-auto px-6">
                                 <h1 class="flex items-center justify-center text-3xl">Nueva Convocatoria</h1>
                                 <form method="POST" action="{{ route('guardar-estancia') }}" enctype="multipart/form-data">
@@ -35,7 +36,7 @@
                                             @foreach($requisitos as $requisito)
                                             @if($requisito->nombre=='Convocatoria')
                                             @else
-                                                <option value="{{ $requisito->id }}">{{$requisito->id}}.- {{ $requisito->nombre }}</option>
+                                                <option value="{{ $requisito->id }}">{{$loop->iteration-1}}.- {{ $requisito->nombre }}</option>
                                             @endif
                                             @endforeach
                                         </select>
@@ -54,6 +55,6 @@
                 </div>
             </div>
         </div>
-    </x-admin-layout>
+
 </x-app-layout>
 <x-footer></x-footer>

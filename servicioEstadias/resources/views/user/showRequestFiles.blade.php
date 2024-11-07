@@ -1,5 +1,6 @@
 <x-app-layout class="py-0">
-    <x-user-layout></x-user-layout>
+    <x-user-layout></x-user-layout><br>
+    <x-username-layout />
     <div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">   
             <div class="min-w-screen py-5 flex items-center justify-center">
@@ -21,23 +22,27 @@
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
-                                @foreach ($requisitos as $index => $requisito)
-                                    <tr>
-                                        <td class="border px-4 py-2">{{ $requisito->nombre }}</td>
-                                        <td class="border px-4 py-2">
-                                        
-                                            <a class="text-blue-500 underline" href="{{ asset($rutasArchivos[$index]) }}">
-                                            {{ str_replace('solicitudes/', '', $rutasArchivos[$index]) }}
 
-                                            </a>
-                                        </td>
-                                        <td class="border px-4 py-2" id="file_display_{{ $index }}"></td>
-                                        <td>
-                                            <label for="file_{{ $index }}" class="text-blue-500 underline cursor-pointer">Modificar</label>
-                                            <input type="file" id="file_{{ $index }}" class="hidden" onchange="updateFileName(this, 'file_display_{{ $index }}')" name="nuevo_archivo_{{ $index }}">
-                                        </td>
-                                    </tr>
-                                @endforeach
+                           @foreach ($requisitos as $index => $requisito)
+    <tr>
+        <td class="border px-4 py-2">{{ $requisito->nombre }}</td>
+        <td class="border px-4 py-2">
+            @if (!empty($rutasArchivos[$index]['archivo']))
+                <a class="text-blue-500 underline" href="{{ asset($rutasArchivos[$index]['archivo']) }}">
+                    {{ basename($rutasArchivos[$index]['archivo']) }}
+                </a>
+            @else
+                <span class="text-red-500">Archivo no disponible</span>
+            @endif
+        </td>
+        <td class="border px-4 py-2" id="file_display_{{ $index }}"></td>
+        <td>
+            <label for="file_{{ $index }}" class="text-blue-500 underline cursor-pointer">Modificar</label>
+            <input type="file" id="file_{{ $index }}" class="hidden" onchange="updateFileName(this, 'file_display_{{ $index }}')" name="nuevo_archivo_{{ $index }}">
+        </td>
+    </tr>
+@endforeach
+
                             </tbody>
                         </table>
                         <button type="submit" class="inline-block bg-green-500 px-4 py-2 rounded-md text-white hover:bg-green-600 ml-4">Guardar cambios</button>

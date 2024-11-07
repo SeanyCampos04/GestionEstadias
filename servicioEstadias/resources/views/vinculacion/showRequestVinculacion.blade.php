@@ -4,7 +4,8 @@ use Carbon\Carbon;
 <x-app-layout>
     <x-vinculacion-layout>
 
-    </x-vinculacion-layout>
+    </x-vinculacion-layout><br>
+    <x-username-layout />
     <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
         <div class="flex py-12">
@@ -20,7 +21,7 @@ use Carbon\Carbon;
                                 <p><strong>Empresa/Institución:</strong> {{ $solicitud->empresa }}</p>
                                 <p><strong>Email:</strong> {{ $solicitud->email }}</p>
                                 <p><strong>Fecha de Solicitud:</strong> {{ \Carbon\Carbon::parse($solicitud->fecha_solicitud)->format('d-m-Y') }}</p>
-                                <p><strong>Status:</strong> 
+                                <p><strong>Estado:</strong> 
                                     @if($solicitud->status == 0)
                                         En revisión
                                     @elseif($solicitud->status == 1)
@@ -31,12 +32,16 @@ use Carbon\Carbon;
                             <div class="flex space-x-2 mt-4">
                                 <form method="POST" action="{{ route('valida_convenio', $solicitud->id) }}">
                                     @csrf
-                                    <button type="submit" class="bg-green-500 px-4 py-2 rounded-md text-white hover:bg-green-600">Aceptar</button>
+                                    <button type="submit" class="bg-green-500 px-4 py-2 rounded-md text-white hover:bg-green-600">Convenio Válido</button>
                                 </form>
 
                                 <form method="POST" action="{{ route('rechaza_convenio', $solicitud->id) }}">
                                     @csrf
-                                    <button type="submit" class="bg-red-500 px-4 py-2 rounded-md text-white hover:bg-red-600">Rechazar</button>
+                                    <button type="submit" class="bg-red-500 px-4 py-2 rounded-md text-white hover:bg-red-600">Convenio no Válido</button>
+                                </form>
+                                <form method="POST" action="{{ route('convenio_inexistente', $solicitud->id) }}">
+                                    @csrf
+                                    <button type="submit" class="bg-yellow-500 px-4 py-2 rounded-md text-white hover:bg-yellow-600">Convenio Inexistente</button>
                                 </form>
                             </div>
                         </div>

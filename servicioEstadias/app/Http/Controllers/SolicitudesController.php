@@ -98,7 +98,9 @@ class SolicitudesController extends Controller
     public function index()
     {
         $userId = Auth::user()->email;
-        $solicitudes = Solicitudes::where('email', $userId)->get();
+        $solicitudes = Solicitudes::where('email', $userId)
+        ->orderBy('status', 'asc')
+        ->get();
 
         return view('user.userSolicitudes', compact('solicitudes'));
     }
@@ -107,18 +109,39 @@ class SolicitudesController extends Controller
     public function showRequestFiles($id)
     {
         $solicitud = Solicitudes::findOrFail($id);
-
         $estanciaRequisitos = EstanciaRequisitos::where('id_estancia', $solicitud->id_estancia)->first();
-
         $idsRequisitos = json_decode($estanciaRequisitos->id_requisitos);
-
-        // Obtener los nombres de los requisitos de la tabla requisitos
+        
+        // Obtener los nombres de los requisitos
         $requisitos = Requisitos::whereIn('id', $idsRequisitos)->get();
-        $rutasArchivos = json_decode($solicitud->requisitos, true);
-
-        $rutasArchivos = array_pad($rutasArchivos, count($requisitos), null);
-        return view('user.showRequestFiles', compact('requisitos','rutasArchivos','solicitud'));
+        
+        // Decodificar el campo requisitos y verificar que contenga arrays con clave 'archivo'
+        $rutasArchivos = json_decode($solicitud->requisitos, true) ?? [];
+        
+        // Normalizar el array para asegurarnos de que todos tengan la clave 'archivo'
+        $rutasArchivos = array_map(function($item) {
+            return is_array($item) ? $item : ['archivo' => $item];
+        }, $rutasArchivos);
+    
+        $rutasArchivos = array_pad($rutasArchivos, count($requisitos), ['archivo' => null]);
+    
+        return view('user.showRequestFiles', compact('requisitos', 'rutasArchivos', 'solicitud'));
     }
+    
+
+public function mostrarArchivo($id, $nombreArchivo)
+{
+    $rutaArchivo = public_path("solicitudes/{$id}/{$nombreArchivo}");
+    
+    // Verifica si el archivo existe antes de mostrarlo
+    if (file_exists($rutaArchivo)) {
+        return response()->file($rutaArchivo);
+    } else {
+        abort(404, 'Archivo no encontrado');
+    }
+}
+
+
 
     public function currentRequests()
     {
@@ -216,49 +239,52 @@ class SolicitudesController extends Controller
     }
 
     public function userUpdateRequest(Request $request, $id)
-{
-    // Obtener la solicitud existente
-    $solicitud = Solicitudes::findOrFail($id);
-
-    // Decodificar el JSON de requisitos a un array
-    $requisitosArray = json_decode($solicitud->requisitos, true);
-
-    // Verificar si $requisitosArray es un array
-    if (!is_array($requisitosArray)) {
-        $requisitosArray = [];
-    }
-
-    // Procesar los archivos adjuntos y actualizar sus rutas en el JSON de requisitos
-    foreach ($requisitosArray as $index => $requisito) {
-        // Verificar si hay un archivo adjunto para este requisito
-        if ($request->hasFile('nuevo_archivo_' . $index)) {
-            $archivo = $request->file('nuevo_archivo_' . $index);
-            $nombreArchivo = $archivo->getClientOriginalName();
-            $rutaArchivo = 'solicitudes/' . $id . '/' . $nombreArchivo;
-            // Mover el archivo a la carpeta de solicitudes
-            $archivo->move(public_path('solicitudes/' . $id), $nombreArchivo);
-            // Actualizar la ruta del archivo en el JSON de requisitos
-            if (is_array($requisitosArray[$index])) {
-                $requisitosArray[$index]['archivo'] = $rutaArchivo;
-            } else {
-                // Si no es un array, inicializarlo
+    {
+        // Obtener la solicitud existente
+        $solicitud = Solicitudes::findOrFail($id);
+    
+        // Decodificar el JSON de requisitos a un array
+        $requisitosArray = json_decode($solicitud->requisitos, true);
+    
+        // Verificar si $requisitosArray es un array
+        if (!is_array($requisitosArray)) {
+            $requisitosArray = [];
+        }
+    
+        // Procesar los archivos adjuntos y actualizar sus rutas en el JSON de requisitos
+        foreach ($requisitosArray as $index => $requisito) {
+            // Verificar si hay un nuevo archivo adjunto para este requisito
+            if ($request->hasFile('nuevo_archivo_' . $index)) {
+                $archivo = $request->file('nuevo_archivo_' . $index);
+                $nombreArchivo = $archivo->getClientOriginalName();
+                $rutaArchivo = 'solicitudes/' . $id . '/' . $nombreArchivo;
+    
+                // Eliminar el archivo anterior si existe
+                if (isset($requisito['archivo']) && file_exists(public_path($requisito['archivo']))) {
+                    unlink(public_path($requisito['archivo']));
+                }
+    
+                // Mover el nuevo archivo a la carpeta de la solicitud
+                $archivo->move(public_path('solicitudes/' . $id), $nombreArchivo);
+    
+                // Actualizar la ruta del archivo en el JSON de requisitos
                 $requisitosArray[$index] = ['archivo' => $rutaArchivo];
             }
         }
+    
+        // Codificar el array de requisitos a JSON
+        $requisitosJson = json_encode($requisitosArray);
+    
+        // Actualizar el campo requisitos en la solicitud
+        $solicitud->requisitos = $requisitosJson;
+    
+        // Guardar la solicitud actualizada
+        $solicitud->save();
+    
+        // Redireccionar o proporcionar alguna respuesta adecuada
+        return redirect()->route('userSolicitudes')->with('success', 'Archivos actualizados correctamente.');
     }
-
-    // Codificar el array de requisitos a JSON
-    $requisitosJson = json_encode($requisitosArray);
-
-    // Actualizar el campo requisitos en la solicitud
-    $solicitud->requisitos = $requisitosJson;
-
-    // Guardar la solicitud actualizada
-    $solicitud->save();
-
-    // Redireccionar o proporcionar alguna respuesta adecuada
-    return redirect()->route('userSolicitudes')->with('success', 'Archivos actualizados correctamente.');
-}
+    
     public function VinculacionShowRequest($id){
         $solicitud=Solicitudes::findOrFail($id);
         return view('vinculacion.showRequestVinculacion',compact('solicitud'));
@@ -268,7 +294,7 @@ class SolicitudesController extends Controller
         $solicitud->status_convenio=2;
 
         $solicitud->save();
-        return redirect()->route('vinculacionDashboard')-> with('success','Convenio validado correctamente');
+        return redirect()->route('vinculacionDashboard')-> with('success','Solicitud respondida correctamente');
     }
     public function rechazaConvenio($id){
         $solicitud=Solicitudes::findOrFail($id);
@@ -276,6 +302,14 @@ class SolicitudesController extends Controller
         $solicitud->status=3;
 
         $solicitud->save();
-        return redirect()->route('vinculacionDashboard')-> with('success','Convenio rechazado correctamente');
+        return redirect()->route('vinculacionDashboard')-> with('success','Solicitud respondida correctamente');
+    }
+    public function convenioInexistente($id){
+        $solicitud=Solicitudes::findOrFail($id);
+        $solicitud->status_convenio=2; //Convenio inexistente
+        $solicitud->status=0;//En revisión
+
+        $solicitud->save();
+        return redirect()->route('vinculacionDashboard')-> with('success','Solicitud respondida correctamente');
     }
 }

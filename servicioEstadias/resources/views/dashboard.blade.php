@@ -4,7 +4,8 @@ use Carbon\Carbon;
 <x-app-layout>
     <x-user-layout>
 
-    </x-user-layout>
+    </x-user-layout><br>
+    <x-username-layout />
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
             <div class="flex justify-between py-12">

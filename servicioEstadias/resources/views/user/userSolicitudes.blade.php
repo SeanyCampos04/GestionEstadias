@@ -1,12 +1,13 @@
 <x-app-layout>
     <x-user-layout>
 
-    </x-user-layout>
+    </x-user-layout><br>
+    <x-username-layout />
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-x-auto">
                     <div class="min-w-screen py-5 flex items-center justify-center">
-                        <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
+                        <div class="bg-white text-gray-600 rounded-lg shadow-xl w-full">
                         @if(session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
@@ -17,7 +18,7 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>No.</th>
                                             <th>Nombre Estancia</th>
                                             <th>Empresa</th>
                                             <th>Fecha de Solicitud</th>
@@ -29,13 +30,17 @@
                                     <tbody>
                                         @foreach ($solicitudes as $solicitud)
                                             <tr>
-                                                <td>{{ $solicitud->id }}</td>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $solicitud->estancia->nombre }}</td>
                                                 <td>{{ $solicitud->empresa}}</td>
                                                 <td>{{ \Carbon\Carbon::parse($solicitud->fecha_solicitud)->format('d-m-Y') }}</td>
                                                 <td>
                                                     @if ($solicitud->status == 0)
-                                                        En revisión
+                                                        @if($solicitud->status_convenio==2)
+                                                            Validación de convenio necesaria
+                                                        @else
+                                                            En revisión
+                                                        @endif
                                                     @elseif ($solicitud->status == 1)
                                                         Acciones necesarias
                                                     @elseif ($solicitud->status == 2)

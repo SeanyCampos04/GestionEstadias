@@ -1,6 +1,7 @@
 <x-app-layout class="py-0">
     <x-admin-layout>
-    </x-admin-layout>
+    </x-admin-layout><br>
+    <x-username-layout />
     <div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">   
     <div class="min-w-screen py-5 flex items-center justify-center">
@@ -15,19 +16,27 @@
                 </thead>
                 <tbody>
                 @if (!empty($rutasArchivos))
-                @foreach ($requisitos as $index => $requisito)
-                    <tr>
-                        <td>{{ $requisito->nombre }}</td>
-                        <td>
-                                    <a class="text-blue-500 underline" href="{{ asset($rutasArchivos[$index]) }}">  {{ basename($rutasArchivos[$index]) }}</a><br>
-                        </td>
-                    </tr>
-                @endforeach
-            @else
-                <tr>
-                    <td colspan="2">No hay archivos adjuntos disponibles</td>
-                </tr>
-            @endif
+    @foreach ($requisitos as $index => $requisito)
+        <tr>
+            <td>{{ $requisito->nombre }}</td>
+            <td>
+                @if (isset($rutasArchivos[$index]['archivo']) && !empty($rutasArchivos[$index]['archivo']))
+                    <a class="text-blue-500 underline" href="{{ asset($rutasArchivos[$index]['archivo']) }}">
+                        {{ basename($rutasArchivos[$index]['archivo']) }}
+                    </a><br>
+                @else
+                    <span class="text-red-500">Archivo no disponible</span>
+                @endif
+            </td>
+        </tr>
+    @endforeach
+@else
+    <tr>
+        <td colspan="2">No hay archivos adjuntos disponibles</td>
+    </tr>
+@endif
+
+
 
                 </tbody>
             </table>

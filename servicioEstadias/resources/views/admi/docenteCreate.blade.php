@@ -1,5 +1,6 @@
 <x-app-layout>
-    <x-admin-layout>
+    <x-admin-layout><br>
+    <x-username-layout />
         <div class="py-12">
             <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">

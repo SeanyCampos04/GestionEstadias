@@ -1,8 +1,9 @@
 <x-app-layout>
-    <x-user-layout></x-user-layout>
-
+    <x-user-layout></x-user-layout><br>
+    <x-username-layout /><br>
+    <div>
     @if($solicitud)
-    <div class="flex items-center justify-center mt-8">
+    <div class="float-both flex items-center justify-center mt-8">
         <div class="card w-4/5 px-4 py-5">
         <form method="POST" action="{{route('uploadinformes')}}" enctype="multipart/form-data">
                 @csrf
@@ -29,7 +30,8 @@
         </div>
     </div>
     @else
-        <div class="card py-5">
+    <br>
+        <div class="card py-5 flex justify-center float-center">
             <div class="card-header">
                 <h1 class="text-1xl">
                 Esta pestaña no está disponible, esto debido a que de momento no cuenta con estancias en proceso o Aceptadas.
@@ -43,7 +45,7 @@
         </div>
         
     @endif
-
+    </div>
 </x-app-layout>
 <x-footer></x-footer>
 

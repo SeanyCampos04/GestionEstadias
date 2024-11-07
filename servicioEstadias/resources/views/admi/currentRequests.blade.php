@@ -2,19 +2,20 @@
 use Carbon\Carbon;
 ?>
 <x-app-layout>
-    <x-admin-layout>
+    <x-admin-layout><br>
+    <x-username-layout />
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-8xl mx-auto sm:px-7 lg:px-7">
                 <div class="overflow-x-auto">
                     <div class="min-w-screen py-5 flex items-center justify-center">
-                        <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
+                        <div class="bg-white text-gray-600 rounded-lg shadow-xl w-full">
                             <div class="overflow-x-auto">
                                 <h1 class="flex items-center justify-center text-3xl">Solicitudes Recientes</h1>
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
                                             <th>Docente</th>
+                                            <th>Estancia</th>
                                             <th>Email</th>
                                             <th>Empresa</th>
                                             <th>Status</th>
@@ -32,8 +33,8 @@ use Carbon\Carbon;
                                             @elseif($request->status_convenio==1)
                                             @else
                                             <tr>
-                                                <td>{{ $request->id }}</td>
                                                 <td>{{ $request->docente }}</td>
+                                                <td>{{ $request->estancia->nombre }}</td>
                                                 <td>{{ $request->email }}</td>
                                                 <td>{{ $request->empresa }}</td>
                                                 <td>
@@ -62,7 +63,7 @@ use Carbon\Carbon;
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <p class="text-red-500">Nota:Cuando no aparezcan acciones para una solicitud significa que falta validacion de convenio por parte del departamento de Vinculacion, por lo cual le pedimos esperar dicha respuesta.</p>
+                                <p class="text-red-500">Nota: Cuando no aparezcan acciones para una solicitud significa que falta validacion de convenio por parte del departamento de Vinculacion, por lo cual le pedimos esperar dicha respuesta.</p>
                             </div>
                             <div class="form-group text-center">
                                         <a href="{{ route('adminDashboard') }}" class="btn btn-secondary">Regresar</a>

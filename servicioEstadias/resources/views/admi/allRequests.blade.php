@@ -7,13 +7,13 @@ use Carbon\Carbon;
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-x-auto">
                     <div class="min-w-screen py-5 flex items-center justify-center">
-                        <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
+                        <div class="bg-white text-gray-600 rounded-lg shadow-xl w-full">
                             <div class="overflow-x-auto">
                                 <h1 class="flex items-center justify-center text-3xl">Todas las Solicitudes</h1>
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>No.</th>
                                             <th>Docente</th>
                                             <th>Email</th>
                                             <th>Empresa</th>
@@ -24,7 +24,7 @@ use Carbon\Carbon;
                                     <tbody>
                                         @foreach ($allRequests as $request)
                                             <tr>
-                                                <td>{{ $request->id }}</td>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $request->docente }}</td>
                                                 <td>{{ $request->email }}</td>
                                                 <td>{{ $request->empresa }}</td>

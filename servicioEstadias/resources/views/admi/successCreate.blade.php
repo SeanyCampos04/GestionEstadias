@@ -1,9 +1,9 @@
 <x-app-layout>
 <x-admin-layout>
     <x-slot name="header">
-        <!-- Si necesitas un encabezado específico para esta vista, puedes definirlo aquí -->
     </x-slot>
-
+    <br>
+    <x-username-layout />
     <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-x-auto">

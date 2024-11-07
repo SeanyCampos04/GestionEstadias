@@ -13,15 +13,35 @@ use Illuminate\Http\Request;
 class EstanciaController extends Controller
 {
     public function indexUser()
-    {
-        $estancias = Estancia::all(); 
+{
+    $estancias = Estancia::orderBy('fecha_convocatoria', 'asc')->get();
 
-        return view('dashboard', compact('estancias')); 
+    $solicitudes = Solicitudes::where('email', auth()->user()->email)->get();
+
+    foreach ($solicitudes as $solicitud) {
+        if ($solicitud->status == 0 || $solicitud->status == 1) {
+            $estancia = Estancia::find($solicitud->id_estancia);
+
+            if ($estancia && $estancia->fecha_cierre < today()) {
+                $solicitud->status = 3;
+                $solicitud->observaciones='Plazo terminado, proceso incompleto';
+                $solicitud->save(); 
+            }
+        }
     }
+
+    return view('dashboard', compact('estancias', 'solicitudes'));
+}
+
     public function index()
     {
-        $estancias = Estancia::all(); 
-
+        $estancias = Estancia::orderBy('fecha_convocatoria', 'asc')->get();
+        foreach ($estancias as $estancia) {
+            if ($estancia->fecha_cierre < today()) {
+                $estancia->vigente = 1;
+                $estancia->save();
+            }
+        }    
         return view('admi.adminDashboard', compact('estancias')); 
     }
     public function indexVinculacion()
