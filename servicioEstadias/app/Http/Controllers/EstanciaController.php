@@ -76,46 +76,59 @@ class EstanciaController extends Controller
 
     //crear estancia nueva
     public function guardar(Request $request)
-{
-    // Validación de los campos de la estancia
-    $request->validate([
-        'nombre' => 'required|string',
-        'empresa' => 'required|string',
-        'fecha_convocatoria' => 'required|date',
-        'fecha_cierre' => 'required|date',
-        'archivo_convocatoria' => 'required|file|mimes:pdf',
-    ]);
-
-    // Crear una nueva instancia de Estancia y guardar los datos
-    $estancia = new Estancia();
-    $estancia->nombre = $request->nombre;
-    $estancia->empresa = $request->empresa;
-    $estancia->fecha_convocatoria = $request->fecha_convocatoria;
-    $estancia->fecha_cierre = $request->fecha_cierre;
-
-    // Guardar el archivo de convocatoria
-    $archivoConvocatoria = $request->file('archivo_convocatoria');
-    $nombreArchivo = $archivoConvocatoria->getClientOriginalName();
-    $archivoConvocatoria->move(public_path('archivos'), $nombreArchivo);
-    $estancia->archivo_convocatoria = 'archivos/' . $nombreArchivo;
-    $estancia->save();
-
-    // Obtener el ID recién creado de la estancia
-    $idEstancia = $estancia->id;
-
-    // Recopilar y guardar los requisitos seleccionados como JSON
-    $requisitosSeleccionados = $request->requisitos;
-    $requisitosJson = json_encode($requisitosSeleccionados);
-
-    // Crear una nueva instancia de EstanciaRequisito y guardar los datos
-    $estanciaRequisito = new Estanciarequisitos();
-    $estanciaRequisito->id_estancia = $idEstancia; // Usar el ID de la estancia
-    $estanciaRequisito->id_requisitos = $requisitosJson;
-    $estanciaRequisito->save();
-
-    // Redireccionar a la vista de éxito o a donde sea necesario
-    return view('admi.successCreate');
+    {
+        // Validación de los campos de la estancia
+        $request->validate([
+            'nombre' => 'required|string',
+            'empresa' => 'required|string',
+            'fecha_convocatoria' => 'required|date',
+            'fecha_cierre' => 'required|date',
+            'archivo_convocatoria' => 'required|file|mimes:pdf',
+        ]);
+    
+        // Crear una nueva instancia de Estancia y guardar los datos (sin el archivo)
+        $estancia = new Estancia();
+        $estancia->nombre = $request->nombre;
+        $estancia->empresa = $request->empresa;
+        $estancia->fecha_convocatoria = $request->fecha_convocatoria;
+        $estancia->fecha_cierre = $request->fecha_cierre;
+        $estancia->archivo_convocatoria = ''; // Inicializar campo vacío
+        $estancia->save();
+    
+        // Obtener el ID recién creado de la estancia
+        $idEstancia = $estancia->id;
+    
+        // Guardar el archivo de convocatoria usando el ID de la estancia
+        $archivoConvocatoria = $request->file('archivo_convocatoria');
+        $nombreArchivo = $archivoConvocatoria->getClientOriginalName();
+        $rutaArchivo = 'convocatorias/' . $idEstancia . '/' . $nombreArchivo;
+    
+        // Crear la carpeta si no existe
+        if (!file_exists(public_path('convocatorias/' . $idEstancia))) {
+            mkdir(public_path('convocatorias/' . $idEstancia), 0777, true);
+        }
+    
+        // Mover el archivo a la carpeta correspondiente
+        $archivoConvocatoria->move(public_path('convocatorias/' . $idEstancia), $nombreArchivo);
+    
+        // Actualizar la estancia con la ruta del archivo
+        $estancia->archivo_convocatoria = $rutaArchivo;
+        $estancia->save();
+    
+        // Recopilar y guardar los requisitos seleccionados como JSON
+        $requisitosSeleccionados = $request->requisitos;
+        $requisitosJson = json_encode($requisitosSeleccionados);
+    
+        // Crear una nueva instancia de EstanciaRequisitos y guardar los datos
+        $estanciaRequisito = new EstanciaRequisitos();
+        $estanciaRequisito->id_estancia = $idEstancia;
+        $estanciaRequisito->id_requisitos = $requisitosJson;
+        $estanciaRequisito->save();
+    
+        // Redireccionar a la vista de éxito
+        return view('admi.successCreate');
     }
+    
     public function showEstancia($id)
     {
         $estancia = Estancia::findOrFail($id);
@@ -135,92 +148,61 @@ class EstanciaController extends Controller
         $requisitos = Requisitos::all(); 
         return view('admi.estanciaEdit', compact('estancia','requisitos'));
     }
-    /*public function update(Request $request, Estancia $estancia)
-{
-    // Validación de los campos de edición
-    $request->validate([
-        'nombre' => 'required|string',
-        'fecha_convocatoria' => 'required|date',
-        'fecha_cierre' => 'required|date',
-        'periodo_duracion' => 'required|string',
-        'requisitos' => 'required|array', // Asegúrate de que los requisitos sean un array
-        'requisitos.*' => 'exists:requisitos,id', // Asegúrate de que los requisitos existan en la tabla de requisitos
-    ]);
-
-    // Actualiza los campos de la estancia con los datos del formulario
-    $estancia->update([
-        'nombre' => $request->nombre,
-        'fecha_convocatoria' => $request->fecha_convocatoria,
-        'fecha_cierre' => $request->fecha_cierre,
-        'periodo_duracion' => $request->periodo_duracion,
-        // Actualiza los demás campos según corresponda
-    ]);
-
-    // Actualiza los requisitos de la estancia
-    $estancia->requisitos()->sync($request->requisitos);
-    $estancia->save();
-
-    // Redirecciona a la página de detalles de la estancia actualizada
-    return redirect()->route('adminDashboard')->with('success', 'Estancia actualizada exitosamente.');
-}*/
 
     public function update(Request $request, $id)
-    {
-        // Validar los datos del formulario
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'fecha_convocatoria' => 'required|date',
-            'fecha_cierre' => 'required|date',
-            //'periodo_duracion' => 'required|string|max:255',
-            'requisitos' => 'required|array',
-        'requisitos.*' => 'integer|exists:requisitos,id'
-            //'requisitos' => 'required|array', // Asegúrate de que los requisitos sean un array
-            //'requisitos.*' => 'exists:requisitos,id',
-        ]);
+{
+    // Validar los datos del formulario
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'fecha_convocatoria' => 'required|date',
+        'fecha_cierre' => 'required|date',
+        'archivo_convocatoria' => 'nullable|file|mimes:pdf',
+        'requisitos' => 'required|array',
+        'requisitos.*' => 'integer|exists:requisitos,id',
+    ]);
 
-        // Buscar la estancia por su ID
-        $estancia = Estancia::findOrFail($id);
+    // Buscar la estancia por su ID
+    $estancia = Estancia::findOrFail($id);
 
-        // Actualizar los campos con los nuevos valores del formulario
-        $estancia->nombre = $request->input('nombre');
-        $estancia->fecha_convocatoria = $request->input('fecha_convocatoria');
-        $estancia->fecha_cierre = $request->input('fecha_cierre');
-        //$estancia->periodo_duracion = $request->input('periodo_duracion');
-        $estancia->save();
+    // Actualizar los campos con los nuevos valores del formulario
+    $estancia->nombre = $request->input('nombre');
+    $estancia->fecha_convocatoria = $request->input('fecha_convocatoria');
+    $estancia->fecha_cierre = $request->input('fecha_cierre');
 
-        $estanciaRequisitos = EstanciaRequisitos::where('id_estancia', $id)->first();
-        if (!$estanciaRequisitos) {
-            $estanciaRequisitos = new EstanciaRequisitos();
-            $estanciaRequisitos->id_estancia = $id;
+    // Procesar el archivo de convocatoria si se ha subido uno nuevo
+    if ($request->hasFile('archivo_convocatoria')) {
+        $archivo = $request->file('archivo_convocatoria');
+        $nombreArchivo = $archivo->getClientOriginalName();
+        $rutaArchivo = 'convocatorias/' . $id . '/' . $nombreArchivo;
+
+        // Eliminar el archivo anterior si existe
+        if ($estancia->archivo_convocatoria && file_exists(public_path($estancia->archivo_convocatoria))) {
+            unlink(public_path($estancia->archivo_convocatoria));
         }
-    
-        $estanciaRequisitos = EstanciaRequisitos::firstOrNew(['id_estancia' => $id]);
+
+        // Crear la carpeta si no existe
+        if (!file_exists(public_path('convocatorias/' . $id))) {
+            mkdir(public_path('convocatorias/' . $id), 0777, true);
+        }
+
+        // Mover el nuevo archivo a la carpeta correspondiente
+        $archivo->move(public_path('convocatorias/' . $id), $nombreArchivo);
+
+        // Actualizar la ruta del archivo en la estancia
+        $estancia->archivo_convocatoria = $rutaArchivo;
+    }
+
+    // Guardar los cambios de la estancia
+    $estancia->save();
+
+    // Actualizar los requisitos de la estancia
+    $estanciaRequisitos = EstanciaRequisitos::firstOrNew(['id_estancia' => $id]);
     $estanciaRequisitos->id_requisitos = json_encode($request->requisitos);
     $estanciaRequisitos->save();
-        //$estancia->requisitos()->sync($request->requisitos);
 
-        // Actualiza los registros en la tabla estancia_requisitos si es necesario
-        // Primero, obtén los IDs de los requisitos del formulario
-        /*$requisitosIds = $request->requisitos;
-    
-        // Luego, actualiza los registros en la tabla estancia_requisitos
-        // donde el ID de la estancia coincida con el ID de la estancia actual
-        // y los requisitos contengan los IDs de requisitos proporcionados
-        EstanciaRequisitos::where('id_estancia', $estancia->id)
-    ->where(function ($query) use ($requisitosIds) {
-        foreach ($requisitosIds as $requisitoId) {
-            $query->whereRaw("jsonb_exists_any(requisitos::jsonb, ARRAY[$requisitoId])");
-        }
-    })
-    ->update(['requisitos' => $requisitosIds]);
-    */
-
-        // Guardar los cambios en la base de datos
-        $estancia->save();
-
-        // Redirigir a alguna vista de éxito o a donde sea necesario
-        return redirect()->route('adminDashboard')->with('success', 'Estancia actualizada correctamente.');
-    }
+    // Redirigir a la vista de éxito o a donde sea necesario
+    return redirect()->route('adminDashboard')->with('success', 'Estancia actualizada correctamente.');
+}
 
     public function showUserEstancia($id)
     {

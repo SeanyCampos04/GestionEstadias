@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/informes/{id}', [DocenteController::class, 'generarInforme'])->name('informes');
     Route::post('/informes/upload', [InformesController::class, 'guardarInformes'])->name('uploadinformes');
     Route::get('/solicitudes/archivo/{id}/{nombreArchivo}', [SolicitudesController::class, 'mostrarArchivo'])->name('solicitudes.archivo');
-
+    Route::delete('/cancelar-solicitud/{id}', [SolicitudesController::class, 'cancelRequest'])->name('cancelRequest');
 
     //Usuario vinculacion 
      Route::get('/ShowRequest/{id}', [SolicitudesController::class, 'VinculacionShowRequest'])->name('MostrarSolicitudVinculacion');

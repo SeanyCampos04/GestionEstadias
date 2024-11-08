@@ -44,7 +44,9 @@ use Carbon\Carbon;
                                                     @elseif($request->status==6)
                                                         Estancia Terminada, constancia pendiente de envío
                                                     @elseif($request->status==7)
-                                                        Estancia Terminada y liberada        
+                                                        Estancia Terminada y liberada 
+                                                    @elseif($request->status==8)
+                                                        Solicitud Cancelada        
                                                     @endif
                                                 </td>
                                                 <td>{{ \Carbon\Carbon::parse($request->fecha_solicitud)->format('d-m-Y') }}</td>

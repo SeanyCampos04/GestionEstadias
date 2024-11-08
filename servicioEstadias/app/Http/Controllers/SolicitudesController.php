@@ -312,4 +312,13 @@ public function mostrarArchivo($id, $nombreArchivo)
         $solicitud->save();
         return redirect()->route('vinculacionDashboard')-> with('success','Solicitud respondida correctamente');
     }
+    public function cancelRequest($id){
+        $solicitud= Solicitudes::findOrFail($id);
+        if($solicitud){
+            $solicitud->status=8;
+            $solicitud->observaciones='Solicitud Cancelada';
+            $solicitud->save();    
+        }
+        return redirect()->route('userSolicitudes')->with('success', 'Acción realizada correctamente');
+    }
 }

@@ -55,6 +55,8 @@
                                                         Terminado, falta recibir constancia 
                                                     @elseif ($solicitud->status == 7)
                                                         Estancia Terminada   
+                                                    @elseif ($solicitud->status == 8)
+                                                        Solicitud Cancelada  
                                                     @else
                                                         Estado desconocido
                                                     @endif
@@ -63,8 +65,12 @@
                                                 <td>
                                                     @if ($solicitud->status == 0 || $solicitud->status == 1)
                                                         <a class="text-blue-500 underline" href="{{ route('showRequestFiles', $solicitud->id) }}">Editar Solicitud</a>
+                                                        <div class="action-box">
+                                                            <a href="#" class="text-red-500 underline" onclick="confirmCancel({{ $solicitud->id }})">Cancelar Solicitud</a>
+                                                        </div>
                                                     @elseif ($solicitud->status ==2)
                                                     <a class="text-blue-500 underline" href="{{route('informesView',$solicitud->estancia->id)}}">Ver Más</a>
+                                                    <a class="text-red-500 underline" href="{{ route('cancelRequest', $solicitud->id) }}">Cancelar Solicitud</a>
                                                     @elseif ($solicitud->status ==5)
                                                     <a class="text-blue-500 underline" href="{{route('estanciaAccepted')}}">Ver Más</a>
                                                     @elseif ($solicitud->status ==7)
@@ -84,6 +90,28 @@
             </div>
         </div>
 
+        <script>
+        function confirmCancel(solicitudId) {
+            var confirmed = confirm("¿Está seguro que desea cancelar esta solicitud? La acción no podrá deshacerse posteriormente.");
+            if (confirmed) {
+                var form = document.createElement("form");
+                form.method = "POST";
+                form.action = "/cancelar-solicitud/" + solicitudId;
+                var csrfToken = document.createElement("input");
+                csrfToken.type = "hidden";
+                csrfToken.name = "_token";
+                csrfToken.value = "{{ csrf_token() }}";  
+                form.appendChild(csrfToken);
+               var methodField = document.createElement("input");
+                methodField.type = "hidden";
+                methodField.name = "_method";
+                methodField.value = "DELETE";  
+                form.appendChild(methodField);
 
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
 </x-app-layout>
 <x-footer></x-footer>
