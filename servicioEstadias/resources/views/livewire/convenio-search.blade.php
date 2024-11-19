@@ -1,31 +1,11 @@
-        @livewireStyles
-        @livewireScripts
-<x-app-layout>
-    <x-vinculacion-layout></x-vinculacion-layout><br>
-    <x-username-layout /><br>
-
-    @if (session('success'))
-    <br>
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-            <strong class="font-bold">Éxito!</strong>
-            <span class="block sm:inline">{{ session('success') }}</span>
-            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <title>Cerrar</title>
-                    <path d="M14.348 14.849a.5.5 0 0 1-.708 0L10 10.707l-3.64 3.642a.5.5 0 1 1-.708-.708l3.64-3.641-3.64-3.64a.5.5 0 1 1 .708-.708l3.64 3.64 3.64-3.64a.5.5 0 1 1 .708.708L10.707 10l3.641 3.64a.5.5 0 0 1 0 .708z"/>
-                </svg>
-            </span>
-        </div>
-    @endif
-    <div class="container mx-auto py-8"><br>
-        <h1 class="text-2xl font-bold text-center mb-6">Lista de Convenios</h1>
-        <div class="mb-4 flex justify-end">
-            <a href="{{ route('convenios.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                Añadir Nuevo Convenio
-            </a>
-        </div>
-        @livewire('convenio-search')
-        <!--<table class="table">
+<div>
+<div wire:loading wire:target="search" class="text-gray-500">
+    Cargando resultados...
+</div>
+<input type="text" wire:model.defer="search" placeholder="Buscar convenios..." class="border p-2 rounded">
+<br>
+<div wire:poll.500ms>
+    <br><table class="table">
             <thead>
                 <tr class="bg-gray-800 text-white">
                     <th class="px-4 py-2">Empresa/Institución</th>
@@ -67,7 +47,6 @@
                 @endforelse
             </tbody>
         </div>
-    </table>-->
-    
-</x-app-layout>
-<x-footer></x-footer>
+    </table>
+</div>
+</div>

@@ -15,6 +15,10 @@
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    @livewireStyles
+
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -32,9 +36,11 @@
             <!-- Page Content -->
             <main>
                 {{ $slot }}
+                @livewireScripts
             </main>
         </div>
 
 
     </body>
 </html>
+
