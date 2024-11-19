@@ -7,6 +7,7 @@
                 </div>
                 <div class="ml-auto flex space-x-4">
                     <a href="{{route('vinculacionDashboard')}}" class="text-black hover:text-gray-700 underline">Solicitudes</a>
+                    <a href="{{route('showConvenios')}}" class="text-black hover:text-gray-700 underline">Convenios</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="text-black hover:text-gray-700 underline">Cerrar Sesión</button>
