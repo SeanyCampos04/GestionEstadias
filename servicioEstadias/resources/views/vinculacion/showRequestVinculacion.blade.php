@@ -28,6 +28,7 @@ use Carbon\Carbon;
                                         Otro
                                     @endif
                                 </p>
+                                <p><strong>Convenio:</strong>{{$status}}</p>
                             </div>
                             <div class="flex space-x-2 mt-4">
                                 <form method="POST" action="{{ route('valida_convenio', $solicitud->id) }}">

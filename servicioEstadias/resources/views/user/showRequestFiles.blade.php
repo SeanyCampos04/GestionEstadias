@@ -45,6 +45,30 @@
 
                             </tbody>
                         </table>
+
+                        <div class="mt-4 bg-white">
+                            <h4><strong>Información adicional</strong></h4>
+                            <div class="mb-3">
+                                <label for="empresa" class="form-label text-gray-800">Empresa donde se realizará la Estancia:</label>
+                                <input type="text" class="form-control rounded" id="empresa" name="empresa" value="{{ $solicitud->empresa }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="proyecto" class="form-label text-gray-800">Proyecto a realizar:</label>
+                                <input type="text" class="form-control rounded" id="proyecto" name="proyecto" value="{{ $solicitud->proyecto }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="plan_estudios" class="form-label text-gray-800">Plan de estudios:</label>
+                                <input type="text" class="form-control rounded" id="plan_estudios" name="plan_estudios" value="{{ $solicitud->plan_estudios }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="giro_empresa" class="form-label text-gray-800">Giro de la empresa:</label>
+                                <input type="text" class="form-control rounded" id="giro_empresa" name="giro_empresa" value="{{ $solicitud->giro_empresa }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="area_complementacion" class="form-label text-gray-800">Área en la que desea complementar sus conocimientos:</label>
+                                <input type="text" class="form-control rounded" id="area_complementacion" name="area_complementacion" value="{{ $solicitud->area_complementacion }}" required>
+                            </div>
+                        </div>
                         <button type="submit" class="inline-block bg-green-500 px-4 py-2 rounded-md text-white hover:bg-green-600 ml-4">Guardar cambios</button>
                         <a href="{{ route('userSolicitudes') }}" class="inline-block bg-gray-500 px-4 py-2 rounded-md text-white hover:bg-red-600">Regresar</a>
                     </form>

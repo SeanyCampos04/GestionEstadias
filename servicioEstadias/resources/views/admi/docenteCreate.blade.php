@@ -44,7 +44,11 @@
                             <input type="text" name="academia" id="academia" required 
                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                         </div>
-                        <input type="hidden" name="password" value="123456789">
+                        <div class="mb-4">
+                            <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+                            <input type="password" name="password" id="password" required 
+                                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                        </div>
 
                         <div class="text-center">
                             <button type="submit" 

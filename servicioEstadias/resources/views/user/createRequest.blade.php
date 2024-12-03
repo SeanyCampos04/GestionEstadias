@@ -31,7 +31,8 @@
                                 <td>{{ $requisito->nombre }}</td>
                                 <td>
                                 @if ($requisito->descargable == 1)
-                                    <a href="{{ asset($requisito->archivo_requisito) }}" download>
+                                <a href="{{ url('archivos/' . basename($requisito->archivo_requisito)) }}" download>
+                                    <!--<a href="{{ asset($requisito->archivo_requisito) }}" download>-->
                                         <img src="/images/download.png" alt="Descargar" width="29" height="29">
                                     </a>
                                 @else
@@ -50,6 +51,38 @@
                             @endforeach
                         </tbody>
                     </table>
+
+                    <div class="mt-4 bg-white text-bold">
+                        <h2><strong>Información adicional</strong></h2><br>
+                        <div>
+                            <label for="empresa" class="form-label">Empresa donde se realizará la estancia:</label>
+                            <input type="text" class="form-control rounded" id="empresa" name="empresa" list="lista-empresas" required autocomplete="off">
+                            <datalist id="lista-empresas">
+                                
+                            </datalist>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="proyecto" class="form-label">Proyecto a realizar:</label>
+                            <input type="text" class="form-control rounded" id="proyecto" name="proyecto" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="plan_estudios" class="form-label">Plan de estudios:</label>
+                            <input type="text" class="form-control rounded" id="plan_estudios" name="plan_estudios" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="giro_empresa" class="form-label">Giro de la empresa:</label>
+                            <input type="text" class="form-control rounded" id="giro_empresa" name="giro_empresa" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="area_complementacion" class="form-label">Área en la que desea complementar sus conocimientos:</label>
+                            <input type="text" class="form-control rounded" id="area_complementacion" name="area_complementacion" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="periodo_duracion" class="form-label">Periodo de duración de la estancia:</label>
+                            <input type="text" class="form-control rounded" id="periodo_duracion" name="periodo_duracion" required>
+                        </div>
+                    </div>
 
                     <div class="mt-4">
                         <b><p>Nota: Antes de enviar la solicitud verifique que haya añadido los documentos de TODOS los requisitos necesarios, de no ser así, su solicitud será rechazada automáticamente.</p></b>
@@ -75,5 +108,37 @@
         }
     }
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const empresaInput = document.getElementById('empresa');
+        const datalist = document.getElementById('lista-empresas');
+
+        empresaInput.addEventListener('input', async () => {
+            const query = empresaInput.value;
+
+            if (query.length >= 1) { 
+                try {
+                    const response = await fetch(`/empresas?search=${query}`);
+                    if (!response.ok) throw new Error('Error al obtener las empresas');
+
+                    const empresas = await response.json();
+
+                    // Limpiar datalist
+                    datalist.innerHTML = '';
+
+                    // Añadir opciones al datalist
+                    empresas.forEach(empresa => {
+                        const option = document.createElement('option');
+                        option.value = empresa.nombre;
+                        datalist.appendChild(option);
+                    });
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        });
+    });
+</script>
+
 </x-app-layout>
 <x-footer></x-footer>

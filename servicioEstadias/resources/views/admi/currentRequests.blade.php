@@ -30,6 +30,7 @@ use Carbon\Carbon;
                                             @elseif($request->status==4)
                                             @elseif($request->status==5)
                                             @elseif($request->status==7)
+                                            @elseif($request->status==8)
                                             @elseif($request->status_convenio==1)
                                             @else
                                             <tr>
@@ -51,7 +52,7 @@ use Carbon\Carbon;
                                                     @if($request->status==6)
                                                     <a href="{{ route('informes.showUploadForm', $request->id) }}" class="text-blue-500 hover:text-blue-700">Generar Constancia</a>
                                                     @else
-                                                        @if($request->status_convenio==null)
+                                                        @if($request->status_convenio==null || $request->status_convenio==0)
 
                                                         @else
                                                             <a href="{{ route('admiShowRequest', $request->id) }}" class="text-blue-500 hover:text-blue-700">Ver Solicitud</a>

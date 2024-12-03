@@ -6,6 +6,8 @@ use App\Models\Estancia;
 use App\Models\Estanciarequisitos;
 use App\Models\Requisitos;
 use App\Models\Solicitudes;
+use App\Models\Convenio;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -46,18 +48,28 @@ class SolicitudesController extends Controller
 
     public function generarSolicitud(Request $request, $id)
 {
+    $estancia=Estancia::findOrFail($id);
     $request->validate([
-        // Aquí puedes agregar validaciones para los archivos subidos si es necesario
+        'empresa'=>'required|string|max:255',
+        'periodo_duracion' => 'required|string|max:255',
+        'proyecto' => 'required|string|max:255',
+        'plan_estudios' => 'required|string|max:255',
+        'giro_empresa' => 'required|string|max:255',
+        'area_complementacion' => 'required|string|max:255',
     ]);
 
-    // Crear una nueva instancia de Solicitud y asignar datos iniciales
     $solicitud = new Solicitudes();
     $solicitud->id_estancia = $id;
     $solicitud->email = $request->input('email');
+    $solicitud->empresa = $request->empresa;
     $solicitud->docente = auth()->user()->name; // Obtener el nombre del usuario autenticado
     $solicitud->fecha_solicitud = now()->toDateString();
     $solicitud->status = 0; // En revisión
-    $solicitud->periodo_duracion = 'ad2024';
+    $solicitud->periodo_duracion = $request->periodo_duracion;
+    $solicitud->proyecto = $request->proyecto;
+    $solicitud->plan_estudios = $request->plan_estudios;
+    $solicitud->giro_empresa = $request->giro_empresa;
+    $solicitud->area_complementacion = $request->area_complementacion;
     $solicitud->requisitos = json_encode([]); // Inicializar el campo con un JSON vacío
 
     // Guardar la solicitud para generar el ID
@@ -68,7 +80,7 @@ class SolicitudesController extends Controller
 
     // Procesar los archivos adjuntos y guardar sus rutas en un JSON
     $requisitosAdjuntos = [];
-    for ($i = 1; $i <= 8; $i++) { // Cambia este rango según la cantidad de requisitos
+    for ($i = 1; $i <= 8; $i++) { 
         if ($request->hasFile('archivo_adjunto_' . $i)) {
             $archivo = $request->file('archivo_adjunto_' . $i);
             $nombreArchivo = $archivo->getClientOriginalName();
@@ -162,24 +174,33 @@ public function mostrarArchivo($id, $nombreArchivo)
     }
 
     public function showRequest($id)
-    {
-        // Obtener la solicitud
-        $solicitud = Solicitudes::findOrFail($id);
+{
+    // Obtener la solicitud
+    $solicitud = Solicitudes::findOrFail($id);
 
-        // Obtener el JSON de requisitos de la tabla estanciaRequisitos
-        $estanciaRequisitos = EstanciaRequisitos::where('id_estancia', $solicitud->id_estancia)->first();
+    // Obtener el JSON de requisitos de la tabla estanciaRequisitos
+    $estanciaRequisitos = EstanciaRequisitos::where('id_estancia', $solicitud->id_estancia)->first();
 
-        // Decodificar el JSON para obtener los ids de los requisitos
-        $idsRequisitos = json_decode($estanciaRequisitos->id_requisitos);
-        
+    // Decodificar el JSON para obtener los ids de los requisitos
+    $idsRequisitos = json_decode($estanciaRequisitos->id_requisitos);
 
-        // Obtener los nombres de los requisitos de la tabla requisitos
-        $requisitos = Requisitos::whereIn('id', $idsRequisitos)->get();
-        $rutasArchivos = json_decode($solicitud->requisitos, true);
+    // Obtener los nombres de los requisitos de la tabla requisitos
+    $requisitos = Requisitos::whereIn('id', $idsRequisitos)->get();
 
-        $rutasArchivos = array_pad($rutasArchivos, count($requisitos), null);
-        return view('admi.showRequest', compact('solicitud','requisitos', 'rutasArchivos'));
-    }
+    // Decodificar las rutas de los archivos de la solicitud
+    $rutasArchivos = json_decode($solicitud->requisitos, true);
+
+    // Asegurarse de que $rutasArchivos es un array y ajustar las rutas
+    $rutasArchivos = array_pad($rutasArchivos, count($requisitos), null);
+
+    // Construir rutas completas usando asset()
+    $rutasArchivos = array_map(function ($archivo) {
+        return $archivo ? asset($archivo) : null;
+    }, $rutasArchivos);
+
+    return view('admi.showRequest', compact('solicitud', 'requisitos', 'rutasArchivos'));
+}
+
 
     public function aceptarSolicitud($id)
     {
@@ -240,9 +261,20 @@ public function mostrarArchivo($id, $nombreArchivo)
 
     public function userUpdateRequest(Request $request, $id)
     {
+        $request->validate([
+            // Validaciones de archivos o datos existentes
+            'proyecto' => 'required|string|max:255',
+            'plan_estudios' => 'required|string|max:255',
+            'giro_empresa' => 'required|string|max:255',
+            'area_complementacion' => 'required|string|max:255',
+        ]);
         // Obtener la solicitud existente
         $solicitud = Solicitudes::findOrFail($id);
     
+        $solicitud->proyecto = $request->proyecto;
+        $solicitud->plan_estudios = $request->plan_estudios;
+        $solicitud->giro_empresa = $request->giro_empresa;
+        $solicitud->area_complementacion = $request->area_complementacion;
         // Decodificar el JSON de requisitos a un array
         $requisitosArray = json_decode($solicitud->requisitos, true);
     
@@ -287,26 +319,37 @@ public function mostrarArchivo($id, $nombreArchivo)
     
     public function VinculacionShowRequest($id){
         $solicitud=Solicitudes::findOrFail($id);
-        return view('vinculacion.showRequestVinculacion',compact('solicitud'));
+        $convenio=Convenio::where('nombre', $solicitud->empresa)->first();
+        if($convenio){
+            if($convenio->fecha_vigencia>Carbon::today()){
+                $status='Vigente';
+            }
+            else{
+                $status='No vigente';
+            }
+        }else{
+            $status='Inexistente';
+        }
+        return view('vinculacion.showRequestVinculacion',compact('solicitud','status'));
     }
     public function validaConvenio($id){
         $solicitud=Solicitudes::findOrFail($id);
-        $solicitud->status_convenio=2;
+        $solicitud->status_convenio=2;//Convenio válido
 
         $solicitud->save();
         return redirect()->route('vinculacionDashboard')-> with('success','Solicitud respondida correctamente');
     }
     public function rechazaConvenio($id){
         $solicitud=Solicitudes::findOrFail($id);
-        $solicitud->status_convenio=1;
-        $solicitud->status=3;
+        $solicitud->status_convenio=1;//Convenio Rechazado/ No válido
+        $solicitud->status=3;//Solicitud rechazada
 
         $solicitud->save();
         return redirect()->route('vinculacionDashboard')-> with('success','Solicitud respondida correctamente');
     }
     public function convenioInexistente($id){
         $solicitud=Solicitudes::findOrFail($id);
-        $solicitud->status_convenio=2; //Convenio inexistente
+        $solicitud->status_convenio=0; //Convenio inexistente
         $solicitud->status=0;//En revisión
 
         $solicitud->save();

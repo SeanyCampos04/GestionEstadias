@@ -114,7 +114,7 @@ class DocenteController extends Controller
             'rfc' => $request->rfc,
             'nombramiento' => $request->nombramiento,
             'academia' => $request->academia,
-            'password' => bcrypt($request->password), // Hasheamos la contraseña
+            'password' => Hash::make($request->password), // Hasheamos la contraseña
         ]);
 
         // Redireccionar con mensaje de éxito
