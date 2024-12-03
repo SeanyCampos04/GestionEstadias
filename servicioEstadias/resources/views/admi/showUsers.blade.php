@@ -8,11 +8,17 @@
                         <div class="bg-white text-gray-600 rounded-lg shadow-xl w-full">
                             <div class="overflow-x-auto">
                                 <h1 class="text-center text-3xl">Lista de Docentes</h1>
-                                <a href="{{ route('docente.create') }}" 
-                                       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                        + Nuevo Docente
-                                    </a>
-                                <table class="table mt-4">
+                                    <div class="p-6">
+                                        <a href="{{ route('docente.create') }}" 
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            + Nuevo Docente
+                                        </a>
+                                    </div>
+                                    <div class="px-6">
+                                    @livewire('docente-search')
+                                    </div>
+                                    
+                                <!--<table class="table mt-4">
                                     <thead>
                                         <tr>
                                             <th>No.</th>
@@ -63,7 +69,7 @@
                                         @endforeach
                                     </tbody>
                                     <center>{{ $docentes->links() }}</center>
-                                </table>
+                                </table> -->
                                 
                             </div>
                             <div class="form-group text-center">
