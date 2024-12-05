@@ -53,8 +53,20 @@
                                 <input type="text" class="form-control rounded" id="empresa" name="empresa" value="{{ $solicitud->empresa }}" required>
                             </div>
                             <div class="mb-3">
+                                <label for="titular_empresa" class="form-label text-gray-800">Titular de la empresa:</label>
+                                <input type="text" class="form-control rounded" id="titular_empresa" name="titular_empresa" value="{{ $solicitud->titular_empresa }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="puesto_titular" class="form-label text-gray-800">Puesto del titular de la empresa:</label>
+                                <input type="text" class="form-control rounded" id="puesto_titular" name="puesto_titular" value="{{ $solicitud->puesto_titular }}" required>
+                            </div>
+                            <div class="mb-3">
                                 <label for="proyecto" class="form-label text-gray-800">Proyecto a realizar:</label>
                                 <input type="text" class="form-control rounded" id="proyecto" name="proyecto" value="{{ $solicitud->proyecto }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="objetivo" class="form-label text-gray-800">Objetivo(s) y Justificación:</label>
+                                <input type="text" class="form-control rounded" id="objetivo" name="objetivo" value="{{ $solicitud->objetivo }}" required>
                             </div>
                             <div class="mb-3">
                                 <label for="plan_estudios" class="form-label text-gray-800">Plan de estudios:</label>
@@ -67,6 +79,14 @@
                             <div class="mb-3">
                                 <label for="area_complementacion" class="form-label text-gray-800">Área en la que desea complementar sus conocimientos:</label>
                                 <input type="text" class="form-control rounded" id="area_complementacion" name="area_complementacion" value="{{ $solicitud->area_complementacion }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="inicio_estancia" class="form-label text-gray-800">Inicio de la Estancia:</label>
+                                <input type="date" class="form-control rounded" id="inicio_estancia" name="inicio_estancia" value="{{ $solicitud->inicio_estancia }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fin_estancia" class="form-label text-gray-800">Fin de la Estancia:</label>
+                                <input type="date" class="form-control rounded" id="fin_estancia" name="fin_estancia" value="{{ $solicitud->fin_estancia }}" required>
                             </div>
                         </div>
                         <button type="submit" class="inline-block bg-green-500 px-4 py-2 rounded-md text-white hover:bg-green-600 ml-4">Guardar cambios</button>

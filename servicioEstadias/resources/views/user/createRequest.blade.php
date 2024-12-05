@@ -40,13 +40,13 @@
                                 @endif
                             </td>
 
-                                <td>
-                                    <label for="file-input-{{ $loop->iteration }}">
-                                        <img id="upload-icon-{{ $loop->iteration }}" src="/images/upload.jpg" alt="" width="50" height="50">
-                                    </label>
-                                    <input id="file-input-{{ $loop->iteration }}" type="file" name="archivo_adjunto_{{ $loop->iteration }}" style="display: none;" onchange="mostrarNombreArchivo('{{ $loop->iteration }}')">
-                                    <span id="nombre-archivo-{{ $loop->iteration }}" style="display: none;"></span>
-                                </td>
+                            <td>
+                                <label for="file-input-{{ $requisito->id }}">
+                                    <img id="upload-icon-{{ $requisito->id }}" src="/images/upload.jpg" alt="" width="50" height="50">
+                                </label>
+                                <input id="file-input-{{ $requisito->id }}" type="file" name="archivo_adjunto_{{ $requisito->id }}" style="display: none;" onchange="mostrarNombreArchivo('{{ $requisito->id }}')">
+                                <span id="nombre-archivo-{{ $requisito->id }}" style="display: none;"></span>
+                            </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -61,10 +61,22 @@
                                 
                             </datalist>
                         </div>
+                        <div class="mb-3">
+                            <label for="titular_empresa">Titular de la Empresa:</label>
+                            <input type="text" id="titular_empresa" name="titular_empresa" class="form-control rounded">
+                        </div>
 
+                        <div class="mb-3">
+                            <label for="puesto_titular">Puesto del Titular:</label>
+                            <input type="text" id="puesto_titular" name="puesto_titular" class="form-control rounded">
+                        </div>
                         <div class="mb-3">
                             <label for="proyecto" class="form-label">Proyecto a realizar:</label>
                             <input type="text" class="form-control rounded" id="proyecto" name="proyecto" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="objetivo">Objetivo:</label>
+                            <textarea id="objetivo" name="objetivo" class="form-control rounded"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="plan_estudios" class="form-label">Plan de estudios:</label>
@@ -81,6 +93,16 @@
                         <div class="mb-3">
                             <label for="periodo_duracion" class="form-label">Periodo de duración de la estancia:</label>
                             <input type="text" class="form-control rounded" id="periodo_duracion" name="periodo_duracion" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="inicio_estancia">Inicio de la Estancia:</label>
+                            <input type="date" id="inicio_estancia" name="inicio_estancia" class="form-control rounded">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fin_estancia">Fin de la Estancia:</label>
+                            <input type="date" id="fin_estancia" name="fin_estancia" class="form-control rounded">
                         </div>
                     </div>
 

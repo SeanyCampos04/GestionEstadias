@@ -9,7 +9,12 @@ class Solicitudes extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id_estancia', 'email', 'requisitos', 'status', 'docente', 'fecha_solicitud', 'observaciones','empresa', 'status_convenio','periodo_duracion'
+        'id_estancia', 'email', 'requisitos', 'status', 'docente', 'fecha_solicitud', 'observaciones','empresa', 'status_convenio','periodo_duracion',
+        'titular_empresa',
+        'puesto_titular',
+        'objetivo',
+        'inicio_estancia',
+        'fin_estancia',
     ];
 
     /**
