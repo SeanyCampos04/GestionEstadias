@@ -26,7 +26,7 @@ use Carbon\Carbon;
                                             <th>Docente</th>
                                             <th>Email</th>
                                             <th>Empresa</th>
-                                            <th>Status</th>
+                                            <th>Estado</th>
                                             <th>Fecha de Solicitud</th>
                                             <th>Acciones</th>
                                         </tr>

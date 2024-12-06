@@ -66,11 +66,19 @@
                             </div>
                             <div class="mb-3">
                                 <label for="objetivo" class="form-label text-gray-800">Objetivo(s) y Justificación:</label>
-                                <input type="text" class="form-control rounded" id="objetivo" name="objetivo" value="{{ $solicitud->objetivo }}" required>
+                                <textarea id="objetivo" name="objetivo" class="form-control rounded" required>{{ $solicitud->objetivo }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="plan_estudios" class="form-label text-gray-800">Plan de estudios:</label>
-                                <input type="text" class="form-control rounded" id="plan_estudios" name="plan_estudios" value="{{ $solicitud->plan_estudios }}" required>
+                                <select class="form-control rounded" id="plan_estudios" name="plan_estudios" required>
+                                    <option value="" disabled>Seleccione una carrera</option>
+                                    @foreach ($carreras as $carrera)
+                                        <option value="{{ $carrera->plan_de_estudios }}" 
+                                            {{ $solicitud->plan_estudios == $carrera->plan_de_estudios ? 'selected' : '' }}>
+                                            {{ $carrera->nombre }} ({{ $carrera->plan_de_estudios }})
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="giro_empresa" class="form-label text-gray-800">Giro de la empresa:</label>

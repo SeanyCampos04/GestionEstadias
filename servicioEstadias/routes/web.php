@@ -71,7 +71,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/generar-solicitud/{id_estancia}', [SolicitudesController::class, 'generarSolicitud'])->name('generar-solicitud');
     Route::get('/showRequestFiles/{id}', [SolicitudesController::class, 'showRequestFiles'])->name('showRequestFiles');
     Route::put('/user-update-request/{id}', [SolicitudesController::class, 'userUpdateRequest'])->name('userUpdateRequest');
-    Route::get('/informesView/{id}', [DocenteController::class, 'verArchivos'])->name('informesView');
+    Route::get('/informesView/{id}/{sol}', [DocenteController::class, 'verArchivos'])->name('informesView');
+    Route::get('/descargar-carta/{id}', [DocenteController::class, 'descargarCarta'])->name('descargarCarta');
     Route::get('/informes/{id}', [DocenteController::class, 'generarInforme'])->name('informes');
     Route::post('/informes/upload', [InformesController::class, 'guardarInformes'])->name('uploadinformes');
     Route::get('/solicitudes/archivo/{id}/{nombreArchivo}', [SolicitudesController::class, 'mostrarArchivo'])->name('solicitudes.archivo');

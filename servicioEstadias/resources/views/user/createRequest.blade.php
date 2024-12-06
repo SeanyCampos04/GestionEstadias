@@ -80,7 +80,14 @@
                         </div>
                         <div class="mb-3">
                             <label for="plan_estudios" class="form-label">Plan de estudios:</label>
-                            <input type="text" class="form-control rounded" id="plan_estudios" name="plan_estudios" required>
+                            <select class="form-control rounded" id="plan_estudios" name="plan_estudios" required>
+                                <option value="" disabled selected>Seleccione una carrera</option>
+                                @foreach ($carreras as $carrera)
+                                    <option value="{{ $carrera->plan_de_estudios }}">
+                                        {{ $carrera->nombre }} ({{ $carrera->plan_de_estudios }})
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="giro_empresa" class="form-label">Giro de la empresa:</label>

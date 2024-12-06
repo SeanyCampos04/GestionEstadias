@@ -7,6 +7,7 @@ use App\Models\Estanciarequisitos;
 use App\Models\Requisitos;
 use App\Models\Solicitudes;
 use App\Models\Convenio;
+use App\Models\Carrera;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class SolicitudesController extends Controller
     {   
         // Obtener los detalles de la estancia
         $estancia = Estancia::find($id);
-    
+        $carreras = Carrera::all();
         if (!$estancia) {
             abort(404);
         }
@@ -42,7 +43,7 @@ class SolicitudesController extends Controller
         }
     
     
-        return view('user.createRequest', compact('estancia','id_requisitos'));
+        return view('user.createRequest', compact('estancia','id_requisitos', 'carreras'));
     }
 
 
@@ -157,7 +158,7 @@ class SolicitudesController extends Controller
         $solicitud = Solicitudes::findOrFail($id);
         $estanciaRequisitos = EstanciaRequisitos::where('id_estancia', $solicitud->id_estancia)->first();
         $idsRequisitos = json_decode($estanciaRequisitos->id_requisitos);
-        
+        $carreras= Carrera::all();
         // Obtener los nombres de los requisitos
         $requisitos = Requisitos::whereIn('id', $idsRequisitos)->get();
         
@@ -171,7 +172,7 @@ class SolicitudesController extends Controller
     
         $rutasArchivos = array_pad($rutasArchivos, count($requisitos), ['archivo' => null]);
     
-        return view('user.showRequestFiles', compact('requisitos', 'rutasArchivos', 'solicitud'));
+        return view('user.showRequestFiles', compact('requisitos', 'rutasArchivos', 'solicitud', 'carreras'));
     }
     
 
@@ -402,6 +403,7 @@ public function mostrarArchivo($id, $nombreArchivo)
         $solicitud=Solicitudes::findOrFail($id);
         $solicitud->status_convenio=0; //Convenio inexistente
         $solicitud->status=0;//En revisión
+        $solicitud->observaciones='Convenio inexistente, revisión en espera.';
 
         $solicitud->save();
         return redirect()->route('vinculacionDashboard')-> with('success','Solicitud respondida correctamente');

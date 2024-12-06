@@ -19,7 +19,11 @@
                             <tr>
                                 <td>1.- </td>
                                 <td><h2 class="text-lg">Carta de Presentación</h2></td>
-                                <td><a href="#" class="text-blue-500 underline">Descargar</a></td>
+                                <td> 
+                                    <a href="{{ route('descargarCarta', $solicitud->id) }}" class="text-blue-500 underline">
+                                        Descargar
+                                    </a>
+                                </td>
                             </tr>
                             <tr>
                                 <td>2.- </td>

@@ -6,7 +6,9 @@ use App\Models\Estancia;
 use App\Models\Solicitudes;
 use Illuminate\Support\Facades\Auth;
 use Dompdf\Dompdf;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -48,9 +50,10 @@ class DocenteController extends Controller
 
         // Redirigir a alguna vista después de guardar los cambios
     }
-    public function verArchivos($id){
+    public function verArchivos($id, $sol){
         $estancia = Estancia::findOrFail($id);
-        return view('user.informesView',compact('estancia'));
+        $solicitud = Solicitudes::findOrFail($sol);
+        return view('user.informesView',compact('estancia', 'solicitud'));
     }
 
     public function generarInforme($id)
@@ -120,5 +123,33 @@ class DocenteController extends Controller
         // Redireccionar con mensaje de éxito
         return view('admi.adminDashboard', compact('estancias'))
                          ->with('success', 'Docente registrado exitosamente.');
+    }
+
+    public function descargarCarta($id)
+    {
+        // Obtener la solicitud por su ID
+        $solicitud = Solicitudes::findOrFail($id);
+        $departamento=auth()->user()->academia;
+        $inicioEstancia = Carbon::parse($solicitud->inicio_estancia)->format('d-m-Y');
+        $finEstancia = Carbon::parse($solicitud->fin_estancia)->format('d-m-Y');
+        // Datos necesarios para la plantilla
+        $datos = [
+            'docente' => $solicitud->docente,
+            'empresa' => $solicitud->empresa,
+            'fecha' => now()->format('d/m/Y'),
+            'titular' => $solicitud->titular_empresa,
+            'cargo' => $solicitud->puesto_titular,
+            'area' => $solicitud->area_complementacion,
+            'objetivo' => $solicitud->objetivo,
+            'inicio' => $inicioEstancia,
+            'fin' => $finEstancia,
+            'departamento' => $departamento,
+        ];
+
+        // Renderizar la vista del HTML en un PDF
+        $pdf = Pdf::loadView('plantillas.carta_presentacion', $datos);
+
+        // Retornar el PDF como descarga
+        return $pdf->download('carta_presentacion.pdf');
     }
 }

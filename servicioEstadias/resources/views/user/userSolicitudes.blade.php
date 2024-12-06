@@ -22,7 +22,7 @@
                                             <th>Nombre Estancia</th>
                                             <th>Empresa</th>
                                             <th>Fecha de Solicitud</th>
-                                            <th>Status</th>
+                                            <th>Estado</th>
                                             <th>Observaciones</th>
                                             <th>Acciones</th>
                                         </tr>
@@ -69,7 +69,7 @@
                                                             <a href="#" class="text-red-500 underline" onclick="confirmCancel({{ $solicitud->id }})">Cancelar Solicitud</a>
                                                         </div>
                                                     @elseif ($solicitud->status ==2)
-                                                    <a class="text-blue-500 underline" href="{{route('informesView',$solicitud->estancia->id)}}">Ver Más</a>
+                                                    <a class="text-blue-500 underline" href="{{route('informesView',['id' => $solicitud->estancia->id, 'sol' => $solicitud->id])}}">Ver Más</a>
                                                     <a class="text-red-500 underline" href="{{ route('cancelRequest', $solicitud->id) }}">Cancelar Solicitud</a>
                                                     @elseif ($solicitud->status ==5)
                                                     <a class="text-blue-500 underline" href="{{route('estanciaAccepted')}}">Ver Más</a>
