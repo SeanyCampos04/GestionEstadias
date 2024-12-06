@@ -78,7 +78,7 @@
         <strong>{{ $docente }}</strong>, docente adscrito(a) al departamento de <b>{{$departamento}}</b> de este Instituto, 
         quien busca desarrollar una estancia académica y de investigación en el area de <strong>{{$area}}</strong>, con la finalidad 
         de <strong>{{ $objetivo }}</strong>, del 
-        <strong>{{ $inicio }}</strong> al <strong>{{ $fin }}</strong> del presente año.</p>
+        <strong>{{ $inicio }}</strong> al <strong>{{ $fin }}</strong></p>
 
         <p>Hacemos patente nuestro sincero agradecimiento, por su buena disposición y colaboración para que nuestra docente 
         desarrolle la estancia académica y de investigación, y pueda fortalecer y aplicar sus conocimientos y las competencias, 

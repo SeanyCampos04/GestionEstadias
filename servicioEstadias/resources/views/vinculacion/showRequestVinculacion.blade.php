@@ -11,10 +11,9 @@ use Carbon\Carbon;
         <div class="flex py-12">
             <div class="w-full justify-center">
                 <div class="flex flex-col items-center space-y-4">
-                    <h1 class="text-3xl font-bold text-center">Detalles de la Solicitud</h1>
-
-                   
-                        <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full max-w-lg p-6">
+                    
+                        <div class="bg-white text-gray-600 rounded-lg shadow-xl w-full max-w-lg p-6">
+                        <h1 class="text-3xl text-center">Detalles de la Solicitud</h1>
                         <center><img src="{{asset('images/teclogo.jpg')}}" alt="" width="200" height="200"></center> <br>
                         <div class="bg-white">
                                 <h2 class="text-xl font-semibold mb-2">Solicitante: {{$solicitud->docente}}</h2>

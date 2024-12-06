@@ -11,13 +11,13 @@ use Carbon\Carbon;
         <div class="flex py-12">
             <div class="w-full justify-center">
             <div class="py-5 flex items-center justify-center">
-                        <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
+                        <div class="bg-white text-gray-600 rounded-lg shadow-xl w-full">
                         @if(session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
                             </div>
                         @endif   
-                        <div>
+                        <div class="bg-white">
                                 <h1 class="flex items-center justify-center text-3xl">Solicitudes pendientes</h1>
                                 <table class="table">
                                     <thead>
@@ -55,8 +55,7 @@ use Carbon\Carbon;
                                             </tr>
                                             @endif
                                         @endforeach
-                                    </tbody>
-                                   
+                                    </tbody>                                 
                                 </table>
                             </div>
                            

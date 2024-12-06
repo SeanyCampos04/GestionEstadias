@@ -89,29 +89,35 @@
                 </div>
             </div>
         </div>
-
         <script>
-        function confirmCancel(solicitudId) {
-            var confirmed = confirm("¿Está seguro que desea cancelar esta solicitud? La acción no podrá deshacerse posteriormente.");
-            if (confirmed) {
-                var form = document.createElement("form");
-                form.method = "POST";
-                form.action = "/cancelar-solicitud/" + solicitudId;
-                var csrfToken = document.createElement("input");
-                csrfToken.type = "hidden";
-                csrfToken.name = "_token";
-                csrfToken.value = "{{ csrf_token() }}";  
-                form.appendChild(csrfToken);
-               var methodField = document.createElement("input");
-                methodField.type = "hidden";
-                methodField.name = "_method";
-                methodField.value = "DELETE";  
-                form.appendChild(methodField);
+    function confirmCancel(solicitudId) {
+        // Confirmación del usuario
+        var confirmed = confirm("¿Está seguro que desea cancelar esta solicitud? La acción no podrá deshacerse posteriormente.");
+        if (confirmed) {
+            // Crear el formulario dinámico
+            var form = document.createElement("form");
+            form.method = "POST";
+            form.action = "/cancelar-solicitud/" + solicitudId;
 
-                document.body.appendChild(form);
-                form.submit();
-            }
+            // Agregar token CSRF
+            var csrfToken = document.createElement("input");
+            csrfToken.type = "hidden";
+            csrfToken.name = "_token";
+            csrfToken.value = "{{ csrf_token() }}";  
+            form.appendChild(csrfToken);
+
+            // Agregar campo _method para DELETE
+            var methodField = document.createElement("input");
+            methodField.type = "hidden";
+            methodField.name = "_method";
+            methodField.value = "DELETE";
+            form.appendChild(methodField);
+
+            // Añadir el formulario al DOM y enviarlo
+            document.body.appendChild(form);
+            form.submit();
         }
-    </script>
+    }
+</script>
 </x-app-layout>
 <x-footer></x-footer>

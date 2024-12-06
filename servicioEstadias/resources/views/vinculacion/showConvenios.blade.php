@@ -17,57 +17,23 @@
             </span>
         </div>
     @endif
-    <div class="container mx-auto py-8"><br>
-        <h1 class="text-2xl font-bold text-center mb-6">Lista de Convenios</h1>
-        <div class="mb-4 flex justify-end">
-            <a href="{{ route('convenios.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                Añadir Nuevo Convenio
-            </a>
+    <div class="py-12">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="flex justify-center py-12">
+            <div class="w-full bg-white text-gray-600 rounded-lg shadow-xl">
+                <h1 class="text-2xl text-center mb-6">Lista de Convenios</h1>
+                <div class="mb-4 flex px-6">
+                    <a href="{{ route('convenios.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                        Añadir Nuevo Convenio
+                    </a>
+                </div>
+                <div class="px-6">
+                    @livewire('convenio-search')
+                </div>
+            </div>
         </div>
-        @livewire('convenio-search')
-        <!--<table class="table">
-            <thead>
-                <tr class="bg-gray-800 text-white">
-                    <th class="px-4 py-2">Empresa/Institución</th>
-                    <th class="px-4 py-2">Fecha de Inicio</th>
-                    <th class="px-4 py-2">Fecha de Vigencia</th>
-                    <th class="px-4 py-2">Archivo</th>
-                    <th class="px-4 py-2">Estado del Convenio</th>
-                    <th class="px-4 py-2">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($convenios as $convenio)
-                    <tr class="border-b">
-                        <td class="px-4 py-2">{{ $convenio->nombre }}</td>
-                        <td class="px-4 py-2">{{ \Carbon\Carbon::parse($convenio->fecha_inicio)->format('d-m-Y') }}</td>
-                        <td class="px-4 py-2">{{ \Carbon\Carbon::parse($convenio->fecha_vigencia)->format('d-m-Y') }}</td>
-                        <td class="px-4 py-2">
-                            <a href="{{ asset($convenio->archivo_convenio) }}" class="text-blue-500 hover:underline" target="_blank">
-                                Ver archivo
-                            </a>
-                        </td>
-                        <td class="px-4 py-2">
-                            @if ($convenio->fecha_vigencia >= \Carbon\Carbon::today())
-                                Convenio Vigente
-                            @else
-                                Convenio no Vigente
-                            @endif
-                        </td>
-                        <td class="px-4 py-2">
-                        <a href="{{ route('convenios.edit', $convenio->id) }}" class="text-blue-500 hover:underline">
-                            Editar
-                        </a>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="5" class="text-center py-4">No hay convenios registrados.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </div>
-    </table>-->
-    
+    </div>
+</div>
+  
 </x-app-layout>
 <x-footer></x-footer>

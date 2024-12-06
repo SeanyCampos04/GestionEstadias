@@ -127,16 +127,16 @@ class DocenteController extends Controller
 
     public function descargarCarta($id)
     {
-        // Obtener la solicitud por su ID
+        Carbon::setLocale('es');
         $solicitud = Solicitudes::findOrFail($id);
         $departamento=auth()->user()->academia;
-        $inicioEstancia = Carbon::parse($solicitud->inicio_estancia)->format('d-m-Y');
-        $finEstancia = Carbon::parse($solicitud->fin_estancia)->format('d-m-Y');
-        // Datos necesarios para la plantilla
+        $fecha = now()->translatedFormat('d \d\e F \d\e Y');
+        $inicioEstancia = Carbon::parse($solicitud->inicio_estancia)->translatedFormat('d \d\e F \d\e Y');
+        $finEstancia = Carbon::parse($solicitud->fin_estancia)->translatedFormat('d \d\e F \d\e Y');
         $datos = [
             'docente' => $solicitud->docente,
             'empresa' => $solicitud->empresa,
-            'fecha' => now()->format('d/m/Y'),
+            'fecha' => $fecha,
             'titular' => $solicitud->titular_empresa,
             'cargo' => $solicitud->puesto_titular,
             'area' => $solicitud->area_complementacion,
@@ -146,10 +146,7 @@ class DocenteController extends Controller
             'departamento' => $departamento,
         ];
 
-        // Renderizar la vista del HTML en un PDF
         $pdf = Pdf::loadView('plantillas.carta_presentacion', $datos);
-
-        // Retornar el PDF como descarga
         return $pdf->download('carta_presentacion.pdf');
     }
 }

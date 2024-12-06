@@ -4,12 +4,12 @@ use Carbon\Carbon;
 <x-app-layout>
     <x-admin-layout><br>
     <x-username-layout />
-        <div class="py-12">
-            <div class="max-w-8xl mx-auto sm:px-7 lg:px-7">
-                <div class="overflow-x-auto">
-                    <div class="min-w-screen py-5 flex items-center justify-center">
-                        <div class="bg-white text-gray-600 rounded-lg shadow-xl w-full">
-                            <div class="overflow-x-auto">
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="overflow-x-auto">
+                <div class="min-w-screen py-5 flex items-center justify-center">
+                    <div class="bg-white text-gray-600 rounded-lg shadow-xl w-full">
+                        <div class="overflow-x-auto">
                                 <h1 class="flex items-center justify-center text-3xl">Solicitudes Recientes</h1>
                                 <table class="table">
                                     <thead>
