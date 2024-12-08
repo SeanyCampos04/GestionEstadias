@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Estancia;
+use App\Models\Informe;
 use App\Models\Solicitudes;
 use Illuminate\Support\Facades\Auth;
 use Dompdf\Dompdf;
@@ -69,17 +70,25 @@ class DocenteController extends Controller
     }
 
     public function enableInformes(){
-        $email = Auth::user()->email;
+        $constancia='';
+        $informe_final='';
+        $email = Auth::user()->email; 
+        $solicitud = Solicitudes::where('email', $email)
+                                ->whereIn('status', [2, 5])
+                                ->latest()
+                                ->first();
 
-    $solicitud = Solicitudes::where('email', $email)
-                            ->whereIn('status', [2, 5])
-                            ->latest()
-                            ->first();
+        // Determinar si los campos deben estar habilitados
+        $camposHabilitados = $solicitud && $solicitud->status != 4;
+        if ($solicitud && $solicitud->status == 5) {
+            $informe = Informe::where('id_solicitud', $solicitud->id)->first(); // Obtener informe
+            if ($informe) {
+                $constancia = $informe->ruta_constancia; // Acceder a la propiedad
+                $informe_final = $informe->ruta_oficio; // Acceder a la propiedad
+            }
+        }
 
-    // Determinar si los campos deben estar habilitados
-    $camposHabilitados = $solicitud && $solicitud->status != 4;
-
-    return view('user.enableInformes', compact('solicitud', 'camposHabilitados'));
+        return view('user.enableInformes', compact('solicitud', 'camposHabilitados', 'constancia', 'informe_final'));
 
     }
 

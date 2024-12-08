@@ -9,7 +9,7 @@
                     <div class="min-w-screen py-5 flex items-center justify-center">
                         <div class="bg-white text-gray-600 rounded-lg shadow-xl w-full">
                         @if(session('success'))
-                            <div class="alert alert-success">
+                            <div class="bg-green-500 text-white p-3 rounded mb-4">
                                 {{ session('success') }}
                             </div>
                         @endif
@@ -74,7 +74,10 @@
                                                             <a href="#" class="text-red-500 underline" onclick="confirmCancel({{ $solicitud->id }})">Cancelar Solicitud</a>
                                                         </div>
                                                     @elseif ($solicitud->status ==5)
-                                                    <a class="text-blue-500 underline" href="{{route('estanciaAccepted')}}">Ver Más</a>
+                                                    <a class="text-blue-500 underline" href="{{route('estanciaAccepted')}}">Ver Más</a><br>
+                                                    <div class="action-box">
+                                                            <a href="#" class="text-red-500 underline" onclick="confirmCancel({{ $solicitud->id }})">Cancelar Solicitud</a>
+                                                        </div>
                                                     @elseif ($solicitud->status ==7)
                                                     <a class="text-blue-500 underline"  href="{{ route('descargar-constancia', ['id' => $solicitud->id]) }}">Descargar Constancia</a>
                                                     @endif

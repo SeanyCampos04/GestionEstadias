@@ -13,9 +13,27 @@
                 <div class="card-body form-control">
                     <div class="form-group">
                         <label class="font-bold text-1xl" for="constancia">Constancia de liberación:</label><br>
+                        
+                        @if($constancia)
+                            <p>
+                                Archivo actual: 
+                                <a href="{{ asset($constancia) }}" target="_blank" class="text-blue-500 underline">
+                                    Ver Constancia
+                                </a>
+                            </p>
+                        @endif
                         <input class="form-group" type="file" name="constancia" {{ $camposHabilitados ? '' : 'disabled' }}><br><br>
                     </div>
                     <label class="font-bold" for="informe">Informe Final:</label><br>
+                    
+                    @if($informe_final)
+                        <p>
+                            Archivo actual: 
+                            <a href="{{ asset($informe_final) }}" target="_blank" class="text-blue-500 underline">
+                                Ver Informe Final
+                            </a>
+                        </p>
+                    @endif
                     <input type="file" name="informe" {{ $camposHabilitados ? '' : 'disabled' }}><br><br>
                 </div>
                 
@@ -48,4 +66,3 @@
     </div>
 </x-app-layout>
 <x-footer></x-footer>
-

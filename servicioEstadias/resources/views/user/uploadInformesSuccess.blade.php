@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-user-layout></x-user-layout><br>
-    <x-username-layout />
-    <div class="card py-5">
+    <x-username-layout /><br>
+    <div class="card py-5 mt-7">
         <div class="card-header">
             <h1>Creado con exito.</h1>
         </div>

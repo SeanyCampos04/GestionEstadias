@@ -40,7 +40,7 @@ use Carbon\Carbon;
                                                     @elseif($request->status==4)
                                                         Informes Finales recibidos
                                                     @elseif($request->status==5)
-                                                        Observaciones Enviadas
+                                                        Observaciones en Informes finales Enviadas
                                                     @elseif($request->status==6)
                                                         Estancia Terminada, constancia pendiente de envío
                                                     @elseif($request->status==7)
