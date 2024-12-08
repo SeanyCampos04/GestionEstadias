@@ -5,7 +5,7 @@
     <div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">   
                 <div class="min-w-screen py-5 flex items-center justify-center">
-                    <div class="bg-gray-200 text-gray-600 rounded-lg shadow-xl w-full">
+                    <div class="bg-white text-gray-600 rounded-lg shadow-xl w-full">
                         <div style="display: flex;">
                             <div style="flex: 1;">
                                 <h5>Solicitud Respondida Exitosamente!</h5>

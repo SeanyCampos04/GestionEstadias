@@ -9,7 +9,7 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                        <div class="w-3/4 px-6 bg-gray-200 text-gray-600 rounded-lg shadow-xl">
+                        <div class="w-3/4 px-6 bg-white text-gray-600 rounded-lg shadow-xl">
                             <h1 class="flex items-center justify-center text-2xl">Archivos de la Solicitud</h1>
                             <form method="POST" action="{{ route('userUpdateRequest', $solicitud->id) }}" enctype="multipart/form-data">
                                 @csrf
@@ -45,7 +45,7 @@
                                     </tbody>
                                 </table>
 
-                                <div class="mt-4 bg-white">
+                                <div class="mt-4 bg-white px-6 mb-4">
                                     <h4><strong>Información adicional</strong></h4>
                                     <div class="mb-3">
                                         <label for="empresa" class="form-label text-gray-800">Empresa donde se realizará la Estancia:</label>
@@ -92,8 +92,8 @@
                                         <input type="date" class="form-control rounded" id="inicio_estancia" name="inicio_estancia" value="{{ $solicitud->inicio_estancia }}" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="fin_estancia" class="form-label text-gray-800">Fin de la Estancia:</label>
-                                        <input type="date" class="form-control rounded" id="fin_estancia" name="fin_estancia" value="{{ $solicitud->fin_estancia }}" required>
+                                        <label for="fin_estancia" class="form-label text-gray-800">Fin de la Estancia:</label><br>
+                                        <input type="date" class="mb-4 form-control rounded" id="fin_estancia" name="fin_estancia" value="{{ $solicitud->fin_estancia }}" required>
                                     </div>
                                 </div>
                                 <button type="submit" class="inline-block bg-green-500 px-4 py-2 rounded-md text-white hover:bg-green-600 ml-4">Guardar cambios</button>

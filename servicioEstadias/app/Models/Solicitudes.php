@@ -28,10 +28,10 @@ class Solicitudes extends Model
     public function estancia()
     {
         return $this->estanciaRequisitos->belongsTo(Estancia::class, 'id');
-    }*/public function estanciaRequisitos()
+    /public function estanciaRequisitos()
     {
         return $this->belongsTo(EstanciaRequisitos::class, 'id_estancia');
-    }
+    }*/
 
     public function estancia()
     {

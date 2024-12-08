@@ -52,7 +52,7 @@
                         </tbody>
                     </table>
 
-                    <div class="mt-4 bg-white text-bold">
+                    <div class="mt-4 bg-white text-bold px-6">
                         <h2><strong>Información adicional</strong></h2><br>
                         <div>
                             <label for="empresa" class="form-label">Empresa donde se realizará la estancia:</label>

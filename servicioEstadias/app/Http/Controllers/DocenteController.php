@@ -107,20 +107,18 @@ class DocenteController extends Controller
             'rfc' => 'required|string|max:13',
             'nombramiento' => 'required|string|max:255',
             'academia' => 'required|string|max:255',
-            'password' => 'required|string|min:9',
+            'password' => 'required|string|min:8',
         ]);
     
-        // Crear un nuevo docente con la contraseña hasheada
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'rfc' => $request->rfc,
             'nombramiento' => $request->nombramiento,
             'academia' => $request->academia,
-            'password' => Hash::make($request->password), // Hasheamos la contraseña
+            'password' => Hash::make($request->password), 
         ]);
 
-        // Redireccionar con mensaje de éxito
         return view('admi.adminDashboard', compact('estancias'))
                          ->with('success', 'Docente registrado exitosamente.');
     }
@@ -148,5 +146,25 @@ class DocenteController extends Controller
 
         $pdf = Pdf::loadView('plantillas.carta_presentacion', $datos);
         return $pdf->download('carta_presentacion.pdf');
+    }
+
+    public function descargarOficio($id)
+    {
+        Carbon::setLocale('es');
+        $solicitud = Solicitudes::findOrFail($id);
+        $fecha = now()->translatedFormat('d \d\e F \d\e Y');
+        $inicioEstancia = Carbon::parse($solicitud->inicio_estancia)->translatedFormat('d \d\e F \d\e Y');
+        $finEstancia = Carbon::parse($solicitud->fin_estancia)->translatedFormat('d \d\e F \d\e Y');
+        $datos = [
+            'fecha' => $fecha,
+            'nombre' => $solicitud->docente,
+            'lugar' => $solicitud->empresa,
+            'asunto' => $solicitud->proyecto,
+            'dias' => $inicioEstancia . 'a' . $finEstancia,
+            'viaticos' => 'No',
+        ];
+
+        $pdf = Pdf::loadView('plantillas.oficio_comision', $datos);
+        return $pdf->download('oficio_comision.pdf');
     }
 }

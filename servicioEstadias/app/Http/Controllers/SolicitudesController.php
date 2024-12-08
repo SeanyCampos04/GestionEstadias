@@ -50,7 +50,7 @@ class SolicitudesController extends Controller
     public function generarSolicitud(Request $request, $id)
     {
         $estancia = Estancia::findOrFail($id);
-    
+        $estancias = Estancia::orderBy('fecha_convocatoria', 'asc')->get();
         // Validaciones
         $request->validate([
             'empresa' => 'required|string|max:255',
@@ -139,7 +139,7 @@ class SolicitudesController extends Controller
         $solicitud->save();
     
         // Redireccionar a la vista de éxito o a donde sea necesario
-        return view('user.successRequest');
+        return view('dashboard', compact('estancias')->with('success', 'Archivos actualizados correctamente.'));
     }
        
     public function index()
@@ -212,6 +212,7 @@ public function mostrarArchivo($id, $nombreArchivo)
 {
     // Obtener la solicitud
     $solicitud = Solicitudes::findOrFail($id);
+    $carreras = Carrera::all();
 
     // Obtener el JSON de requisitos de la tabla estanciaRequisitos
     $estanciaRequisitos = EstanciaRequisitos::where('id_estancia', $solicitud->id_estancia)->first();
@@ -233,7 +234,7 @@ public function mostrarArchivo($id, $nombreArchivo)
         return $archivo ? asset($archivo) : null;
     }, $rutasArchivos);
 
-    return view('admi.showRequest', compact('solicitud', 'requisitos', 'rutasArchivos'));
+    return view('admi.showRequest', compact('solicitud', 'requisitos', 'rutasArchivos', 'carreras'));
 }
 
 

@@ -28,7 +28,7 @@
                             <tr>
                                 <td>2.- </td>
                                 <td><h2 class="text-lg">Oficio de Comisión</h2></td>
-                                <td><a href="#" class="text-blue-500 underline">Descargar</a></td>
+                                <td><a href="{{ route('descargar-oficio', $solicitud->id) }}" class="text-blue-500 underline">Descargar</a></td>
                             </tr>
                         </tbody>
                     </table>

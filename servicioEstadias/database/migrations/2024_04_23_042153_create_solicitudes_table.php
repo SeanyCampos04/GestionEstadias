@@ -28,7 +28,7 @@ return new class extends Migration
 
             $table->dropForeign(['id_estancia']);
 
-            $table->foreign('id_estancia')->references('id')->on('estanciarequisitos');
+            $table->foreign('id_estancia')->references('id')->on('estancias');
         });
     }
 
