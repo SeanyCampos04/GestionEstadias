@@ -139,7 +139,7 @@ class SolicitudesController extends Controller
         $solicitud->save();
     
         // Redireccionar a la vista de éxito o a donde sea necesario
-        return view('dashboard', compact('estancias')->with('success', 'Archivos actualizados correctamente.'));
+        return view('dashboard', compact('estancias'))->with('success', 'Archivos actualizados correctamente.');
     }
        
     public function index()

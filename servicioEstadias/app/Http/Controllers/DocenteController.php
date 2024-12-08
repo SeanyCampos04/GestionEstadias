@@ -160,7 +160,7 @@ class DocenteController extends Controller
             'nombre' => $solicitud->docente,
             'lugar' => $solicitud->empresa,
             'asunto' => $solicitud->proyecto,
-            'dias' => $inicioEstancia . 'a' . $finEstancia,
+            'dias' => $inicioEstancia . ' a ' . $finEstancia,
             'viaticos' => 'No',
         ];
 
