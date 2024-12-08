@@ -29,7 +29,7 @@
         .headerlogos p{
             position: absolute;
             right: 0;
-            top: 40px; 
+            top: 30px; 
             font-size: 11px;
             text-align: right;
             color: #333;
@@ -38,7 +38,7 @@
             text-align: right;
             font-size: 12px;
             color: #333;
-            margin-top: 140px; /* Desplaza el texto un poco hacia abajo */
+            margin-top: 110px; /* Desplaza el texto un poco hacia abajo */
         }
         .header span {
             display: block;
@@ -58,14 +58,6 @@
         .content strong {
             font-weight: bold;
         }
-        .footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 13px;
-            margin-top: 30px;
-        }
         .end{
             font-size:14px;
             margin-top: 30px;; 
@@ -73,11 +65,19 @@
             line-height: 1.2;
     
         }
+        .footer {
+            position: absolute;
+            bottom: 0px; /* Ajusta el pie de página a solo 4px del borde inferior */
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+            margin-top: 0; /* Elimina el espacio superior adicional */
+        }
         footer img {
             height: 75px;
-            width: 80%;
+            width: 90%;
             display: block;
-            margin-bottom:0px;
+            margin: 0 auto; /* Centra la imagen */
         }
     </style>
 </head>

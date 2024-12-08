@@ -64,13 +64,15 @@
                                                 <td>{{$solicitud->observaciones}}</td>
                                                 <td>
                                                     @if ($solicitud->status == 0 || $solicitud->status == 1)
-                                                        <a class="text-blue-500 underline" href="{{ route('showRequestFiles', $solicitud->id) }}">Editar Solicitud</a>
+                                                        <a class="text-blue-500 underline" href="{{ route('showRequestFiles', $solicitud->id) }}">Editar Solicitud</a><br>
                                                         <div class="action-box">
                                                             <a href="#" class="text-red-500 underline" onclick="confirmCancel({{ $solicitud->id }})">Cancelar Solicitud</a>
                                                         </div>
                                                     @elseif ($solicitud->status ==2)
                                                     <a class="text-blue-500 underline" href="{{route('informesView',['id' => $solicitud->estancia->id, 'sol' => $solicitud->id])}}">Ver Más</a>
-                                                    <a class="text-red-500 underline" href="{{ route('cancelRequest', $solicitud->id) }}">Cancelar Solicitud</a>
+                                                    <div class="action-box">
+                                                            <a href="#" class="text-red-500 underline" onclick="confirmCancel({{ $solicitud->id }})">Cancelar Solicitud</a>
+                                                        </div>
                                                     @elseif ($solicitud->status ==5)
                                                     <a class="text-blue-500 underline" href="{{route('estanciaAccepted')}}">Ver Más</a>
                                                     @elseif ($solicitud->status ==7)

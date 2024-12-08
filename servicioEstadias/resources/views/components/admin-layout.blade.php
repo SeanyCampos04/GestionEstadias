@@ -20,6 +20,7 @@
                             <a href="{{route('showUsers')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Gestión de Usuarios</a>
                         </div>
                     </div>
+                    <a href="{{ route("profile.edit") }}" class="text-black hover:text-gray-700 underline">Mi Perfil</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="text-black hover:text-gray-700">Cerrar Sesión</button>

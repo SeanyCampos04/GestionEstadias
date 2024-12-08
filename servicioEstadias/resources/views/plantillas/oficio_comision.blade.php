@@ -34,9 +34,12 @@
         }
         .content {
             text-align: justify;
-            font-size:13px;
+            font-size: 13px;
             padding: 0 20px;
-            margin-top: 50px;
+            margin: 0 auto; /* Esto centra el contenido horizontalmente */
+            margin-top: 18%; /* Ajusta el valor según el contenido */
+            margin-bottom: 20%; /* Esto ayudará a centrar el contenido verticalmente */
+            width: 90%; /* Ajusta el ancho del contenido */
         }
         table {
             width: 100%;
