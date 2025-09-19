@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::resource('convenios', ConvenioController::class); //Ruta de convenio
+
 
     //Usuario admin
     Route::get('/docente/create', [DocenteController::class, 'create'])->name('docente.create');
@@ -67,7 +69,7 @@ Route::middleware('auth')->group(function () {
             ->where('nombre', 'LIKE', "%$search%")
             ->get();
     });
-    
+
     Route::post('/generar-solicitud/{id_estancia}', [SolicitudesController::class, 'generarSolicitud'])->name('generar-solicitud');
     Route::get('/showRequestFiles/{id}', [SolicitudesController::class, 'showRequestFiles'])->name('showRequestFiles');
     Route::put('/user-update-request/{id}', [SolicitudesController::class, 'userUpdateRequest'])->name('userUpdateRequest');
@@ -79,7 +81,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/solicitudes/archivo/{id}/{nombreArchivo}', [SolicitudesController::class, 'mostrarArchivo'])->name('solicitudes.archivo');
     Route::delete('/cancelar-solicitud/{id}', [SolicitudesController::class, 'cancelRequest'])->name('cancelRequest');
 
-    //Usuario vinculacion 
+    //Usuario vinculacion
      Route::get('/ShowRequest/{id}', [SolicitudesController::class, 'VinculacionShowRequest'])->name('MostrarSolicitudVinculacion');
      Route::get('/Convenios', [ConvenioController::class, 'showConvenios'])->name('showConvenios');
      Route::post('/validar-convenio/{id}', [SolicitudesController::class, 'validaConvenio'])->name('valida_convenio');
@@ -89,7 +91,7 @@ Route::middleware('auth')->group(function () {
      Route::post('/convenioStore', [ConvenioController::class, 'store'])->name('convenios.store');
      Route::get('/convenioEdit/{id}', [ConvenioController::class, 'edit'])->name('convenios.edit');
      Route::put('/convenioUpdate/{id}', [ConvenioController::class, 'update'])->name('convenios.update');
-    
+
 
 });
 
