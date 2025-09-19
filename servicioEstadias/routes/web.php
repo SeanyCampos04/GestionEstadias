@@ -83,14 +83,14 @@ Route::middleware('auth')->group(function () {
 
     //Usuario vinculacion
      Route::get('/ShowRequest/{id}', [SolicitudesController::class, 'VinculacionShowRequest'])->name('MostrarSolicitudVinculacion');
-     Route::get('/Convenios', [ConvenioController::class, 'showConvenios'])->name('showConvenios');
+     //Route::get('/Convenios', [ConvenioController::class, 'showConvenios'])->name('showConvenios');
      Route::post('/validar-convenio/{id}', [SolicitudesController::class, 'validaConvenio'])->name('valida_convenio');
      Route::post('/rechaza-convenio/{id}', [SolicitudesController::class, 'rechazaConvenio'])->name('rechaza_convenio');
      Route::post('/convenio-inexistente/{id}', [SolicitudesController::class, 'convenioInexistente'])->name('convenio_inexistente');
-     Route::get('/convenios/create', [ConvenioController::class, 'create'])->name('convenios.create');
-     Route::post('/convenioStore', [ConvenioController::class, 'store'])->name('convenios.store');
-     Route::get('/convenioEdit/{id}', [ConvenioController::class, 'edit'])->name('convenios.edit');
-     Route::put('/convenioUpdate/{id}', [ConvenioController::class, 'update'])->name('convenios.update');
+     //Route::get('/convenios/create', [ConvenioController::class, 'create'])->name('convenios.create');
+     //Route::post('/convenioStore', [ConvenioController::class, 'store'])->name('convenios.store');
+     //Route::get('/convenioEdit/{id}', [ConvenioController::class, 'edit'])->name('convenios.edit');
+     //Route::put('/convenioUpdate/{id}', [ConvenioController::class, 'update'])->name('convenios.update');
 
 
 });
